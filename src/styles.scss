@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100vh;
+overflow: hidden; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+textarea:focus, input:focus{
+    outline: none;
+}
+/* unvisited link */
+a:link, :visited, :hover, :active {
+    color: unset;
+}

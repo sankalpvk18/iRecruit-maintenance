@@ -1,0 +1,94 @@
+<div class="container">
+    <div class="app-logo">
+        <img src="../../../assets/ICICI-Bank-PNG-Icon.png" alt="ICICI_logo">
+    </div>
+    <div class="title">Application</div>
+    <div class="form-and-skills-section">
+        <div class="form-section">
+            <div id="input-container">
+                <img src="../../../assets/id-badge@2x.png"/>
+                <input type="text" placeholder="ICICI456539"/>
+            </div>
+            <div id="input-container">
+                <img src="../../../assets/critical-role@2x.png"/>
+                <input type="text" placeholder="Web Developer"/>
+            </div>
+            <div id="input-container">
+                <img src="../../../assets/user@2x.png"/>
+                <input type="text" placeholder="Name"/>
+            </div>
+            <div id="input-container">
+                <img src="../../../assets/mail.png"/>
+                <input type="text" placeholder="Email Id"/>
+            </div>
+            <div id="input-container">
+                <img src="../../../assets/smartphone-call@2x.png"/>
+                <input type="text" placeholder="Mobile Number"/>
+            </div>
+            <div id="input-container">
+                <img src="../../../assets/id-card@2x.png"/>
+                <input type="text" placeholder="Work Experiences"/>
+            </div>
+            <div id="input-container">
+                <img src="../../../assets/salary@2x.png"/>
+                <input type="text" placeholder="Expected CTC"/>
+            </div>
+            <div class="upload pt-5">
+                <img src="../../../assets/camera (1)@2x.png"/>
+                <span style="margin-left: 10px;">Upload a recent picture</span>
+                <input class="width-60" type="file" placeholder="Upload a recent picture"/>
+            </div>
+            <div class="upload">
+                <img src="../../../assets/resume@2x.png"/>
+                <span style="margin-left: 10px;">Upload Resume</span>
+                <input class="width-60" type="file" placeholder="Upload Resume"/>
+                <!-- <span class="btn btn-primary btn-file">
+                    Upload Resume<input type="file">
+                </span>
+                <img src="../../../assets/resume@2x.png"/> -->
+                <!-- <input type="file" placeholder="Upload Resume"/> -->
+            </div>
+        </div>
+        <mat-divider [vertical]="true" class="divider"></mat-divider>
+        <div class="skills-section">
+            <div class="skills-section__title">Skills</div>
+            <div class="skills-section__chips">
+                <mat-form-field class="example-chip-list" appearance="fill">
+                    <mat-chip-list #chipList aria-label="Fruit selection">
+                        <mat-chip
+                        *ngFor="let skill of skills"
+                        [selectable]="selectable"
+                        [removable]="removable"
+                        (removed)="remove(skill)">
+                        {{skill}}
+                        <button matChipRemove *ngIf="removable">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                        </mat-chip>
+                        <input
+                        placeholder="Add skill..."
+                        #skillInput
+                        [formControl]="skillCtrl"
+                        [matAutocomplete]="auto"
+                        [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                        <mat-option *ngFor="let skill of filteredSkills | async" [value]="skill">
+                        {{skill}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    </mat-form-field>
+            </div>
+            <div class="submit-form">
+                <div class="">
+                    <button mat-raised-button>Clear</button>
+                </div>
+                <div>
+                    <button mat-raised-button>Apply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
