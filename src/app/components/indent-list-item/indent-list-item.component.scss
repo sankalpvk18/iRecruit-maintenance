@@ -19,6 +19,10 @@
     .jr_title {
         display: flex;
         justify-content: space-between;
+        .jr_role {
+            font-size: 12pt;
+            font-weight: 500;
+        }
         .jr_more-icon {
             img {
                 height: 20px;
