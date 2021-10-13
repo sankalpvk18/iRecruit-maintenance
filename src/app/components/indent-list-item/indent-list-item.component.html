@@ -1,0 +1,34 @@
+<div class="container">
+    <mat-card class="sub-container" *ngFor="let indent of arrIndents">
+        <div class="job-role-section" (click)="onIndentClicked()">
+            <div class="jr_title">
+                <div>{{indent.role}}</div>
+                <div class="jr_more-icon">
+                    <img src="../../../assets/more.png" alt="More_Icon">
+                </div>
+            </div>
+            <div class="jr_link">
+                <div class="jr_mail-icon">
+                    <img src="../../../assets/mail.png" alt="Mail_Icon">
+                </div>
+                <div>
+                    <a [routerLink]="['/application', indent.role, '121']">Open application form</a>
+                </div>
+            </div>
+            <div class="jr_applications">
+                <div>5 new applications</div>
+                <div>3 To recruit</div>
+            </div>
+            <div class="jr_vacancy">Vacancies: {{indent.vacancies}}</div>
+            <div class="jr_dept">Department: {{indent.department}}</div>
+        </div>
+        <div class="job-desc-section">
+            <div class="jd_date">
+                Created on: {{getDate(indent.created_on) | date}}
+            </div>
+            <div class="jd_publish">
+                <mat-slide-toggle>Publish</mat-slide-toggle>
+            </div>
+        </div>
+    </mat-card>
+</div>

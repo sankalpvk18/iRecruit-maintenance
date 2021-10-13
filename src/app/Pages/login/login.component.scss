@@ -9,6 +9,7 @@
 .sub-container {
     padding: 60px;
     max-width: 400px;
+    border-radius: 12px;
 }
 
 .intro-text {
@@ -81,5 +82,19 @@
     font-size: 12pt;
     a {
         text-decoration: none;
+    }
+}
+.example-form {
+    mat-form-field {
+        width: 100%;
+    }
+}
+::ng-deep.mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: unset !important;
+}
+::ng-deep.mat-form-field-appearance-fill .mat-form-field-infix {
+    input {
+        border-bottom: 0px !important;
+        padding: 5px 0px;
     }
 }

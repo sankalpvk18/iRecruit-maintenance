@@ -1,0 +1,141 @@
+
+<div class="container">
+    <div class="app-logo">
+        <img src="../../../assets/ICICI-Bank-PNG-Icon.png" alt="ICICI_logo">
+    </div>
+    <div class="title">Create Indent</div>
+    <div class="sub-container">
+        <div class="search-bar">
+            <div class="search-bar__input m-20">
+                <div class="search-bar__icon m-10">
+                    <img src="../../../assets/search.svg" alt="Search_Icon">
+                </div>
+                <input type="search" name="search"  placeholder="search indents by job role">
+            </div>
+            <div class="search-bar__btn m-20 ">
+                <mat-card class="search-bar__btn_card hvr-sweep-to-right">
+                    Search   
+                </mat-card>
+            </div>
+        </div>
+
+        <div class="form-and-skills-section">
+            <div class="form-section">
+            
+                <div id="input-container">
+                    <img src="../../../assets/idcard.svg"/>
+                    <input type="text" placeholder="Job role" required
+                    [(ngModel)]="indents.role"/>
+                </div>
+                <div id="input-container">
+                    <img src="../../../assets/vacancies.svg"/>
+                    <input type="number" placeholder="Vacancies" required
+                    [(ngModel)]="indents.vacancies"/>
+                </div>
+                <div id="input-container">
+                    <img src="../../../assets/department.svg"/>
+                    <input type="text" placeholder="Department" required
+                    [(ngModel)]="indents.department"/>
+                </div>
+                <div id="input-container">
+                    <img src="../../../assets/salary.svg"/>
+                    <input type="text" placeholder="CTC" required
+                    [(ngModel)]="indents.ctc"/>
+                </div>
+                <div id="input-container">
+                    <img src="../../../assets/workex.svg"/>
+                    <input type="number" placeholder="Minimum work experience(years)" required
+                    [(ngModel)]="indents.min_work_ex"/>
+                </div>
+                <div class="location-input">
+                    <div class="location-input__icon">
+                        <img src="../../../assets/location.svg" alt="LOCATION_ICON">
+                    </div>
+                    <div class="location-input__dropdown">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Location</mat-label>
+                            <mat-select [formControl]="locations" multiple>
+                              <mat-select-trigger>
+                                {{locations.value ? locations.value[0] : ''}}
+                                <span *ngIf="locations.value?.length > 1" class="example-additional-selection">
+                                  (+{{locations.value.length - 1}} {{locations.value?.length === 2 ? 'other' : 'others'}})
+                                </span>
+                              </mat-select-trigger>
+                              <mat-option *ngFor="let locations of locationsList" [value]="locations" required>{{locations}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <mat-divider [vertical]="true" class="divider"></mat-divider>
+            <div class="skills-section">
+                <div class="skills-section__title">Skills</div>
+                <div class="skills-section__chips">
+                    <mat-form-field class="example-chip-list" appearance="fill">
+                        <mat-chip-list #chipList aria-label="Fruit selection">
+                            <mat-chip
+                            *ngFor="let skill of skills"
+                            [selectable]="selectable"
+                            [removable]="removable"
+                            (removed)="remove(skill)">
+                            {{skill}}
+                            <button matChipRemove *ngIf="removable">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                            </mat-chip>
+                            <input
+                            placeholder="Add skill..."
+                            #skillInput
+                            [formControl]="skillCtrl"
+                            [matAutocomplete]="auto"
+                            [matChipInputFor]="chipList"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            (matChipInputTokenEnd)="add($event)">
+                        </mat-chip-list>
+                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                            <mat-option *ngFor="let skill of filteredSkills | async" [value]="skill">
+                            {{skill}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        </mat-form-field>
+                </div>
+            <div class="submit-form">
+                <div>
+                    <button mat-raised-button class="btn_appearance">Clear</button>
+                </div>
+                <div>
+                    <button mat-raised-button class="btn_appearance">Apply</button>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- </div> -->
+    
+    <div class="profile-image">
+        <img src="../../../assets/profile.png" alt="Profile_Pic">
+    </div>
+   
+   <div class="action-buttons">
+       <mat-card class="action-buttons__btns">
+        <img src="../../../assets/cancel.svg" alt="cancel" class="create-indent__btn_img">
+        <p>cancel</p>
+       </mat-card>
+       <mat-card class="action-buttons__btns">
+        <img src="../../../assets/draft.svg" alt="save to draft" class="create-indent__btn_img">
+        <p>save to draft</p>
+      </mat-card>
+      <mat-card class="action-buttons__btns" (click)=createIndent()>
+        <img src="../../../assets/check.svg" alt="create indent" class="create-indent__btn_img">
+        <p>create indent</p>
+      </mat-card>
+   </div>
+   
+   <mat-card class="action_back_btn" (click)="onBack()">
+    <img src="../../../assets/back.svg" alt="back" class="create-indent__btn_img">
+    <p>Back</p>
+   </mat-card>
+
+</div>
+

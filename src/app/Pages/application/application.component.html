@@ -7,11 +7,11 @@
         <div class="form-section">
             <div id="input-container">
                 <img src="../../../assets/id-badge@2x.png"/>
-                <input type="text" placeholder="ICICI456539"/>
+                <input [ngModel]="indentId" type="text" placeholder="ICICI456539" disabled/>
             </div>
             <div id="input-container">
                 <img src="../../../assets/critical-role@2x.png"/>
-                <input type="text" placeholder="Web Developer"/>
+                <input [ngModel]="jobRole" type="text" placeholder="Web Developer" disabled/>
             </div>
             <div id="input-container">
                 <img src="../../../assets/user@2x.png"/>
@@ -82,11 +82,11 @@
                     </mat-form-field>
             </div>
             <div class="submit-form">
-                <div class="">
-                    <button mat-raised-button>Clear</button>
+                <div>
+                    <button mat-raised-button class="btn_appearance">Clear</button>
                 </div>
                 <div>
-                    <button mat-raised-button>Apply</button>
+                    <button mat-raised-button class="btn_appearance">Apply</button>
                 </div>
             </div>
         </div>

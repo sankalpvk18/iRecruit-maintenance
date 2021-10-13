@@ -6,6 +6,7 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {map, startWith} from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -20,7 +21,9 @@ export class ApplicationComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   skillCtrl = new FormControl();
   filteredSkills: Observable<string[]>;
-  skills: string[] = ['HTML'];
+  jobRole: string;
+  indentId: string;
+  skills: string[] = [];
   allSkills: string[] = [
     'HTML',
     'JS',
@@ -35,13 +38,16 @@ export class ApplicationComponent implements OnInit {
 
   @ViewChild('skillInput') skillInput: ElementRef<HTMLInputElement>;
 
-  constructor() {
+  constructor(private _Activatedroute:ActivatedRoute) {
     this.filteredSkills = this.skillCtrl.valueChanges.pipe(
       startWith(null),
       map((skill: string | null) => skill ? this._filter(skill) : this.allSkills.slice()));
   }
 
   ngOnInit(): void {
+    this.jobRole=this._Activatedroute.snapshot.paramMap.get("jobRole");
+    this.indentId=this._Activatedroute.snapshot.paramMap.get("id");
+
   }
 
   add(event: MatChipInputEvent): void {

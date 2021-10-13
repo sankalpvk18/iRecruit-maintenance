@@ -1,0 +1,61 @@
+
+<div class="container">
+    <div class="app-logo">
+        <img src="../../../assets/ICICI-Bank-PNG-Icon.png" alt="ICICI_logo">
+    </div>
+    <div class="sub-container">
+        <div class="nav-bar">
+            <div class="nav-bar__item">Home</div>
+            <div class="nav-bar__item">Dashboard</div>
+            <div class="nav-bar__item">Notifications</div>
+            <div class="nav-bar__item" (click)="logout()">Logout</div>
+        </div>
+        <div class="search-bar">
+            <div class="search-bar__input m-20">
+                <div class="search-bar__icon m-10">
+                    <img src="../../../assets/search.svg" alt="Search_Icon">
+                </div>
+                <input type="search" name="search"  placeholder="search indents by job role">
+            </div>
+            <div class="search-bar__btn m-20 ">
+                <mat-card class="search-bar__btn_card hvr-sweep-to-right" >
+                    <p>Search</p>   
+                </mat-card>
+            </div>
+        </div>
+        <div class="cards-container">
+            <mat-card class="cards-container__item p-20">
+                <!-- <img  [src]="over[i] ? '../../../assets/dashboard.svg' : '../../../assets/dashboard_hover.png'" 
+                class="cards-container__item_img"
+                (mouseover)="over[i] = true"
+                (mouseout)="over[i] = false"> -->
+                    <img src="../../../assets/dashboard.svg" onmouseover="this.src='../../../assets/dashboard_hover.png'" onmouseout="this.src='../../../assets/dashboard.svg'" class="cards-container__item_img">
+                    <p>Dashboard</p>
+            </mat-card>
+            <mat-card class="cards-container__item" (mouseover)="hover($event)" (mouseout)="unhover($event)" (click)="onIndentClicked()">
+                <img src="../../../assets/previous.svg" class="cards-container__item_img" onmouseover="this.src='../../../assets/indent_hover.png'" onmouseout="this.src='../../../assets/previous.svg'" class="cards-container__item_img">
+                <p>Indents</p>
+            </mat-card>
+            <mat-card class="cards-container__item" (mouseover)="hover(this)" (mouseout)="unhover(this)">
+                <img src="../../../assets/filter.png" class="cards-container__item_img" onmouseover="this.src='../../../assets/filter_hover.png'" onmouseout="this.src='../../../assets/filter.png'" class="cards-container__item_img">
+                <p>Screening</p>
+            </mat-card>
+            <mat-card class="cards-container__item" (mouseover)="hover(this)" (mouseout)="unhover(this)">
+                <img src="../../../assets/background.svg" class="cards-container__item_img" #backgroundCheck>
+                <p>Background Check</p>
+            </mat-card>
+        </div>
+    </div>
+    
+    <div class="profile-image">
+        <img src="../../../assets/profile.png" alt="Profile_Pic">
+    </div>
+   
+    <div class="create-indent" (click)="onCreateIndent()">
+          <mat-card class="create-indent__btn">
+                <img src="../../../assets/add.svg" alt="Add_Indent" class="create-indent__btn_img" onmouseover="this.src='../../../assets/add_hover.png'" onmouseout="this.src='../../../assets/add.svg'" >
+                <p>create indent</p>
+          </mat-card>  
+    </div>
+   
+</div>
