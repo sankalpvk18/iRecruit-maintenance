@@ -21,6 +21,9 @@ a:link, :visited, :hover, :active {
 .p-20 {
     padding: 20px;
 }
+.mt-40 {
+    margin-top: 40px;
+}
 
 :host ::ng-deep input::-webkit-input-placeholder {
     color:#0C215C ;
@@ -84,3 +87,5 @@ a:link, :visited, :hover, :active {
     -webkit-transform: scaleX(1);
     transform: scaleX(1);
   }
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

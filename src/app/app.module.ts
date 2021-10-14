@@ -12,6 +12,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatRippleModule} from '@angular/material/core';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -40,6 +41,7 @@ import { IndentListItemComponent } from './components/indent-list-item/indent-li
 import { IndentDetailsPageComponent } from './Pages/indent-details-page/indent-details-page.component';
 import { IndentDetailsListItemComponent } from './components/indent-details-list-item/indent-details-list-item.component';
 import { BarRatingModule } from 'ngx-bar-rating';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -79,7 +81,9 @@ import { BarRatingModule } from 'ngx-bar-rating';
     AngularFireDatabaseModule,
     MatSlideToggleModule,
     FormsModule,
-    BarRatingModule
+    BarRatingModule,
+    DragDropModule,
+    NgbModule
   ],
   providers: [FirebaseService],
   bootstrap: [AppComponent]
