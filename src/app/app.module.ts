@@ -12,6 +12,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatRippleModule} from '@angular/material/core';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -79,7 +80,8 @@ import { BarRatingModule } from 'ngx-bar-rating';
     AngularFireDatabaseModule,
     MatSlideToggleModule,
     FormsModule,
-    BarRatingModule
+    BarRatingModule,
+    DragDropModule
   ],
   providers: [FirebaseService],
   bootstrap: [AppComponent]

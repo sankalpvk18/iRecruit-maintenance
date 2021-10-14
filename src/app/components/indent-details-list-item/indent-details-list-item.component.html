@@ -1,15 +1,31 @@
 <div class="container">
-    <mat-card class="sub-container" >
-        <div class="indent-details-name">
-            Name Last
+    <div cdkDropListGroup class="mt-40">
+        <div class="group-container">
+            <h2>Applicants</h2>
+            <div cdkDropList [cdkDropListData]="applicants" class="categories" (cdkDropListDropped)="drop($event)">
+                <div class="each-box" *ngFor="let item of applicants" cdkDrag>{{item}}</div>
+            </div>
         </div>
-    
-        <div class="col-md-4">
-            <section>
-              <b>CSS Stars</b>
-              <bar-rating [max]="5"></bar-rating>
-            </section>
+
+        <div class="group-container">
+            <h2>First Round</h2>
+            <div cdkDropList [cdkDropListData]="firstRound" class="categories" (cdkDropListDropped)="drop($event)">
+                <div class="each-box" *ngFor="let item of firstRound" cdkDrag>{{item}}</div>
+            </div>
         </div>
-        
-    </mat-card>
+
+        <div class="group-container">
+            <h2>Second Round</h2>
+            <div cdkDropList [cdkDropListData]="secondRound" class="categories" (cdkDropListDropped)="drop($event)">
+                <div class="each-box" *ngFor="let item of secondRound" cdkDrag>{{item}}</div>
+            </div>
+        </div>
+
+        <div class="group-container">
+            <h2>Third Round</h2>
+            <div cdkDropList [cdkDropListData]="thirdRound" class="categories" (cdkDropListDropped)="drop($event)">
+                <div class="each-box" *ngFor="let item of thirdRound" cdkDrag>{{item}}</div>
+            </div>
+        </div>
+    </div>
 </div>
