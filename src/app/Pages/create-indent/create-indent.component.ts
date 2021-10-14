@@ -99,7 +99,6 @@ export class CreateIndentComponent implements OnInit {
     }
     this.db.create(this.indents).then(() => {
       console.log('Created new item successfully!');
-    
     });
   }
 

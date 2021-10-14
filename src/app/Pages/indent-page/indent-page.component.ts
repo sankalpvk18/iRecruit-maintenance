@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FirebaseDatabaseService } from 'src/app/services/firebase-database.service';
+import * as firebase from 'firebase/compat/app';
+
 
 @Component({
   selector: 'app-indent-page',
@@ -15,21 +17,38 @@ export class IndentPageComponent implements OnInit {
   list: any[];
   indents: any = [];
   isLoaded: boolean = false;
+  userID: string;
+
 
   constructor(private router:Router, private db:FirebaseDatabaseService) { }
 
   ngOnInit(): void {
+    this.getIndentsList();
   }
 
   getIndentsList() {
-
-    const ref = this.db.indentsRef;
-    ref.valueChanges().subscribe( (data) => {
+    firebase.default.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.userID = user.uid;
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
+    
+    this.db.setRef(this.userID);
+    this.db.getAll().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(data => {
       this.indents = data;
       this.isLoaded = true;
-      // console.log(this.indents);
-    })
-
+      console.log();
+    });
     // return this.db.getAll().snapshotChanges().pipe(
     //   map((messages: any[]) => messages.map(prod => {
 
@@ -42,10 +61,11 @@ export class IndentPageComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.getIndentsList();
   }
 
   onBack(){
     this.router.navigateByUrl('/home')
   }
+
+  
 }

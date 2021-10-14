@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'login', component: LoginComponent},
   {path: 'application', component: ApplicationComponent},
-  {path: 'application/:jobRole/:id', component: ApplicationComponent},
+  {path: 'application/:jobRole/:id/:by/:open', component: ApplicationComponent},
   {path: 'signup', component:SignUpComponent},
   {path: 'home',component:HomeComponent},
   {path: 'createindent',component:CreateIndentComponent},
