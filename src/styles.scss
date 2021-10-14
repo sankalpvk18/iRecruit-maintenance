@@ -87,3 +87,5 @@ a:link, :visited, :hover, :active {
     -webkit-transform: scaleX(1);
     transform: scaleX(1);
   }
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

@@ -3,7 +3,15 @@
         <div class="group-container">
             <h2>Applicants</h2>
             <div cdkDropList [cdkDropListData]="applicants" class="categories" (cdkDropListDropped)="drop($event)">
-                <div class="each-box" *ngFor="let item of applicants" cdkDrag>{{item}}</div>
+                <div class="each-box" *ngFor="let item of applicants" cdkDrag>
+                    <div class="applicant-name">{{item}}</div> 
+                    <!-- <ngb-rating [(rate)]="currentRate"></ngb-rating> -->
+                    <ngb-rating [(rate)]="currentRate">
+                        <ng-template let-fill="fill" let-index="index">
+                          <span class="star" [class.filled]="fill === 100" [class.bad]="index < 5">&#9733;</span>
+                        </ng-template>
+                      </ngb-rating>
+                </div>
             </div>
         </div>
 

@@ -1,5 +1,6 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-indent-details-list-item',
@@ -32,7 +33,11 @@ export class IndentDetailsListItemComponent implements OnInit {
 
   thirdRound = []
 
-  constructor() { }
+  currentRate = 0;
+
+  constructor(config: NgbRatingConfig) {
+    config.max = 5;
+   }
 
   ngOnInit(): void {
   }

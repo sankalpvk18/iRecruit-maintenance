@@ -41,6 +41,7 @@ import { IndentListItemComponent } from './components/indent-list-item/indent-li
 import { IndentDetailsPageComponent } from './Pages/indent-details-page/indent-details-page.component';
 import { IndentDetailsListItemComponent } from './components/indent-details-list-item/indent-details-list-item.component';
 import { BarRatingModule } from 'ngx-bar-rating';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -81,7 +82,8 @@ import { BarRatingModule } from 'ngx-bar-rating';
     MatSlideToggleModule,
     FormsModule,
     BarRatingModule,
-    DragDropModule
+    DragDropModule,
+    NgbModule
   ],
   providers: [FirebaseService],
   bootstrap: [AppComponent]
