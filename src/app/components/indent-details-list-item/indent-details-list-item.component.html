@@ -1,38 +1,33 @@
 <div class="container">
-    <div cdkDropListGroup class="mt-40">
+    <div class="loader-placeholder" *ngIf="!isLoaded">
+        <img width="100px" height="auto" src="../../../assets/spinner.gif" alt="spinner">
+    </div>
+    <div  *ngIf="isLoaded" cdkDropListGroup class="mt-40">
         <div class="group-container">
             <h2>Applicants</h2>
             <div cdkDropList [cdkDropListData]="applicants" class="categories" (cdkDropListDropped)="drop($event)">
-                <div class="each-box" *ngFor="let item of applicants" cdkDrag>
-                    <div class="applicant-name">{{item}}</div> 
-                    <!-- <ngb-rating [(rate)]="currentRate"></ngb-rating> -->
-                    <ngb-rating [(rate)]="currentRate">
-                        <ng-template let-fill="fill" let-index="index">
-                          <span class="star" [class.filled]="fill === 100" [class.bad]="index < 5">&#9733;</span>
-                        </ng-template>
-                      </ngb-rating>
-                </div>
+                <app-applicant-card [applicantsData]="applicants"></app-applicant-card>
             </div>
         </div>
 
         <div class="group-container">
-            <h2>First Round</h2>
+            <h2>First Interview</h2>
             <div cdkDropList [cdkDropListData]="firstRound" class="categories" (cdkDropListDropped)="drop($event)">
-                <div class="each-box" *ngFor="let item of firstRound" cdkDrag>{{item}}</div>
+                <app-applicant-card [applicantsData]="firstRound"></app-applicant-card>
             </div>
         </div>
 
         <div class="group-container">
-            <h2>Second Round</h2>
+            <h2>Second Interview</h2>
             <div cdkDropList [cdkDropListData]="secondRound" class="categories" (cdkDropListDropped)="drop($event)">
-                <div class="each-box" *ngFor="let item of secondRound" cdkDrag>{{item}}</div>
+                <app-applicant-card [applicantsData]="firstRound"></app-applicant-card>
             </div>
         </div>
 
         <div class="group-container">
-            <h2>Third Round</h2>
+            <h2>Contract Proposal</h2>
             <div cdkDropList [cdkDropListData]="thirdRound" class="categories" (cdkDropListDropped)="drop($event)">
-                <div class="each-box" *ngFor="let item of thirdRound" cdkDrag>{{item}}</div>
+                <app-applicant-card [applicantsData]="applicants"></app-applicant-card>
             </div>
         </div>
     </div>

@@ -15,23 +15,28 @@
             </div>
             <div id="input-container">
                 <img src="../../../assets/user@2x.png"/>
-                <input type="text" placeholder="Name"/>
+                <input type="text" placeholder="Name" required
+                [(ngModel)]="application.name"/>
             </div>
             <div id="input-container">
                 <img src="../../../assets/mail.png"/>
-                <input type="text" placeholder="Email Id"/>
+                <input type="text" placeholder="Email Id"  required
+                [(ngModel)]="application.email"/>
             </div>
             <div id="input-container">
                 <img src="../../../assets/smartphone-call@2x.png"/>
-                <input type="text" placeholder="Mobile Number"/>
+                <input type="text" placeholder="Mobile Number"  required
+                [(ngModel)]="application.phone"/>
             </div>
             <div id="input-container">
                 <img src="../../../assets/id-card@2x.png"/>
-                <input type="text" placeholder="Work Experiences"/>
+                <input type="text" placeholder="Work Experiences"  required
+                [(ngModel)]="application.work_ex"/>
             </div>
             <div id="input-container">
                 <img src="../../../assets/salary@2x.png"/>
-                <input type="text" placeholder="Expected CTC"/>
+                <input type="text" placeholder="Expected CTC"  required
+                [(ngModel)]="application.ctc"/>
             </div>
             <div class="upload pt-5">
                 <img src="../../../assets/camera (1)@2x.png"/>
@@ -86,7 +91,7 @@
                     <button mat-raised-button class="btn_appearance">Clear</button>
                 </div>
                 <div>
-                    <button mat-raised-button class="btn_appearance">Apply</button>
+                    <button mat-raised-button class="btn_appearance" (click)=createApplication()>Apply</button>
                 </div>
             </div>
         </div>

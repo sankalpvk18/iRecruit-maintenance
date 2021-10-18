@@ -37,7 +37,9 @@ export class IndentPageComponent implements OnInit {
       }
     });
     
-    this.db.setRef(this.userID);
+   // FirebaseDatabaseService.dbPath = '/indents/'+this.userID;
+
+    // this.db.setRef(this.userID);
     this.db.getAll().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>

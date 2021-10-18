@@ -12,4 +12,5 @@ export default class Indents {
     skills: string[];
     max_work_ex: number;
     expected_joining_date: number;
+    open: string;
 }

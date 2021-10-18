@@ -10,6 +10,7 @@ export class IndentListItemComponent implements OnInit {
 
   @Input() indents: any = [];
   arrIndents = [];
+  isOpen = 'true';
 
   constructor(private router:Router) { }
 

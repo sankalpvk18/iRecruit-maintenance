@@ -7,6 +7,10 @@ import { Observable } from 'rxjs';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {map, startWith} from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import Applications from '../../models/Applications';
+import { FirebaseDatabaseService } from 'src/app/services/firebase-database.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 
 
 @Component({
@@ -16,6 +20,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ApplicationComponent implements OnInit {
 
+  application: Applications=new Applications();
+
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -23,6 +29,8 @@ export class ApplicationComponent implements OnInit {
   filteredSkills: Observable<string[]>;
   jobRole: string;
   indentId: string;
+  indentBy:string;
+  indentOpen: string;
   skills: string[] = [];
   allSkills: string[] = [
     'HTML',
@@ -37,8 +45,12 @@ export class ApplicationComponent implements OnInit {
   ];
 
   @ViewChild('skillInput') skillInput: ElementRef<HTMLInputElement>;
+  // @ViewChild('ref') ref: MatDialogRef<any>;
 
-  constructor(private _Activatedroute:ActivatedRoute) {
+  constructor(
+    private _Activatedroute:ActivatedRoute, 
+    private db:FirebaseDatabaseService,
+    public dialog: MatDialog) {
     this.filteredSkills = this.skillCtrl.valueChanges.pipe(
       startWith(null),
       map((skill: string | null) => skill ? this._filter(skill) : this.allSkills.slice()));
@@ -47,6 +59,13 @@ export class ApplicationComponent implements OnInit {
   ngOnInit(): void {
     this.jobRole=this._Activatedroute.snapshot.paramMap.get("jobRole");
     this.indentId=this._Activatedroute.snapshot.paramMap.get("id");
+    this.indentBy=this._Activatedroute.snapshot.paramMap.get("by");
+    this.indentOpen=this._Activatedroute.snapshot.paramMap.get('open');
+    console.log(typeof this.indentOpen);
+
+    if(this.indentOpen=="false"){
+      this.openDialog();
+    }
 
   }
 
@@ -84,4 +103,25 @@ export class ApplicationComponent implements OnInit {
     return this.allSkills.filter(fruit => fruit.toLowerCase().includes(filterValue));
   }
 
+  createApplication(){
+    this.application.skills = this.skills;
+    this.application.applied_on = new Date().getTime();
+    this.application.rating=0;
+    this.application.status="none";
+   // FirebaseDatabaseService.dbPath = '/indents/'+this.indentBy+'/'+this.indentId+'/applications';
+    // this.db.setRef(this.indentBy+"/"+this.indentId+"/applications");
+    this.db.createApplication(this.application).then(() => {
+      console.log('Created new item successfully!');
+    });
+  }
+
+
+
+  
+    openDialog() {
+      const dialogRef = this.dialog.open(DialogComponent);
+      dialogRef.disableClose = true;
+    }
+
+  
 }

@@ -10,4 +10,6 @@ export default class Applications {
     work_ex: number;
     phone: number;
     ctc:number;
+    status: string;
+    rating: number;
 }

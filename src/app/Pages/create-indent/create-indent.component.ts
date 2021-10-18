@@ -50,7 +50,16 @@ export class CreateIndentComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.currentUser = firebase.default.auth().currentUser.uid;
+    firebase.default.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.currentUser = user.uid;
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
+    // this.currentUser = firebase.default.auth().currentUser.uid;
   }
 
   onBack(){
@@ -94,9 +103,11 @@ export class CreateIndentComponent implements OnInit {
     this.indents.location = this.locations.value;
     this.indents.skills = this.skills;
     this.indents.created_on = new Date().getTime();
+    this.indents.open="true";
     if (this.currentUser != null && this.currentUser.length>0) {
       this.indents.created_by = this.currentUser;
     }
+ //   FirebaseDatabaseService.dbPath = '/indents/'+this.currentUser;
     this.db.create(this.indents).then(() => {
       console.log('Created new item successfully!');
     });

@@ -1,0 +1,83 @@
+@import '../../../styles.scss';
+.container {
+    position: relative;
+    height: 100%;
+    padding: 80px 100px;
+}
+
+.app-logo {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    img {
+        width: 100px;
+        height: 100px;
+    }
+}
+.profile-image {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    img {
+        border-radius: 50%;
+        width: 100px;
+        height: auto;
+    }
+}
+.title{
+    position: absolute;
+    top: 10%;
+    left: 20%;
+    color: #0C215C;
+    font-size: 20px;
+}
+.action-buttons{
+    position: absolute;
+    bottom: 20%;
+    right: 2.5%;
+    display: flex;
+    justify-content: space-evenly;
+    width: fit-content;
+    height: auto;
+   
+    .action-buttons__btns{
+    display: flex;
+    justify-content: center ;
+    width: 120px;
+    height: auto;
+    margin: 0 20px;
+    border-radius: 40px;
+    padding:10px 20px;
+    color: #0C215C;
+    align-items: center;
+    cursor: pointer;
+
+        img{
+            width: 15px;
+            height: auto;
+            margin: 0px 5px;
+        }
+    }
+}
+.action_back_btn{
+    position: absolute;
+    bottom: 20%;
+    left: 2.5%;
+    display: flex;
+    justify-content: center ;
+    width: 120px;
+    height: auto;
+    margin: 0 20px;
+    border-radius: 40px;
+    padding:10px 20px;
+    color: #0C215C;
+    align-items: center;
+    cursor: pointer;
+
+        img{
+            width: 15px;
+            height: auto;
+            margin: 0px 5px;
+        }
+    
+}

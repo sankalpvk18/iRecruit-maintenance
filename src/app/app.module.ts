@@ -42,6 +42,12 @@ import { IndentDetailsPageComponent } from './Pages/indent-details-page/indent-d
 import { IndentDetailsListItemComponent } from './components/indent-details-list-item/indent-details-list-item.component';
 import { BarRatingModule } from 'ngx-bar-rating';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { ScreeningComponent } from './Pages/screening/screening.component';
+import { ToggleButtonComponent } from './components/toggle-button/toggle-button.component';
+import { RatingComponent } from './components/rating/rating.component';
+import { ApplicantCardComponent } from './components/applicant-card/applicant-card.component';
 
 
 @NgModule({
@@ -56,6 +62,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     IndentListItemComponent,
     IndentDetailsPageComponent,
     IndentDetailsListItemComponent,
+    DialogComponent,
+    ScreeningComponent,
+    ToggleButtonComponent,
+    RatingComponent,
+    ApplicantCardComponent,
 
   ],
   imports: [
@@ -83,7 +94,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     BarRatingModule,
     DragDropModule,
-    NgbModule
+    NgbModule,
+    MatDialogModule
   ],
   providers: [FirebaseService],
   bootstrap: [AppComponent]
