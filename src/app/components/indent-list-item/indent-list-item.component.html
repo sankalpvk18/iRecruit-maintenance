@@ -3,17 +3,27 @@
         <div class="job-role-section" (click)="onIndentClicked()">
             <div class="jr_title">
                 <div class="jr_role">{{indent.role}}</div>
-                <div class="jr_more-icon">
+                <app-more-menu (onItemCLicked)="onItemCLicked(indent)"></app-more-menu>
+                <!-- <div class="jr_more-icon" (click)="openEditPanel(); $event.stopPropagation()">
                     <img src="../../../assets/more.png" alt="More_Icon">
-                </div>
+                    <app-menu-item *ngIf="isEditPanelOpen" (onItemCLicked)="onItemCLicked()"></app-menu-item>
+                </div> -->
+                <!-- <mat-menu #menu="matMenu"> -->
+                    <!-- <button mat-menu-item (click)="onEdit()">
+                      <mat-icon>edit</mat-icon>
+                      <span>Edit Indent</span>
+                    </button> -->
+                    <!-- <div (click)="onEdit()">Edit</div> -->
+                <!-- </mat-menu> -->
             </div>
-            <div class="jr_link">
-                <div class="jr_mail-icon">
-                    <img src="../../../assets/mail.png" alt="Mail_Icon">
-                </div>
-                <div>
-                    <!-- <a [routerLink]="['/application', indent.role, indent.key,indent.created_by]" [queryParams]="{open: indent.open}">Open application form</a> -->
-                    <a [routerLink]="['/application', indent.role, indent.key,indent.created_by,indent.open]">Open application form</a>
+            <div (click)="onCopyClicked(); $event.stopPropagation()">
+                <div class="jr_link"  [cdkCopyToClipboard]="createApplicationUrl(indent)">
+                    <div>
+                        Copy application form URL
+                    </div>
+                    <div class="jr_mail-icon">
+                        <img src="../../../assets/copy.svg" alt="Copy_Icon">
+                    </div>
                 </div>
             </div>
             <div class="jr_applications">
@@ -28,8 +38,7 @@
                 Created on: {{getDate(indent.created_on) | date}}
             </div>
             <div class="jd_publish">
-                <app-toggle-button></app-toggle-button>
-                <!-- <mat-slide-toggle [(ngModel)]="isOpen">{{isOpen}}</mat-slide-toggle> -->
+                <app-toggle-button [isOpen]="indent.open" (statusToggle)="onToggle($event)"></app-toggle-button>
             </div>
         </div>
     </mat-card>

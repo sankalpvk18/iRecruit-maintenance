@@ -1,0 +1,19 @@
+.panel-container {
+    position: relative;
+}
+.option-panel {
+    position: absolute;
+    top: 5px;
+    display: flex;
+    padding: 10px !important;
+    left: -30px;
+    z-index: 100;
+}
+.m-10-5 {
+    margin: 3px 5px;
+}
+.edit-icon {
+    img {
+        height: 16px;
+    }
+}

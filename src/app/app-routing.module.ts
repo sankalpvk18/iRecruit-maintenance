@@ -17,6 +17,7 @@ const routes: Routes = [
   {path: 'signup', component:SignUpComponent},
   {path: 'home',component:HomeComponent},
   {path: 'createindent',component:CreateIndentComponent},
+  {path: 'createindent/:id', component: CreateIndentComponent},
   {path:'indents',component:IndentPageComponent},
   {path:'indentdetails',component:IndentDetailsPageComponent},
   {path: 'screening',component:ScreeningComponent}

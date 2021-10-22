@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import {Router} from '@angular/router';
+import { DialogFeedbackComponent } from 'src/app/components/dialog-feedback/dialog-feedback.component';
 
 @Component({
   selector: 'app-screening',
@@ -7,10 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScreeningComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router,public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
-  onBack(){}
+  onBack(){
+    this.router.navigateByUrl('/indents');
+  }
+
+  onReject(){
+    this.dialog.open(DialogFeedbackComponent);
+  }
+
+  onArchive(){
+    this.dialog.open(DialogFeedbackComponent);
+  }
+
 }

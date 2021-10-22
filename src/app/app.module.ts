@@ -48,7 +48,13 @@ import { ScreeningComponent } from './Pages/screening/screening.component';
 import { ToggleButtonComponent } from './components/toggle-button/toggle-button.component';
 import { RatingComponent } from './components/rating/rating.component';
 import { ApplicantCardComponent } from './components/applicant-card/applicant-card.component';
-
+import {MatMenuModule} from '@angular/material/menu';
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import {ClipboardModule} from '@angular/cdk/clipboard';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MenuItemComponent } from './components/menu-item/menu-item.component';
+import { DialogFeedbackComponent } from './components/dialog-feedback/dialog-feedback.component';
+import { MoreMenuComponent } from './more-menu/more-menu.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +73,9 @@ import { ApplicantCardComponent } from './components/applicant-card/applicant-ca
     ToggleButtonComponent,
     RatingComponent,
     ApplicantCardComponent,
+    MenuItemComponent,
+    DialogFeedbackComponent,
+    MoreMenuComponent,
 
   ],
   imports: [
@@ -95,7 +104,22 @@ import { ApplicantCardComponent } from './components/applicant-card/applicant-ca
     BarRatingModule,
     DragDropModule,
     NgbModule,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule,
+    NgCircleProgressModule.forRoot({
+      // set defaults here
+      radius: 80,
+      outerStrokeWidth: 16,
+      innerStrokeWidth: 8,
+      outerStrokeColor: "#78C000",
+      innerStrokeColor: "#C7E596",
+      animationDuration: 300,
+      subtitle: "Match",
+      subtitleFontSize: '18',
+      subtitleFontWeight: '500'
+    }),
+    ClipboardModule,
+    MatSnackBarModule
   ],
   providers: [FirebaseService],
   bootstrap: [AppComponent]

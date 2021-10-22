@@ -1,10 +1,4 @@
-<!-- <div cdkDropList [cdkDropListData]="applicants" class="categories" (cdkDropListDropped)="drop($event)">
-    <div class="each-box" *ngFor="let item of applicantsData" cdkDrag>
-        <div class="applicant-name">{{item.name}}</div> 
-        <app-rating [rating]="item.rating"></app-rating>
-    </div>
-</div> -->
-<div class="each-box" *ngFor="let item of applicantsData" cdkDrag>
+<div class="each-box" *ngFor="let item of applicantsData" cdkDrag (click)="openApplicant()">
     <div class="applicant-name">{{item.name}}</div> 
     <app-rating [rating]="item.rating"></app-rating>
 </div>

@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import { FormControl } from '@angular/forms';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
@@ -9,6 +9,7 @@ import {map, startWith} from 'rxjs/operators';
 import Indents from 'src/app/models/Indents';
 import { FirebaseDatabaseService } from 'src/app/services/firebase-database.service';
 import * as firebase from 'firebase/compat/app';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-create-indent',
@@ -28,6 +29,7 @@ export class CreateIndentComponent implements OnInit {
   filteredSkills: Observable<string[]>;
   currentUser: string;
   skills: string[] = [];
+  existingIndent: any = [];
   allSkills: string[] = [
     'HTML',
     'JS',
@@ -43,7 +45,8 @@ export class CreateIndentComponent implements OnInit {
 
   locationsList: string[] = ['Pune', 'Mumbai', 'Hyderabad', 'Chennai', 'Delhi', 'Gurugram'];
   @ViewChild('skillInput') skillInput: ElementRef<HTMLInputElement>;
-  constructor(private router:Router, private db:FirebaseDatabaseService) {
+  constructor(private router:Router, private db:FirebaseDatabaseService, private location: Location, private route: ActivatedRoute,
+    ) {
     this.filteredSkills = this.skillCtrl.valueChanges.pipe(
       startWith(null),
       map((skill: string | null) => skill ? this._filter(skill) : this.allSkills.slice()));
@@ -59,11 +62,31 @@ export class CreateIndentComponent implements OnInit {
         // ...
       }
     });
-    // this.currentUser = firebase.default.auth().currentUser.uid;
+    this.route.params.subscribe(params => {
+      console.log(params);
+      if (params["id"]) {
+        this.getExistingIndent(params["id"]);
+      }
+    });
+  }
+
+  getExistingIndent(id: String) {
+    this.db.getAll().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(data => {
+      this.existingIndent = data;
+      // this.isLoaded = true;
+      console.log();
+    });
   }
 
   onBack(){
-    this.router.navigateByUrl('/home')
+    // this.router.navigateByUrl('/home');
+    this.location.back();
   }
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();

@@ -6,22 +6,46 @@
     </div>
     <div class="title">Screening</div>
     
-    <div class="profile-image">
-        <img src="../../../assets/profile.png" alt="Profile_Pic">
+    <div class="profile-match">
+      <circle-progress
+        [percent]="85"
+        [radius]="80"
+        [outerStrokeWidth]="12"
+        [innerStrokeWidth]="6"
+        [outerStrokeColor]="'#78C000'"
+        [innerStrokeColor]="'#C7E596'"
+        [animation]="true"
+        [animationDuration]="300">
+      </circle-progress>
+     
+    </div>
+    <div class="profile-job-role">Sales Manager</div>
+   
+    <div class="profile-image"> 
+      <img src="../../../assets/user.png">
     </div>
    
+    <div class="profile-name">Sukalp Tripathi</div>
+    <div class="profile-details-container">
+    <div class="profile-details"><span style="font-weight: bold;">Contact number :</span></div>
+    <div class="profile-details"><span style="font-weight: bold;">Email :</span></div>
+    <div class="profile-details"><span style="font-weight: bold;">Work Experience :</span></div>
+    <div class="profile-details"><span style="font-weight: bold;">Salary Expectation :</span></div>
+    
+    
+    </div>
    <div class="action-buttons">
-       <mat-card class="action-buttons__btns">
+       <mat-card class="action-buttons__btns" (click)="onReject()">
         <img src="../../../assets/cancel.svg" alt="cancel" class="create-indent__btn_img">
-        <p>cancel</p>
+        <p>Reject</p>
        </mat-card>
-       <mat-card class="action-buttons__btns">
-        <img src="../../../assets/draft.svg" alt="save to draft" class="create-indent__btn_img">
-        <p>save to draft</p>
+       <mat-card class="action-buttons__btns"(click)="onArchive()">
+        <img src="../../../assets/archive.svg" alt="save to draft" class="create-indent__btn_img">
+        <p>Archive</p>
       </mat-card>
       <mat-card class="action-buttons__btns" >
         <img src="../../../assets/check.svg" alt="create indent" class="create-indent__btn_img">
-        <p>create indent</p>
+        <p>Schedule interview</p>
       </mat-card>
    </div>
    

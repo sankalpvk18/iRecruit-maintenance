@@ -14,7 +14,7 @@
         height: 100px;
     }
 }
-.profile-image {
+.profile-match {
     position: absolute;
     top: 5%;
     right: 5%;
@@ -24,6 +24,44 @@
         height: auto;
     }
 }
+
+.profile-job-role{
+    position: absolute;
+    top: 32%;
+    right: 9%;
+    
+}
+
+
+.profile-image{
+    position: absolute;
+    top: 25%;
+    left: 15%;
+    img {
+        border-radius: 50%;
+        width: 100px;
+        height: auto;
+    }
+}
+
+.profile-name{
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    font-size: large;
+    font-weight: bold;
+    
+}
+.profile-details-container{
+    position: absolute;
+    top: 40%;
+    left: 25%;
+    .profile-details{
+        margin-top: 10px;
+    }
+    
+}
+
 .title{
     position: absolute;
     top: 10%;
@@ -33,10 +71,10 @@
 }
 .action-buttons{
     position: absolute;
-    bottom: 20%;
-    right: 2.5%;
+    bottom: 5%;
+    right: 0%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: fit-content;
     height: auto;
    
@@ -61,7 +99,7 @@
 }
 .action_back_btn{
     position: absolute;
-    bottom: 20%;
+    bottom: 5%;
     left: 2.5%;
     display: flex;
     justify-content: center ;

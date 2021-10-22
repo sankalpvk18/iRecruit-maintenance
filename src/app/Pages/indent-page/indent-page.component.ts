@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FirebaseDatabaseService } from 'src/app/services/firebase-database.service';
 import * as firebase from 'firebase/compat/app';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -18,9 +19,9 @@ export class IndentPageComponent implements OnInit {
   indents: any = [];
   isLoaded: boolean = false;
   userID: string;
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
-
-  constructor(private router:Router, private db:FirebaseDatabaseService) { }
+  constructor(private router:Router, private db:FirebaseDatabaseService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getIndentsList();
@@ -51,15 +52,6 @@ export class IndentPageComponent implements OnInit {
       this.isLoaded = true;
       console.log();
     });
-    // return this.db.getAll().snapshotChanges().pipe(
-    //   map((messages: any[]) => messages.map(prod => {
-
-    //     const payload = prod.payload.val();
-    //     const key = prod.key;
-    //     console.log(prod);
-    //     return <any>{ key, ...payload };
-    //   })),
-    // );
   }
 
   ngAfterViewInit() {
@@ -68,6 +60,20 @@ export class IndentPageComponent implements OnInit {
   onBack(){
     this.router.navigateByUrl('/home')
   }
+  
+  onToggleSwitched(event) {
+    
+  }
 
+  applicationURLCopied(event) {
+    this.openSnackBar();
+  }
+
+  openSnackBar() {
+    this._snackBar.open('Applicaion Form URL Copied', null, {
+      duration: 0.7*1000,
+      verticalPosition: this.verticalPosition
+    });
+  }
   
 }

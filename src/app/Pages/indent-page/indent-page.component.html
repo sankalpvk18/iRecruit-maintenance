@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="indent-cards">
-            <app-indent-list-item [indents]="indents" *ngIf="isLoaded"></app-indent-list-item>
+            <app-indent-list-item [indents]="indents" (applicationURLCopied)="applicationURLCopied($event)" (onToggleSwitched)="onToggleSwitched($event)" *ngIf="isLoaded"></app-indent-list-item>
             <div class="loader-placeholder" *ngIf="!isLoaded">
                 <img width="100px" height="auto" src="../../../assets/spinner.gif" alt="spinner">
             </div>

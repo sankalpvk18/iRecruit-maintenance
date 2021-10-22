@@ -1,5 +1,6 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-applicant-card',
@@ -28,7 +29,7 @@ export class ApplicantCardComponent implements OnInit {
     // 'Jennifer Daniels'
   ];
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -42,6 +43,10 @@ export class ApplicantCardComponent implements OnInit {
                         event.previousIndex,
                         event.currentIndex);
     }
+  }
+
+  openApplicant(){
+    this.router.navigateByUrl('/screening');    
   }
 
 }

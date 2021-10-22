@@ -77,6 +77,14 @@
 ::ng-deep.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
     background-color: #0c215ce0;
 }
-// ::ng-deep.mat-card {
-//     padding: 0px !important;
-// }
+.option-panel {
+    position: absolute;
+    top: 40px;
+    display: flex;
+    padding: 10px !important;
+    left: 284px;
+    z-index: 100;
+}
+.m-10-5 {
+    margin: 5px 5px;
+}

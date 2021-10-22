@@ -103,3 +103,15 @@
 ::ng-deep.mat-slide-toggle .mat-slide-toggle-ripple {
     display: none;
 }
+::ng-deep.mat-simple-snackbar {
+    justify-content: center !important;
+    span {
+        color: #0c215c;
+    }
+}
+::ng-deep.cdk-overlay-pane {
+    pointer-events: none;
+}
+::ng-deep.mat-snack-bar-container {
+    background: white !important;
+}
