@@ -15,7 +15,12 @@ export class IndentDetailsPageComponent implements OnInit {
 
 
   onBack(){
-    this.router.navigateByUrl('/indents')
+    this.router.navigateByUrl('/indents');
+  }
+
+
+  onCreateApplication(){
+      this.router.navigateByUrl('application');
   }
 
 }

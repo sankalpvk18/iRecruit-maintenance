@@ -19,8 +19,6 @@ import { Location } from '@angular/common'
 export class CreateIndentComponent implements OnInit {
 
   indents: Indents = new Indents();
-  
-
 
   selectable = true;
   removable = true;
@@ -45,6 +43,7 @@ export class CreateIndentComponent implements OnInit {
 
   locationsList: string[] = ['Pune', 'Mumbai', 'Hyderabad', 'Chennai', 'Delhi', 'Gurugram'];
   @ViewChild('skillInput') skillInput: ElementRef<HTMLInputElement>;
+  isLoaded: boolean;
   constructor(private router:Router, private db:FirebaseDatabaseService, private location: Location, private route: ActivatedRoute,
     ) {
     this.filteredSkills = this.skillCtrl.valueChanges.pipe(
@@ -71,17 +70,18 @@ export class CreateIndentComponent implements OnInit {
   }
 
   getExistingIndent(id: String) {
-    this.db.getAll().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
-        )
-      )
-    ).subscribe(data => {
+    this.db.getParicularIndent().valueChanges().subscribe((data) => {
       this.existingIndent = data;
       // this.isLoaded = true;
-      console.log();
-    });
+      console.log(this.existingIndent);
+      this.indents.role = this.existingIndent[7];
+      this.indents.vacancies = this.existingIndent[5];
+      this.indents.department = this.existingIndent[3];
+      this.indents.ctc = this.existingIndent[2];
+      this.indents.min_work_ex = this.existingIndent[9];
+      this.skills = this.existingIndent[8];
+      this.locations.setValue(this.existingIndent[4]);
+    })
   }
 
   onBack(){

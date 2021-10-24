@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-more-menu',
@@ -8,6 +8,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class MoreMenuComponent implements OnInit {
 
   isEditPanelOpen = false
+  @Input() onParentDetectOutsideClick : boolean;
   @Output() onItemCLicked : EventEmitter<any>= new EventEmitter();
 
   constructor() { }
@@ -20,6 +21,18 @@ export class MoreMenuComponent implements OnInit {
   }
 
   openEditPanel() {
+    this.isEditPanelOpen = this.isEditPanelOpen ? false: true;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // if (this.onParentDetectOutsideClick) {
+    //   this.openEditPanel()
+    // }
+    // this.isEditPanelOpen = !this.onParentDetectOutsideClick;
+    // this.onParentDetectOutsideClick = false;
+  }
+
+  onClickedOutside(event) {
     this.isEditPanelOpen = this.isEditPanelOpen ? false: true;
   }
 

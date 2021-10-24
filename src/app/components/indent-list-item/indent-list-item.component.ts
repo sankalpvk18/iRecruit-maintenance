@@ -15,6 +15,7 @@ export class IndentListItemComponent implements OnInit {
 
   arrIndents = [];
   isEditPanelOpen= false;
+  isOutsideClicked = false;
 
   constructor(private router:Router, private loction: Location, private locationStrategy: LocationStrategy) { }
 
@@ -57,6 +58,10 @@ export class IndentListItemComponent implements OnInit {
 
   openEditPanel() {
     this.isEditPanelOpen = this.isEditPanelOpen ? false: true;
+  }
+
+  setPanelVisibilty() {
+    this.isOutsideClicked = !this.isOutsideClicked;
   }
 
 }

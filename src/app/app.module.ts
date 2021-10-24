@@ -13,6 +13,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatRippleModule} from '@angular/material/core';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -119,7 +120,8 @@ import { MoreMenuComponent } from './more-menu/more-menu.component';
       subtitleFontWeight: '500'
     }),
     ClipboardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    ClickOutsideModule
   ],
   providers: [FirebaseService],
   bootstrap: [AppComponent]

@@ -20,9 +20,11 @@ export class FirebaseDatabaseService {
 
   indentsRef: AngularFireList<Indents>;
   applicationRef:AngularFireList<Applications>;
+  particularIndentRef:AngularFireList<Indents>;
   constructor(public db: AngularFireDatabase) { 
     
     this.indentsRef = db.list('/indents/xq1K5xx1rbP3xw4ybBTd4G2IZ3p1');
+    this.particularIndentRef=db.list('/indents/xq1K5xx1rbP3xw4ybBTd4G2IZ3p1/-MlyisZVRWCJBZao8XO-');
     this.applicationRef=db.list('indents/xq1K5xx1rbP3xw4ybBTd4G2IZ3p1/applications');
   }
 
@@ -34,6 +36,9 @@ export class FirebaseDatabaseService {
 
   getAllApplications(): AngularFireList<Applications> {
     return this.applicationRef;
+  }
+  getParicularIndent():AngularFireList<Indents>{
+    return this.particularIndentRef;
   }
 
   create(indent: Indents): any {
@@ -49,6 +54,7 @@ export class FirebaseDatabaseService {
 
   delete(key: string): Promise<void> {
     return this.indentsRef.remove(key);
+
   }
 
   deleteAll(): Promise<void> {

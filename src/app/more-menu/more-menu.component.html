@@ -1,4 +1,4 @@
 <div class="jr_more-icon" (click)="openEditPanel(); $event.stopPropagation()">
     <img src="../../../assets/more.png" alt="More_Icon">
-    <app-menu-item *ngIf="isEditPanelOpen" (onItemCLicked)="onMenuItemCLicked()"></app-menu-item>
+    <app-menu-item *ngIf="isEditPanelOpen" (onItemCLicked)="onMenuItemCLicked()" (onOutsideClick)="openEditPanel()" (clickOutside)="onClickedOutside($event)"></app-menu-item>
 </div>

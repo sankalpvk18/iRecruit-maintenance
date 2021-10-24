@@ -20,14 +20,14 @@
         <div class="group-container">
             <h2>Second Interview</h2>
             <div cdkDropList [cdkDropListData]="secondRound" class="categories" (cdkDropListDropped)="drop($event)">
-                <app-applicant-card [applicantsData]="firstRound"></app-applicant-card>
+                <app-applicant-card [applicantsData]="secondRound"></app-applicant-card>
             </div>
         </div>
 
         <div class="group-container">
             <h2>Contract Proposal</h2>
             <div cdkDropList [cdkDropListData]="thirdRound" class="categories" (cdkDropListDropped)="drop($event)">
-                <app-applicant-card [applicantsData]="applicants"></app-applicant-card>
+                <app-applicant-card [applicantsData]="thirdRound"></app-applicant-card>
             </div>
         </div>
     </div>

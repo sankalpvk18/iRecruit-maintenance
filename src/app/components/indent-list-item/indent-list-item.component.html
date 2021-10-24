@@ -3,7 +3,7 @@
         <div class="job-role-section" (click)="onIndentClicked()">
             <div class="jr_title">
                 <div class="jr_role">{{indent.role}}</div>
-                <app-more-menu (onItemCLicked)="onItemCLicked(indent)"></app-more-menu>
+                <app-more-menu [onParentDetectOutsideClick]="isOutsideClicked" (onItemCLicked)="onItemCLicked(indent)" (onOutsideClick)="setPanelVisibilty()"></app-more-menu>
                 <!-- <div class="jr_more-icon" (click)="openEditPanel(); $event.stopPropagation()">
                     <img src="../../../assets/more.png" alt="More_Icon">
                     <app-menu-item *ngIf="isEditPanelOpen" (onItemCLicked)="onItemCLicked()"></app-menu-item>
