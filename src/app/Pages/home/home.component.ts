@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { Router } from '@angular/router';
+import * as firebase from 'node_modules/firebase/compat';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  currentUser: string;
   @ViewChild('dashboard') dashboard: ElementRef<HTMLInputElement>;
   @ViewChild('indents') indents: ElementRef<HTMLInputElement>;
   @ViewChild('screening') screening: ElementRef<HTMLInputElement>;
@@ -22,7 +24,16 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    firebase.default.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.currentUser = user.uid;
+        if(this.currentUser != null) {
+          sessionStorage.setItem("firebaseUserId", this.currentUser);
+        }
+      } else {
+        this.firebaseService.logout();
+      }
+    });
   }
 
   logout(){

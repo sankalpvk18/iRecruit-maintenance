@@ -4,17 +4,6 @@
             <div class="jr_title">
                 <div class="jr_role">{{indent.role}}</div>
                 <app-more-menu [onParentDetectOutsideClick]="isOutsideClicked" (onItemCLicked)="onItemCLicked(indent)" (onOutsideClick)="setPanelVisibilty()"></app-more-menu>
-                <!-- <div class="jr_more-icon" (click)="openEditPanel(); $event.stopPropagation()">
-                    <img src="../../../assets/more.png" alt="More_Icon">
-                    <app-menu-item *ngIf="isEditPanelOpen" (onItemCLicked)="onItemCLicked()"></app-menu-item>
-                </div> -->
-                <!-- <mat-menu #menu="matMenu"> -->
-                    <!-- <button mat-menu-item (click)="onEdit()">
-                      <mat-icon>edit</mat-icon>
-                      <span>Edit Indent</span>
-                    </button> -->
-                    <!-- <div (click)="onEdit()">Edit</div> -->
-                <!-- </mat-menu> -->
             </div>
             <div (click)="onCopyClicked(); $event.stopPropagation()">
                 <div class="jr_link"  [cdkCopyToClipboard]="createApplicationUrl(indent)">

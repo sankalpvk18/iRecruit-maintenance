@@ -7,7 +7,6 @@ import { FirebaseDatabaseService } from 'src/app/services/firebase-database.serv
 import * as firebase from 'firebase/compat/app';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
-
 @Component({
   selector: 'app-indent-page',
   templateUrl: './indent-page.component.html',
@@ -21,9 +20,13 @@ export class IndentPageComponent implements OnInit {
   userID: string;
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
-  constructor(private router:Router, private db:FirebaseDatabaseService, private _snackBar: MatSnackBar) { }
+  constructor(
+    private router:Router,
+    private db:FirebaseDatabaseService,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    console.log("firebase user id inside: " + sessionStorage.getItem("firebaseUserId"));
     this.getIndentsList();
   }
 
