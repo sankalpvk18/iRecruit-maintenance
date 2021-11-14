@@ -4,15 +4,16 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FirebaseDatabaseService } from 'src/app/services/firebase-database.service';
-import * as firebase from 'firebase/compat/app';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+
+import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { Deserializable } from 'src/app/firebase-deserialisation';
 
 @Component({
   selector: 'app-indent-page',
   templateUrl: './indent-page.component.html',
   styleUrls: ['./indent-page.component.scss']
 })
-export class IndentPageComponent implements OnInit {
+export class IndentPageComponent implements OnInit, Deserializable {
 
   list: any[];
   indents: any = [];
@@ -25,25 +26,17 @@ export class IndentPageComponent implements OnInit {
     private db:FirebaseDatabaseService,
     private _snackBar: MatSnackBar) { }
 
+  deserialize(input: any): this {
+    throw new Error('Method not implemented.');
+  }
+
   ngOnInit(): void {
     console.log("firebase user id inside: " + sessionStorage.getItem("firebaseUserId"));
     this.getIndentsList();
   }
 
   getIndentsList() {
-    firebase.default.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.userID = user.uid;
-        // ...
-      } else {
-        // User is signed out
-        // ...
-      }
-    });
-    
-   // FirebaseDatabaseService.dbPath = '/indents/'+this.userID;
 
-    // this.db.setRef(this.userID);
     this.db.getAll().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
@@ -56,16 +49,18 @@ export class IndentPageComponent implements OnInit {
       console.log();
     });
   }
-
-  ngAfterViewInit() {
-  }
-
+    
   onBack(){
     this.router.navigateByUrl('/home')
   }
   
   onToggleSwitched(event) {
-    
+    const obj = {
+      open: "false"
+    }
+   this.db.update("/-MoSblrTo9fcEa_NGBGq", obj);
+  //  window.location.reload();
+   // this.getIndentsList();
   }
 
   applicationURLCopied(event) {

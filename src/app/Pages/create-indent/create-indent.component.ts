@@ -52,15 +52,7 @@ export class CreateIndentComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    firebase.default.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.currentUser = user.uid;
-        // ...
-      } else {
-        // User is signed out
-        // ...
-      }
-    });
+    
     this.route.params.subscribe(params => {
       console.log(params);
       if (params["id"]) {
@@ -69,8 +61,8 @@ export class CreateIndentComponent implements OnInit {
     });
   }
 
-  getExistingIndent(id: String) {
-    this.db.getParicularIndent().valueChanges().subscribe((data) => {
+  getExistingIndent(id: string) {
+    this.db.getParicularIndent(this.db.getCurrentIndentRef(id)).valueChanges().subscribe((data) => {
       this.existingIndent = data;
       // this.isLoaded = true;
       console.log(this.existingIndent);

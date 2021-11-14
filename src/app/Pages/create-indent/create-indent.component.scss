@@ -1,8 +1,8 @@
 @import '../../../styles.scss';
-.container {
+.wrapper {
     position: relative;
     height: 100%;
-    padding: 80px 100px;
+    padding: 80px 80px;
 }
 
 .app-logo {
@@ -72,7 +72,7 @@
 }
 .action-buttons{
     position: absolute;
-    bottom: 20%;
+    bottom: 5%;
     right: 2.5%;
     display: flex;
     justify-content: space-evenly;
@@ -82,7 +82,7 @@
     .action-buttons__btns{
     display: flex;
     justify-content: center ;
-    width: 120px;
+    width: 150px;
     height: auto;
     margin: 0 20px;
     border-radius: 40px;
@@ -100,7 +100,7 @@
 }
 .action_back_btn{
     position: absolute;
-    bottom: 20%;
+    bottom: 5%;
     left: 2.5%;
     display: flex;
     justify-content: center ;
@@ -132,23 +132,40 @@
     .skills-section {
         width: 37%;
         padding: 30px 0px;
-        // border: 1px solid #1a449430;
         border-radius: 10px;
         display: flex;
-        flex-direction: column;
-        .skills-section__title {
-            text-align: center;
-            font-weight: 500;
-            color: #1a4494;
-            font-size: 12pt;
-        }
-        .skills-section__chips {
-            border: 1px solid #1a449430;
-            margin-top: 40px;
-            padding: 0 20px;
-            mat-form-field {
-                width: 100%;
+        
+        .skills{
+            flex-direction: column;
+            .skills-section__title {
+                text-align: center;
+                font-weight: 500;
+                color: #1a4494;
+                font-size: 12pt;
             }
+            .skills-section__chips {
+                border: 1px solid #1a449430;
+                margin-top: 25px;
+                padding: 0 20px;
+                mat-form-field {
+                    width: 100%;
+                }
+            }
+        }
+      
+        .due-date{
+            margin-left: 30px;
+            
+            .due-date_label{
+                text-align: center;
+                color: #0C215C; 
+                font-size: 12pt; 
+                font-weight: 500;
+            }
+            .due-date_input{
+                margin-top: 25px;
+            }    
+
         }
     }
 }
@@ -175,8 +192,8 @@
 .divider{
     position:absolute;
     left:54%;
-    top:25%;
-    bottom:25%;
+    top:40%;
+    bottom:10%;
     // border-left:1px solid rgb(0, 0, 0);
 }
 .mat-divider.mat-divider-vertical {
@@ -247,4 +264,7 @@
             // }
         }
     }
+
+   
+
 }

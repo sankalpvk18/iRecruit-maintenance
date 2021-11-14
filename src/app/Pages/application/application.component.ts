@@ -67,6 +67,8 @@ export class ApplicationComponent implements OnInit {
       this.openDialog();
     }
 
+    
+
   }
 
   add(event: MatChipInputEvent): void {
@@ -108,9 +110,11 @@ export class ApplicationComponent implements OnInit {
     this.application.applied_on = new Date().getTime();
     this.application.rating=0;
     this.application.status="none";
-   // FirebaseDatabaseService.dbPath = '/indents/'+this.indentBy+'/'+this.indentId+'/applications';
-    // this.db.setRef(this.indentBy+"/"+this.indentId+"/applications");
-    this.db.createApplication(this.application).then(() => {
+    
+  
+
+
+    this.db.createApplication(this.application,this.db.getCurrentUserIDRef(this.indentBy,this.indentId)).then(() => {
       console.log('Created new item successfully!');
     });
   }

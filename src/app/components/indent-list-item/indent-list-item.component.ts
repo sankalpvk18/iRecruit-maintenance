@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router ,NavigationExtras} from '@angular/router';
 import { Location, LocationStrategy } from '@angular/common'
 
 @Component({
@@ -32,12 +32,28 @@ export class IndentListItemComponent implements OnInit {
     }
   }
 
+  getOpenSince(date) : number {
+    let currentDate = new Date();
+    let dateSent = new Date(date);
+
+    return Math.floor((Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) - Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate()) ) /(1000 * 60 * 60 * 24));
+  }
+
   getDate(date) : Date {
     return new Date(date);
   }
 
-  onIndentClicked(){
-    this.router.navigateByUrl('/indentdetails')
+  onIndentClicked(indent){
+    const navigationExtras: NavigationExtras = {
+      state: {
+        department: indent.department,
+        vacancies: indent.vacancies,
+        created_on: indent.created_on,
+        role: indent.role
+      }
+    }
+
+    this.router.navigate(['indentdetails', {id: indent.key, by: indent.created_by}],navigationExtras);
   }
 
   onToggle(event: any) {

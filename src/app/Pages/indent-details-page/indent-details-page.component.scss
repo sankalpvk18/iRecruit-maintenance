@@ -1,8 +1,9 @@
-@import '../../../styles.scss';
-.container {
+// @import '../../../styles.scss';
+.wrapper {
     position: relative;
     height: 100%;
-    padding: 40px 40px;
+    
+    width: 100% !important;
 }
 
 .app-logo {
@@ -32,44 +33,14 @@
     font-size: 20px;
 }
 .sub-container{
-    margin: 0 auto;
-}.search-bar{
-    margin-top: 60px;
     display: flex;
-    width: 100%;
-    justify-content: center;
+    justify-content: center;    
     align-items: center;
-    .search-bar__icon{
-        position: absolute;
-        img{
-            width: 20px;
-            height: auto;
-        }      
-    }
-    .search-bar__input{
-        position: relative;
-        width: 50%;
-        input{
-            width: 100%;
-            color: #0C215C;
-            font-weight: bold;
-            padding: 10px 10px 10px 40px;
-            border-radius: 5px;
-        }
-        
-    }
-    .search-bar__btn{
-        .search-bar__btn_card{
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            outline: 1px solid;
-        }
-        
-    }
-}.action_back_btn{
+}
+.action_back_btn{
     position: absolute;
     bottom: 2%;
+    left: 2.5%;
     display: flex;
     justify-content: center ;
     width: 120px;
@@ -108,6 +79,17 @@
         }
 
 }
+.sidebar{
+    width: 280px;
+    height: 100%;
+    justify-items: center;
+}
+.indent_role{
+    display: flex;
+    font-size: large;
+    align-items: center;
+}
+
 .indent-cards {
     display: flex;
     justify-content: center;

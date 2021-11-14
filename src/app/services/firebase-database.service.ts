@@ -8,32 +8,46 @@ import Applications from '../models/Applications';
 })
 export class FirebaseDatabaseService {
 
+  currentRef = "";
+
   indentsRef: AngularFireList<Indents>;
   applicationRef:AngularFireList<Applications>;
-  particularIndentRef:AngularFireList<Indents>;
+  // particularIndentRef:AngularFireList<Indents>;
   constructor(public db: AngularFireDatabase) { 
     
     this.indentsRef = db.list('/indents/' + sessionStorage.getItem("firebaseUserId"));
-    this.particularIndentRef=db.list('/indents/' + sessionStorage.getItem("firebaseUserId") + '/-MlyisZVRWCJBZao8XO-');
-    this.applicationRef=db.list('indents/xq1K5xx1rbP3xw4ybBTd4G2IZ3p1/applications');
+    // this.particularIndentRef=db.list('/indents/' + sessionStorage.getItem("firebaseUserId"));
+   // this.applicationRef=db.list('indents/'+sessionStorage.getItem("firebaseUserId")+'/applications');
   }
 
   getAll(): AngularFireList<Indents> {
     return this.indentsRef;
   }
 
-  getAllApplications(): AngularFireList<Applications> {
-    return this.applicationRef;
+
+  getCurrentIndentRef(indentId: string): AngularFireList<Indents>{
+    return this.db.list('/indents/' + sessionStorage.getItem("firebaseUserId") + '/' + indentId);
   }
-  getParicularIndent():AngularFireList<Indents>{
-    return this.particularIndentRef;
+
+  getCurrentUserIDRef(userID: string,indentId: string): AngularFireList<Applications>{
+    return this.db.list('indents/'+userID+'/'+indentId+'/applications');
+  }
+
+  getAllApplications(ref: AngularFireList<Applications>): AngularFireList<Applications> {
+    return ref;
+  }
+  getParicularIndent(ref: AngularFireList<Indents>):AngularFireList<Indents>{
+    return ref;
   }
 
   create(indent: Indents): any {
     return this.indentsRef.push(indent);
   }
-  createApplication(applications: Applications): any {
-    return this.applicationRef.push(applications);
+
+
+
+  createApplication(applications: Applications, ref: AngularFireList<Applications>): any {
+    return ref.push(applications);
   }
 
   update(key: string, value: any): Promise<void> {

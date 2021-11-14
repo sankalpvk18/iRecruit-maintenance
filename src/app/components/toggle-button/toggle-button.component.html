@@ -1,1 +1,1 @@
-<mat-slide-toggle [(ngModel)]="isOpen">{{setToggle(isOpen)}}</mat-slide-toggle>
+<mat-slide-toggle *ngIf="isValuePresent" [(ngModel)]="isToggleOn">{{setToggle(isToggleOn)}}</mat-slide-toggle>

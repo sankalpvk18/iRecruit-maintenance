@@ -1,5 +1,5 @@
 .each-box {
-    padding: 20px 10px;
+    padding: 10px 10px;
     border-bottom: solid 1px #ccc;
     color: rgba(0, 0, 0, 0.87);
     display: flex;
@@ -30,4 +30,8 @@
 }
 .categories.cdk-drop-list-dragging .each-box:not(.cdk-drag-placeholder) {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+.applicant-name {
+    font-size: 13px;
+    text-overflow: ellipsis;
 }

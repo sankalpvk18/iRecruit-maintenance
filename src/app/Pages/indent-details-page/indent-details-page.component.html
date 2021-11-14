@@ -1,10 +1,19 @@
 
-<div class="container">
+<div class="wrapper">
     <div class="app-logo">
         <img src="../../../assets/ICICI-Bank-PNG-Icon.png" alt="ICICI_logo">
     </div>
     <div class="title">Indents</div>
     <div class="sub-container">
+
+        <div class="sidebar">
+            <div class="indent_role"><span style="font-weight: bold;">{{indent.role}}</span></div>
+            <div class="indent_department"><span style="font-weight: bold;">Department: </span>{{indent.department}}</div>
+            <div class="indent_vacancies"><span style="font-weight: bold;">Vacancies: </span>{{indent.vacancies}}</div>
+            <div class="indent_created_on"><span style="font-weight: bold;">Created on: </span>{{getDate(indent.created_on) | date}}</div>
+            
+        </div>
+        
        
         <div class="indent-cards">
             <app-indent-details-list-item ></app-indent-details-list-item>
@@ -18,9 +27,9 @@
 
     <!-- </div> -->
     
-    <div class="profile-image">
+    <!-- <div class="profile-image">
         <img src="../../../assets/profile.png" alt="Profile_Pic">
-    </div>
+    </div> -->
 
    
    <mat-card class="action_back_btn p-20" (click)="onBack()">

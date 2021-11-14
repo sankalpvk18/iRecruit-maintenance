@@ -1,5 +1,6 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
 import { map } from 'rxjs/operators';
 import { FirebaseDatabaseService } from 'src/app/services/firebase-database.service';
@@ -16,7 +17,7 @@ export class IndentDetailsListItemComponent implements OnInit {
 
   applicantsDetails: any = [];
 
-  // applicants = [
+  // rejectedProfiles = [
   //   'Jorge Wheeler',
   //   'James Conway',
   //   'Elizabeth Simpson',
@@ -38,22 +39,37 @@ export class IndentDetailsListItemComponent implements OnInit {
   applicantsData = [];
 
   firstRound = [];
-
   secondRound = [];
-
   thirdRound = [];
+  rejectedProfiles= [];
 
   currentRate = 0;
+  indentBy: string;
+  indentId: string;
+  
 
 
 
-  constructor(config: NgbRatingConfig , public db:FirebaseDatabaseService) {
+  constructor(config: NgbRatingConfig , public db:FirebaseDatabaseService, private _Activatedroute:ActivatedRoute) {
     config.max = 5;
    }
 
   ngOnInit(): void {
     // this.applicants = [];
+    // this.indentBy=this._Activatedroute.snapshot.paramMap.get("by");
+    // this.indentId=this._Activatedroute.snapshot.paramMap.get("id");
+
+    this._Activatedroute.params.subscribe(params => {
+      console.log(params);
+      this.indentId=params["id"];
+      this.indentBy=params["by"];
+    });
+
+    console.log(this.indentBy+"  "+this.indentId);
     this.getApplicants();
+  }
+  getExistingIndent(arg0: any) {
+    throw new Error('Method not implemented.');
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -68,7 +84,7 @@ export class IndentDetailsListItemComponent implements OnInit {
   }
 
   getApplicants(){
-    this.db.getAllApplications().snapshotChanges().pipe(
+    this.db.getAllApplications(this.db.getCurrentUserIDRef(this.indentBy, this.indentId)).snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
           ({ key: c.payload.key, ...c.payload.val() })

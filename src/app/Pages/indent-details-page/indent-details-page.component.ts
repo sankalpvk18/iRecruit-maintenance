@@ -8,7 +8,22 @@ import { Router } from '@angular/router';
 })
 export class IndentDetailsPageComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  
+  indent:any;
+
+  constructor(private router:Router) {
+    const navigation = this.router.getCurrentNavigation();
+  const state = navigation.extras.state as {
+    department: string,
+    vacancies: number,
+    created_on: number,
+    role: string
+    };
+  
+    this.indent=state;    
+  }
+
+
 
   ngOnInit(): void {
   }
@@ -22,5 +37,10 @@ export class IndentDetailsPageComponent implements OnInit {
   onCreateApplication(){
       this.router.navigateByUrl('application');
   }
+
+  getDate(date) : Date {
+    return new Date(date);
+  }
+  
 
 }

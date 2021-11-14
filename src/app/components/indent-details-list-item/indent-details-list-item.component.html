@@ -1,8 +1,11 @@
-<div class="container">
+<div class="wrapper">
     <div class="loader-placeholder" *ngIf="!isLoaded">
         <img width="100px" height="auto" src="../../../assets/spinner.gif" alt="spinner">
     </div>
     <div  *ngIf="isLoaded" cdkDropListGroup class="mt-40">
+        <div class="or-spacer-vertical left">
+            <div class="mask"></div>
+          </div>
         <div class="group-container">
             <h2>Applicants</h2>
             <div cdkDropList [cdkDropListData]="applicants" class="categories" (cdkDropListDropped)="drop($event)">
@@ -28,6 +31,13 @@
             <h2>Contract Proposal</h2>
             <div cdkDropList [cdkDropListData]="thirdRound" class="categories" (cdkDropListDropped)="drop($event)">
                 <app-applicant-card [applicantsData]="thirdRound"></app-applicant-card>
+            </div>
+        </div>
+
+        <div class="group-container">
+            <h2>Rejected Profiles</h2>
+            <div class="categories">
+                <app-applicant-card [applicantsData]="rejectedProfiles"></app-applicant-card>
             </div>
         </div>
     </div>

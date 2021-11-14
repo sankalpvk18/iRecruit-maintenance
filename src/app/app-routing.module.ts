@@ -20,6 +20,7 @@ const routes: Routes = [
   {path: 'createindent/:id', component: CreateIndentComponent},
   {path:'indents',component:IndentPageComponent},
   {path:'indentdetails',component:IndentDetailsPageComponent},
+  {path:'indentdetails/:id/:by',component:IndentDetailsPageComponent},
   {path: 'screening',component:ScreeningComponent}
 ];
 

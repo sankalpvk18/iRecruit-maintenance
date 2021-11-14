@@ -1,4 +1,6 @@
-export default class Indents {
+import { Deserializable } from "../firebase-deserialisation";
+
+export default class Indents implements Deserializable {
     $key: string;
     role: string;
     description: number;
@@ -13,4 +15,9 @@ export default class Indents {
     max_work_ex: number;
     expected_joining_date: number;
     open: string;
+
+    deserialize(input: any): this {
+        Object.assign(this, input);
+        return this;
+    }
 }
