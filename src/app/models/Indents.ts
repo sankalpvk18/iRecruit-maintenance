@@ -1,4 +1,5 @@
 import { Deserializable } from "../firebase-deserialisation";
+import Applications from "./Applications";
 
 export default class Indents implements Deserializable {
     $key: string;
@@ -14,7 +15,9 @@ export default class Indents implements Deserializable {
     skills: string[];
     max_work_ex: number;
     expected_joining_date: number;
-    open: string;
+    open: boolean;
+    due_date: number;
+    applications: [Applications];
 
     deserialize(input: any): this {
         Object.assign(this, input);

@@ -8,17 +8,33 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {map, startWith} from 'rxjs/operators';
 import Indents from 'src/app/models/Indents';
 import { FirebaseDatabaseService } from 'src/app/services/firebase-database.service';
-import * as firebase from 'firebase/compat/app';
-import { Location } from '@angular/common'
+import { Location } from '@angular/common';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
 
 @Component({
   selector: 'app-create-indent',
   templateUrl: './create-indent.component.html',
+  providers: [
+    {provide: MAT_DATE_FORMATS, useValue: {
+      parse: {
+        dateInput: 'LL',
+      },
+      display: {
+        dateInput: 'LL',
+        monthYearLabel: 'MMM YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'MMMM YYYY',
+      },
+    }},
+  ],
   styleUrls: ['./create-indent.component.scss']
 })
 export class CreateIndentComponent implements OnInit {
 
   indents: Indents = new Indents();
+  minDate: Date;
+  date = new FormControl();
+  dueDate: Date;
 
   selectable = true;
   removable = true;
@@ -41,18 +57,20 @@ export class CreateIndentComponent implements OnInit {
   ];
   locations = new FormControl();
 
+
   locationsList: string[] = ['Pune', 'Mumbai', 'Hyderabad', 'Chennai', 'Delhi', 'Gurugram'];
   @ViewChild('skillInput') skillInput: ElementRef<HTMLInputElement>;
   isLoaded: boolean;
   constructor(private router:Router, private db:FirebaseDatabaseService, private location: Location, private route: ActivatedRoute,
     ) {
+      this.minDate = new Date();
     this.filteredSkills = this.skillCtrl.valueChanges.pipe(
       startWith(null),
       map((skill: string | null) => skill ? this._filter(skill) : this.allSkills.slice()));
    }
 
   ngOnInit(): void {
-    
+    this.date = new FormControl();
     this.route.params.subscribe(params => {
       console.log(params);
       if (params["id"]) {
@@ -118,16 +136,34 @@ export class CreateIndentComponent implements OnInit {
     this.indents.location = this.locations.value;
     this.indents.skills = this.skills;
     this.indents.created_on = new Date().getTime();
-    this.indents.open="true";
+    this.indents.open=true;
+    this.indents.due_date = this.dueDate.getTime();
+    
+    this.currentUser= sessionStorage.getItem("firebaseUserId");
+
     if (this.currentUser != null && this.currentUser.length>0) {
       this.indents.created_by = this.currentUser;
     }
- //   FirebaseDatabaseService.dbPath = '/indents/'+this.currentUser;
     this.db.create(this.indents).then(() => {
       console.log('Created new item successfully!');
     });
   }
 
- 
+  OnDateChange(date) {
+    this.dueDate = date;
+  }
 
 }
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'LL',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+

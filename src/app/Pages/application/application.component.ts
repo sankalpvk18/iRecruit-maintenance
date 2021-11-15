@@ -5,13 +5,13 @@ import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {map, startWith} from 'rxjs/operators';
+import {finalize, map, startWith} from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import Applications from '../../models/Applications';
 import { FirebaseDatabaseService } from 'src/app/services/firebase-database.service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
-
+import { AngularFireStorage } from "@angular/fire/compat/storage";
 
 @Component({
   selector: 'app-application',
@@ -44,13 +44,18 @@ export class ApplicationComponent implements OnInit {
     'Git (version control)'
   ];
 
+  downloadURL: Observable<string>;
+  imageURL ;
+  resumeURL;
+
   @ViewChild('skillInput') skillInput: ElementRef<HTMLInputElement>;
   // @ViewChild('ref') ref: MatDialogRef<any>;
 
   constructor(
     private _Activatedroute:ActivatedRoute, 
     private db:FirebaseDatabaseService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private storage: AngularFireStorage) {
     this.filteredSkills = this.skillCtrl.valueChanges.pipe(
       startWith(null),
       map((skill: string | null) => skill ? this._filter(skill) : this.allSkills.slice()));
@@ -110,7 +115,8 @@ export class ApplicationComponent implements OnInit {
     this.application.applied_on = new Date().getTime();
     this.application.rating=0;
     this.application.status="none";
-    
+    this.application.photo=this.imageURL;
+    this.application.resume=this.resumeURL;
   
 
 
@@ -127,5 +133,56 @@ export class ApplicationComponent implements OnInit {
       dialogRef.disableClose = true;
     }
 
+    onImageSelected(event){
+      var n = Date.now();
+      const file = event.target.files[0];
+      const filePath = `Images/${n}`;
+      const fileRef = this.storage.ref(filePath);
+      const task = this.storage.upload(`Images/${n}`, file);
+      task
+        .snapshotChanges()
+        .pipe(
+          finalize(() => {
+            this.downloadURL = fileRef.getDownloadURL();
+            this.downloadURL.subscribe(url => {
+              if (url) {
+                this.imageURL = url;
+              }
+              console.log(this.imageURL);
+            });
+          })
+        )
+        .subscribe(url => {
+          if (url) {
+            console.log(url);
+          }
+        });
+    }
+
+    onFileSelected(event){
+      var n = Date.now();
+      const file = event.target.files[0];
+      const filePath = `Resume/${n}`;
+      const fileRef = this.storage.ref(filePath);
+      const task = this.storage.upload(`Resume/${n}`, file);
+      task
+        .snapshotChanges()
+        .pipe(
+          finalize(() => {
+            this.downloadURL = fileRef.getDownloadURL();
+            this.downloadURL.subscribe(url => {
+              if (url) {
+                this.resumeURL = url;
+              }
+              console.log(this.resumeURL);
+            });
+          })
+        )
+        .subscribe(url => {
+          if (url) {
+            console.log(url);
+          }
+        });
+    }
   
 }

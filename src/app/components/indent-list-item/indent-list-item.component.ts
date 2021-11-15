@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router ,NavigationExtras} from '@angular/router';
 import { Location, LocationStrategy } from '@angular/common'
+import { FirebaseDatabaseService } from 'src/app/services/firebase-database.service';
 
 @Component({
   selector: 'app-indent-list-item',
@@ -16,13 +17,16 @@ export class IndentListItemComponent implements OnInit {
   arrIndents = [];
   isEditPanelOpen= false;
   isOutsideClicked = false;
+  applications=[];
 
-  constructor(private router:Router, private loction: Location, private locationStrategy: LocationStrategy) { }
+  constructor(private router:Router, private loction: Location, private locationStrategy: LocationStrategy, private db:FirebaseDatabaseService
+    ) { }
 
   ngOnInit(): void {
     if(this.indents != null) {
       console.log(this.indents);
       this.arrIndents = Array.from(this.indents)
+      
     }
   }
 
@@ -60,6 +64,14 @@ export class IndentListItemComponent implements OnInit {
     this.onToggleSwitched.emit(event);
   }
 
+  onToggleClicked(indent: any) {
+    const obj = {
+      open: !indent.open
+    }
+   this.db.update("/" + indent.key, obj);
+   window.location.reload();
+  }
+
   onItemCLicked(indent: any){
     this.router.navigate(["createindent", { id: indent.key }]);
   }
@@ -78,6 +90,29 @@ export class IndentListItemComponent implements OnInit {
 
   setPanelVisibilty() {
     this.isOutsideClicked = !this.isOutsideClicked;
+  }
+
+  getLength(indent: any){
+    console.log(indent.applications);
+    let arr = [];
+    if(indent.applications != null) {
+      // arr = Object.keys(indent.applications).map(function(key){  
+      //   this.applications.push(key)  
+      //   return this.applications;  
+      // });
+
+      for(let key in indent.applications){  
+        arr.push(key);  
+      }
+    }
+     
+    if(arr !=null){
+      return arr.length;
+    }
+    else{
+      return 0;
+    }
+    
   }
 
 }

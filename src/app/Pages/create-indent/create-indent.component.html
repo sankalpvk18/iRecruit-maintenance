@@ -94,8 +94,14 @@
                 </div>
 
                 <div class="due-date">
-                    <label for="duedate"  class="due-date_label" >Due date</label>
-                    <input type="date" class="due-date_input" id="duedate">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Choose a date</mat-label>
+                        <input matInput [min]="minDate" [matDatepicker]="picker" (dateInput)="OnDateChange($event.value)" [(ngModel)]="indents.due_date" [formControl]="date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    <!-- <label for="duedate"  class="due-date_label" >Due date</label>
+                    <input type="date" class="due-date_input" id="duedate" required [(ngModel)]="indents.due_date"> -->
                 </div>
 
             </div>

@@ -7,7 +7,7 @@ input {
     border-bottom: 1px solid #0000002b;
 }
 
-.container {
+.wrapper {
     position: relative;
     height: 100%;
     padding: 100px 100px;
@@ -82,8 +82,8 @@ input {
 .divider{
     position:absolute;
     left:55%;
-    top:25%;
-    bottom:25%;
+    top:30%;
+    bottom:1%;
     // border-left:1px solid rgb(0, 0, 0);
 }
 .mat-divider.mat-divider-vertical {

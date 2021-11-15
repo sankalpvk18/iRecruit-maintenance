@@ -1,4 +1,4 @@
-<div class="container">
+<div class="wrapper">
     <div class="app-logo">
         <img src="../../../assets/ICICI-Bank-PNG-Icon.png" alt="ICICI_logo">
     </div>
@@ -41,12 +41,12 @@
             <div class="upload pt-5">
                 <img src="../../../assets/camera (1)@2x.png"/>
                 <span style="margin-left: 10px;">Upload a recent picture</span>
-                <input class="width-60" type="file" placeholder="Upload a recent picture"/>
+                <input class="width-60" type="file" id="applicant_image" (change)="onImageSelected($event)"  accept="image/*" placeholder="Upload a recent picture"/>
             </div>
             <div class="upload">
                 <img src="../../../assets/resume@2x.png"/>
                 <span style="margin-left: 10px;">Upload Resume</span>
-                <input class="width-60" type="file" placeholder="Upload Resume"/>
+                <input class="width-60" type="file" id="applicant_resuume" (change)="onFileSelected($event)" accept=".pdf" placeholder="Upload Resume"/>
                 <!-- <span class="btn btn-primary btn-file">
                     Upload Resume<input type="file">
                 </span>

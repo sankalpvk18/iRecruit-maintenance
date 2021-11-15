@@ -1,52 +1,55 @@
-<div class="container">
-    <mat-card class="sub-container" *ngFor="let indent of arrIndents">
-        <div class="job-role-section" (click)="onIndentClicked(indent)">
-            <div class="jr_title">
-                <div class="jr_role">{{indent.role}}</div>
-                <app-more-menu [onParentDetectOutsideClick]="isOutsideClicked" (onItemCLicked)="onItemCLicked(indent)" (onOutsideClick)="setPanelVisibilty()"></app-more-menu>
+<div class="card-wrap">
+    <div class="content-align">
+        <mat-card class="sub-container" *ngFor="let indent of arrIndents">
+            <div class="job-role-section" (click)="onIndentClicked(indent)">
+                <div class="jr_title">
+                    <div class="jr_role">{{indent.role}}</div>
+                    <app-more-menu [onParentDetectOutsideClick]="isOutsideClicked" (onItemCLicked)="onItemCLicked(indent)" (onOutsideClick)="setPanelVisibilty()"></app-more-menu>
+                </div>
+                <div (click)="onCopyClicked(); $event.stopPropagation()">
+                    <div class="jr_link"  [cdkCopyToClipboard]="createApplicationUrl(indent)">
+                        <div>
+                            Copy application form URL
+                        </div>
+                        <div class="jr_mail-icon">
+                            <img src="../../../assets/copy.svg" alt="Copy_Icon">
+                        </div>
+                    </div>
+                </div>
+                <div class="jr_vacancy"><span style="font-weight: bold;">Vacancies: </span><span style="color: brown;font-weight: bold;">{{indent.vacancies}}</span></div>
+                <div class="jr_dept"><span style="font-weight: bold;">Department: </span><span style="color: teal;font-weight: bold;">{{indent.department}}</span></div>
+                <div class="jr_applications">
+                    <div><span style="font-weight: bold;">Cadidates Applied: </span> <span style="color: brown;font-weight: bold;">{{getLength(indent)}}</span></div>
+                    <div><span style="font-weight: bold;">In Progress: </span><span style="color: brown;font-weight: bold;">3</span></div>
+                </div>
+                <div class="jr_applications">
+                    <div><span style="font-weight: bold;">First Interview: </span><span style="color: brown;font-weight: bold;">2</span></div>
+                    <div><span style="font-weight: bold;">Second Interview: </span><span style="color: brown;font-weight: bold;">2</span></div>
+                </div>
+                <div class="jr_applications">
+                    <div><span style="font-weight: bold;">Offer Proposed: </span><span style="color: brown;font-weight: bold;">3</span></div>
+                    <div><span style="font-weight: bold;">Hired: </span><span style="color: green;font-weight: bold;">6</span></div>
+                </div>
+               
+                <div class="jr_applications">
+                    <div><a href="#"><span style="font-weight: bold; color: brown;">Rejected Profiles: 89</span></a></div>
+                    <div><span style="font-weight: bold;">Open Since: </span><span style="color: green;font-weight: bold;">{{getOpenSince(indent.created_on)}} Days</span></div>
+                </div>
             </div>
-            <div (click)="onCopyClicked(); $event.stopPropagation()">
-                <div class="jr_link"  [cdkCopyToClipboard]="createApplicationUrl(indent)">
+            <div class="job-desc-section">
+                <div class="jd_date">
                     <div>
-                        Copy application form URL
+                        Created on: {{getDate(indent.created_on) | date: 'dd/MM/yyyy'}}
                     </div>
-                    <div class="jr_mail-icon">
-                        <img src="../../../assets/copy.svg" alt="Copy_Icon">
+                    <div>
+                        Due on: {{indent.due_date | date: 'dd/MM/yyyy'}}
                     </div>
                 </div>
-            </div>
-            <div class="jr_vacancy"><span style="font-weight: bold;">Vacancies: </span><span style="color: brown;font-weight: bold;">{{indent.vacancies}}</span></div>
-            <div class="jr_dept"><span style="font-weight: bold;">Department: </span><span style="color: teal;font-weight: bold;">{{indent.department}}</span></div>
-            <div class="jr_applications">
-                <div><span style="font-weight: bold;">Cadidates Applied: </span> <span style="color: brown;font-weight: bold;">13</span></div>
-                <div><span style="font-weight: bold;">In Progress: </span><span style="color: brown;font-weight: bold;">3</span></div>
-            </div>
-            <div class="jr_applications">
-                <div><span style="font-weight: bold;">First Interview: </span><span style="color: brown;font-weight: bold;">2</span></div>
-                <div><span style="font-weight: bold;">Second Interview: </span><span style="color: brown;font-weight: bold;">2</span></div>
-            </div>
-            <div class="jr_applications">
-                <div><span style="font-weight: bold;">Offer Proposed: </span><span style="color: brown;font-weight: bold;">3</span></div>
-                <div><span style="font-weight: bold;">Hired: </span><span style="color: green;font-weight: bold;">6</span></div>
-            </div>
-           
-            <div class="jr_applications">
-                <div><a href="#"><span style="font-weight: bold; color: brown;">Rejected Profiles: 89</span></a></div>
-                <div><span style="font-weight: bold;">Open Since: </span><span style="color: green;font-weight: bold;">{{getOpenSince(indent.created_on)}} Days</span></div>
-            </div>
-        </div>
-        <div class="job-desc-section">
-            <div class="jd_date">
-                <div>
-                    Created on: {{getDate(indent.created_on) | date: 'dd/MM/yyyy'}}
+                <div class="jd_publish" (click)="onToggleClicked(indent)">
+                    <app-toggle-button [isOpen]="indent.open" (statusToggle)="onToggle($event)"></app-toggle-button>
                 </div>
-                <div>
-                    Due on:
-                </div>
+                <!-- [isToggleClicked]="" -->
             </div>
-            <div class="jd_publish">
-                <app-toggle-button [isOpen]="indent.open" (statusToggle)="onToggle($event)"></app-toggle-button>
-            </div>
-        </div>
-    </mat-card>
+        </mat-card>
+    </div>
 </div>

@@ -56,6 +56,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MenuItemComponent } from './components/menu-item/menu-item.component';
 import { DialogFeedbackComponent } from './components/dialog-feedback/dialog-feedback.component';
 import { MoreMenuComponent } from './more-menu/more-menu.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+
 
 @NgModule({
   declarations: [
@@ -107,6 +110,8 @@ import { MoreMenuComponent } from './more-menu/more-menu.component';
     NgbModule,
     MatDialogModule,
     MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     NgCircleProgressModule.forRoot({
       // set defaults here
       radius: 80,

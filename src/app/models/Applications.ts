@@ -5,7 +5,7 @@ export default class Applications {
     name: string;
     email: string;
     resume: string;
-    photo: string;
+    photo: URL;
     skills: string[];
     work_ex: number;
     phone: number;

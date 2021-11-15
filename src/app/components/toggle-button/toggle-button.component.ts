@@ -9,7 +9,7 @@ export class ToggleButtonComponent implements OnInit {
 
   @Output() statusToggle: EventEmitter<any> = new EventEmitter();
   @Input() isOpen: any = null;
-  isToggleOn = false;
+  isToggleOn: boolean;
   isValuePresent = false;
 
   // isOpen = 'true';
@@ -18,14 +18,16 @@ export class ToggleButtonComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.isOpen != null) {
-      this.isToggleOn = this.isOpen == 'true' ? true : false;
+      this.isToggleOn = this.isOpen == true ? true : false;
       this.isValuePresent = true;
     }
-    // this.isOpen = this.isOpen ? "true" : "false";
   }
 
   setToggle(isToggleOn: boolean) : string {
-    this.statusToggle.emit(isToggleOn ? true : false);
+    // this.statusToggle.emit(isToggleOn ? true : false);
+    // if(this.isOpen != null && this.isOpen == !this.isOpen) {
+    //   this.statusToggle.emit(isToggleOn ? true : false);
+    // }
     return isToggleOn ? "Open" : "Closed";
   }
 

@@ -13,7 +13,7 @@ import { Deserializable } from 'src/app/firebase-deserialisation';
   templateUrl: './indent-page.component.html',
   styleUrls: ['./indent-page.component.scss']
 })
-export class IndentPageComponent implements OnInit, Deserializable {
+export class IndentPageComponent implements OnInit {
 
   list: any[];
   indents: any = [];
@@ -25,10 +25,6 @@ export class IndentPageComponent implements OnInit, Deserializable {
     private router:Router,
     private db:FirebaseDatabaseService,
     private _snackBar: MatSnackBar) { }
-
-  deserialize(input: any): this {
-    throw new Error('Method not implemented.');
-  }
 
   ngOnInit(): void {
     console.log("firebase user id inside: " + sessionStorage.getItem("firebaseUserId"));
@@ -55,10 +51,10 @@ export class IndentPageComponent implements OnInit, Deserializable {
   }
   
   onToggleSwitched(event) {
-    const obj = {
-      open: "false"
-    }
-   this.db.update("/-MoSblrTo9fcEa_NGBGq", obj);
+  //   const obj = {
+  //     open: "false"
+  //   }
+  //  this.db.update("/-MoSblrTo9fcEa_NGBGq", obj);
   //  window.location.reload();
    // this.getIndentsList();
   }
