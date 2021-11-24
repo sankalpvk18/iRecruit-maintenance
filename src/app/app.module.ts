@@ -58,6 +58,7 @@ import { DialogFeedbackComponent } from './components/dialog-feedback/dialog-fee
 import { MoreMenuComponent } from './more-menu/more-menu.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatStepperModule} from '@angular/material/stepper';
 
 
 @NgModule({
@@ -126,7 +127,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     }),
     ClipboardModule,
     MatSnackBarModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    MatStepperModule
   ],
   providers: [FirebaseService],
   bootstrap: [AppComponent]

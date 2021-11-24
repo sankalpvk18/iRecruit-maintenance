@@ -17,7 +17,8 @@ export class IndentDetailsPageComponent implements OnInit {
     department: string,
     vacancies: number,
     created_on: number,
-    role: string
+    role: string,
+    skills: [any]
     };
   
     this.indent=state;    

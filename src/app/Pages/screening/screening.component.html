@@ -1,40 +1,89 @@
-
-
 <div class="wrapper">
     <div class="app-logo">
         <img src="../../../assets/ICICI-Bank-PNG-Icon.png" alt="ICICI_logo">
     </div>
     <div class="title">Screening</div>
-    
-    <div class="profile-match">
-      <circle-progress
-        [percent]="85"
-        [radius]="80"
-        [outerStrokeWidth]="12"
-        [innerStrokeWidth]="6"
-        [outerStrokeColor]="'#78C000'"
-        [innerStrokeColor]="'#C7E596'"
-        [animation]="true"
-        [animationDuration]="300">
-      </circle-progress>
-     
+
+    <div class="sub-container">
+
+      <div class="sidebar"></div>
+
+      <mat-card class="profile-and-matching-card">
+        <div class="profile-details">
+  
+          <div class="profile-image"> 
+            <img [src]="screeningData.applicantDetails.photo" >
+          </div>
+        
+          <div class="profile-name">{{screeningData.applicantDetails.name}}</div>
+          <div class="profile-details-container">
+
+            <div class="details-section">
+              <div class="details-item">
+                <div class="detail-desc">Contact:</div>
+                <div class="detail-desc">Email:</div>
+                <div class="detail-desc">Work Experience:</div>
+              </div>
+              <div class="details-item">
+                <div class="detail-value">{{screeningData.applicantDetails.phone}}</div>
+                <div class="detail-value">{{screeningData.applicantDetails.email}}</div>
+                <div class="detail-value">{{screeningData.applicantDetails.work_ex}} years</div>
+              </div>
+            </div>
+        
+          <div class="profile_details-resume" (click)="openResume()">
+              <img class="profile_details-resumeIcon" src="../../../assets/pdf.svg">
+              <span style="color: brown;">Open Resume</span>
+          </div>
+  
+          </div>
+        </div>
+        <div class="skills-list">
+            <div class="skill-match-container">
+              <div class="profile-match">
+                <circle-progress
+                  [percent]="getMatchingPercentage()"
+                  [radius]="50"
+                  [outerStrokeWidth]="8"
+                  [innerStrokeWidth]="4"
+                  [outerStrokeColor]="'#78C000'"
+                  [innerStrokeColor]="'#C7E596'"
+                  [animation]="true"
+                  [animationDuration]="300">
+                </circle-progress>
+              </div>
+              <div class="skill-chips">
+                <mat-chip-list *ngFor="let skill of skills">
+                  <mat-chip [ngClass]="getSkillClass(skill)">{{skill}}</mat-chip>
+                </mat-chip-list>
+              </div>
+            </div>
+        </div>
+      </mat-card>
+      
+      <div class="right-sidebar">
+        <mat-stepper orientation="vertical">
+          <mat-step>
+            <ng-template matStepLabel>Indent created on:</ng-template>
+            <ng-template matStepContent>
+              <p>This content was rendered lazily</p>
+            </ng-template>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Applied on:</ng-template>
+            <ng-template matStepContent>
+              <p>{{screeningData.applicantDetails.applied_on | date: 'dd/MM/yyyy'}}</p>
+              </ng-template>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Step 3</ng-template>
+            </mat-step>
+        </mat-stepper>
+      </div>
+
     </div>
-    <div class="profile-job-role">Sales Manager</div>
-   
-    <div class="profile-image"> 
-      <img src="../../../assets/user.png">
-    </div>
-   
-    <div class="profile-name">Sukalp Tripathi</div>
-    <div class="profile-details-container">
-    <div class="profile-details"><span style="font-weight: bold;">Contact number :</span></div>
-    <div class="profile-details"><span style="font-weight: bold;">Email :</span></div>
-    <div class="profile-details"><span style="font-weight: bold;">Work Experience :</span></div>
-    <div class="profile-details"><span style="font-weight: bold;">Salary Expectation :</span></div>
-    
-    
-    </div>
-   <div class="action-buttons">
+
+    <div class="action-buttons">
        <mat-card class="action-buttons__btns" (click)="onReject()">
         <img src="../../../assets/cancel.svg" alt="cancel" class="create-indent__btn_img">
         <p>Reject</p>

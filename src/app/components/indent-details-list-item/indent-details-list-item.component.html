@@ -9,28 +9,28 @@
         <div class="group-container">
             <h2>Applicants</h2>
             <div cdkDropList [cdkDropListData]="applicants" class="categories" (cdkDropListDropped)="drop($event)">
-                <app-applicant-card [applicantsData]="applicants"></app-applicant-card>
+                <app-applicant-card [applicantsData]="applicants" [requiredSkills]="requiredSkills"></app-applicant-card>
             </div>
         </div>
 
         <div class="group-container">
             <h2>First Interview</h2>
             <div cdkDropList [cdkDropListData]="firstRound" class="categories" (cdkDropListDropped)="drop($event)">
-                <app-applicant-card [applicantsData]="firstRound"></app-applicant-card>
+                <app-applicant-card [applicantsData]="firstRound" [requiredSkills]="requiredSkills"></app-applicant-card>
             </div>
         </div>
 
         <div class="group-container">
             <h2>Second Interview</h2>
             <div cdkDropList [cdkDropListData]="secondRound" class="categories" (cdkDropListDropped)="drop($event)">
-                <app-applicant-card [applicantsData]="secondRound"></app-applicant-card>
+                <app-applicant-card [applicantsData]="secondRound" [requiredSkills]="requiredSkills"></app-applicant-card>
             </div>
         </div>
 
         <div class="group-container">
             <h2>Contract Proposal</h2>
             <div cdkDropList [cdkDropListData]="thirdRound" class="categories" (cdkDropListDropped)="drop($event)">
-                <app-applicant-card [applicantsData]="thirdRound"></app-applicant-card>
+                <app-applicant-card [applicantsData]="thirdRound" [requiredSkills]="requiredSkills"></app-applicant-card>
             </div>
         </div>
 

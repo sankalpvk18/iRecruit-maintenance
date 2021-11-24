@@ -53,7 +53,8 @@ export class IndentListItemComponent implements OnInit {
         department: indent.department,
         vacancies: indent.vacancies,
         created_on: indent.created_on,
-        role: indent.role
+        role: indent.role,
+        skills: indent.skills
       }
     }
 

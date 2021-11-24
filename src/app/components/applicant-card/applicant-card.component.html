@@ -1,4 +1,4 @@
-<div class="each-box" *ngFor="let item of applicantsData" cdkDrag (click)="openApplicant()">
+<div class="each-box" *ngFor="let item of applicantsData" cdkDrag (click)="openApplicant(item)">
     <div class="applicant-name">{{item.name}}</div> 
     <app-rating [rating]="item.rating"></app-rating>
 </div>

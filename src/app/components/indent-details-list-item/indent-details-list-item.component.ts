@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
 import { map } from 'rxjs/operators';
@@ -14,6 +14,7 @@ export class IndentDetailsListItemComponent implements OnInit {
 
 
   isLoaded = false;
+  @Input() requiredSkills = []
 
   applicantsDetails: any = [];
 

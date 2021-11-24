@@ -1,6 +1,6 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import {NavigationExtras, Router} from '@angular/router';
 
 @Component({
   selector: 'app-applicant-card',
@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 export class ApplicantCardComponent implements OnInit {
 
   @Input() applicantsData: any = [];
+  @Input() requiredSkills = [];
 
   applicants = [
     'Jorge Wheeler',
@@ -32,6 +33,7 @@ export class ApplicantCardComponent implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit(): void {
+    console.log("required skills" + this.requiredSkills);
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -45,8 +47,18 @@ export class ApplicantCardComponent implements OnInit {
     }
   }
 
-  openApplicant(){
-    this.router.navigateByUrl('/screening');    
+  openApplicant(data){
+
+    const navigationExtras: NavigationExtras = {
+      state: {
+        requiredSkills: this.requiredSkills,
+        applicantDetails: data
+      }
+    }
+
+    this.router.navigate(['screening'],navigationExtras);
+
+    // this.router.navigateByUrl('/screening');    
   }
 
 }
