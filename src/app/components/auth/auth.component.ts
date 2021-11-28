@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -46,8 +46,13 @@ export class AuthComponent implements OnInit {
 
     this.httpClient.post<any>('https://oauth2.googleapis.com/token', { headers }, {params}).subscribe(data => {
       console.log(data);
+      this.redirectToScreeningPage(data.access_token);
     });
+    
+  }
 
+  redirectToScreeningPage(access_token: string) {
+    this.router.navigate(['screening', access_token]);
   }
 
 }

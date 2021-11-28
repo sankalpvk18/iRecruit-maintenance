@@ -59,6 +59,9 @@ import { MoreMenuComponent } from './more-menu/more-menu.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatStepperModule} from '@angular/material/stepper';
+import { AuthComponent } from './components/auth/auth.component';
+import {HttpClientModule} from '@angular/common/http';
+import { CalendarViewComponent } from './components/calendar-view/calendar-view.component'
 
 
 @NgModule({
@@ -81,6 +84,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     MenuItemComponent,
     DialogFeedbackComponent,
     MoreMenuComponent,
+    AuthComponent,
+    CalendarViewComponent,
 
   ],
   imports: [
@@ -128,7 +133,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     ClipboardModule,
     MatSnackBarModule,
     ClickOutsideModule,
-    MatStepperModule
+    MatStepperModule,
+    HttpClientModule
   ],
   providers: [FirebaseService],
   bootstrap: [AppComponent]

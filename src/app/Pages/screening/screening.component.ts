@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatDialog } from '@angular/material/dialog';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { merge } from 'rxjs';
+import { CalendarViewComponent } from 'src/app/components/calendar-view/calendar-view.component';
 import { DialogFeedbackComponent } from 'src/app/components/dialog-feedback/dialog-feedback.component';
 import Applicant from 'src/app/models/Applicant';
 
@@ -43,15 +44,16 @@ export class ScreeningComponent implements OnInit {
         ],
         "status": "none",
         "work_ex": 3
-    }
+    },
+    "accessToken": ""
   }
   
 
-  constructor(private router: Router,public dialog: MatDialog) { 
+  constructor(private router: Router,public dialog: MatDialog, private route: ActivatedRoute) { 
     // const navigation = this.router.getCurrentNavigation();
     // const state = navigation.extras.state as {
     //   requiredSkills: any,
-    //   applicantDetails: Applicant
+    //   applicantDetails: Applicant,
     // };
 
     // this.screeningData=state;
@@ -60,8 +62,17 @@ export class ScreeningComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let token = this.route.snapshot.paramMap.get('accessToken');
+    if(token) {
+      this.openDialog();
+    }
     this.screeningData = this.tempData;
     this.setSkillsMatched(this.tempData.requiredSkills, this.tempData.applicantDetails.skills);
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(CalendarViewComponent);
+    dialogRef.disableClose = true;
   }
 
   setSkillsMatched(required: string[], posses: string[]) {
@@ -146,6 +157,29 @@ export class ScreeningComponent implements OnInit {
       }
     }
     return "none";
+  }
+
+  scheduleEvent() {
+    this.fetchAccessToken();
+  }
+
+  fetchAccessToken() {
+
+
+    var redirectURL = "https://accounts.google.com/o/oauth2/v2/auth?" 
+    + "scope=https://www.googleapis.com/auth/calendar+https://www.googleapis.com/auth/calendar.events&"
+    + "access_type=online&"
+    + "include_granted_scopes=true&"
+    + "response_type=code&"
+    + "state=hey&"
+    + "redirect_uri=http://localhost:4200/auth&"
+    + "client_id=959162043529-4l0a64ou7ninndoeu0mh2sqt6cgkk54r.apps.googleusercontent.com";
+
+    window.location.href = redirectURL;
+  }
+
+  public Callback(code: string, error: string, state: string) {
+    console.log("code by google is - " + code);
   }
 
 }

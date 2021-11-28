@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthComponent } from './components/auth/auth.component';
 import { ApplicationComponent } from './Pages/application/application.component';
 import { CreateIndentComponent } from './Pages/create-indent/create-indent.component';
 import { HomeComponent } from './Pages/home/home.component';
@@ -21,7 +22,9 @@ const routes: Routes = [
   {path:'indents',component:IndentPageComponent},
   {path:'indentdetails',component:IndentDetailsPageComponent},
   {path:'indentdetails/:id/:by',component:IndentDetailsPageComponent},
-  {path: 'screening',component:ScreeningComponent}
+  {path: 'screening',component:ScreeningComponent},
+  {path: 'screening/:accessToken',component:ScreeningComponent},
+  {path: 'auth', component: AuthComponent}
 ];
 
 @NgModule({
