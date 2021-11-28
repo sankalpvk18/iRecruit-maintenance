@@ -1,0 +1,208 @@
+@import '../../../styles.scss';
+.wrapper {
+    position: relative;
+    height: 100%;
+    padding: 40px 60px;
+}
+
+.sub-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 40px;
+    height: 600px;
+}
+
+.sidebar {
+    width: 30%;
+}
+
+.right-sidebar {
+    width: 30%;
+}
+
+.app-logo {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    img {
+        width: 100px;
+        height: 100px;
+    }
+}
+.profile-match {
+    img {
+        border-radius: 50%;
+        width: 100px;
+        height: auto;
+    }
+}
+
+.profile-job-role{
+    
+}
+
+
+.profile-image{
+    img {
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        border: 2px solid #d6d2d296;
+    }
+}
+
+.profile-name{
+    font-size: 18pt;
+    font-weight: 500;
+    margin-top: 10px;
+}
+.profile-details-container{
+    margin-top: 40px;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    .profile-details-item{
+        margin-top: 20px;
+    }
+    
+}
+.details-section {
+    display: flex;
+    justify-content: space-between;
+}
+.details-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .detail-desc {
+        font-size: 12pt;
+        color: #343a40;
+    }
+    .detail-value {
+        font-size: 12pt;
+        display: flex;
+        justify-content: flex-start;
+    }
+}
+.profile-and-matching-card {
+    display: flex;
+    padding: 40px;
+    width: 60%;
+}
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+.profile_details-resume{
+    margin-top: 60px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #a5393975;
+    padding: 10px;
+    justify-content: center;
+    align-self: center;
+    width: 60%;
+
+    .profile_details-resumeIcon{
+        height: 24px;
+        width: 24px;
+    }
+}
+
+.skills-list{
+    width: 70%;
+    padding: 20px;
+    // border-radius: 5px;      
+    // border-width: 2px;
+    // border-color: black;
+}   
+.skill-match-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.skill-chips {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+    mat-chip-list {
+        margin: 5px;
+    }
+}
+
+.title{
+    position: absolute;
+    left: 15%;
+    top: 11%;
+    color: #0C215C;
+    font-size: 20px;
+}
+.action-buttons{
+    position: absolute;
+    bottom: 5%;
+    right: 0%;
+    display: flex;
+    justify-content: space-between;
+    width: fit-content;
+    height: auto;
+   
+    .action-buttons__btns{
+    display: flex;
+    justify-content: center ;
+    height: 40px;
+    margin: 0 20px;
+    border-radius: 40px;
+    padding:10px 20px;
+    color: #0C215C;
+    align-items: center;
+    cursor: pointer;
+
+        img{
+            width: 15px;
+            height: auto;
+            margin: 0px 5px;
+        }
+    }
+}
+.action_back_btn{
+    position: absolute;
+    bottom: 5%;
+    left: 2.5%;
+    display: flex;
+    justify-content: center ;
+    height: 40px;
+    margin: 0 20px;
+    border-radius: 40px;
+    padding:10px 20px;
+    color: #0C215C;
+    align-items: center;
+    cursor: pointer;
+
+        img{
+            width: 15px;
+            height: auto;
+            margin: 0px 5px;
+        }
+    
+}
+.skill-item--matched {
+    background-color: #78C000;
+    color: white;
+}
+.skill-item--unmatched {
+    background-color: #A52A2A;
+    color: white;
+}
+.skill-item--extra {
+    background-color: #3776ab;
+    color: white;
+}
