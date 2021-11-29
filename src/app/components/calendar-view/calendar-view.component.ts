@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CalendarOptions } from '@fullcalendar/angular'; // useful for typechecking
 import interactionPlugin from '@fullcalendar/interaction';
 import { scheduled } from 'rxjs';
@@ -10,20 +12,116 @@ import { scheduled } from 'rxjs';
 })
 export class CalendarViewComponent implements OnInit {
 
+  token: string;
+  currentStartEvent: string;
+  currentEndEvent: string;
+
   calendarOptions: CalendarOptions = {
+    selectable: true,
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    },
+    googleCalendarApiKey: "AIzaSyBl4jUf3i5tL_Vu3QdSVRsWv30qC7h6gGM",
+    events: {
+      googleCalendarId: 'https://calendar.google.com/calendar/embed?src=sukalp18%40gmail.com&ctz=Asia%2FKolkata'
+    },
     initialView: 'dayGridMonth',
     dateClick: (dateClickEvent) =>  {         // <-- add the callback here as one of the properties of `options`
-      this.scheduleInterview(dateClickEvent);
+      // this.scheduleInterview(dateClickEvent);
+    },
+    select: (info) => {
+      // this.scheduleInterview(info);
+      this.createEvent(info);
+      // alert('selected ' + info.startStr + ' to ' + info.endStr);
     }
   };
 
-  constructor() { }
+  constructor(private httpClient: HttpClient, @Inject(MAT_DIALOG_DATA) public email: string) { }
 
   ngOnInit(): void {
+    this.token = localStorage.getItem("access_token");
+    this.getCalendarEvents();
+    console.log("email from screening - " + this.email)
   }
 
-  scheduleInterview(dateClickEvent: any) {
-    console.log(dateClickEvent);
+  scheduleInterview(selectEvent: any) {
+    let events = [
+      { title: 'event 1', date: '2021-11-30' , allDay: false},
+      { title: 'event 2', date: '2021-11-30' }
+    ]
+    this.calendarOptions.events = events;
+    console.log(selectEvent);
+  }
+
+  createEvent(info: any) {
+    this.currentEndEvent = info.startStr;
+    this.currentEndEvent = info.endStr;
+    var event = {
+      'summary': 'New Event Created',
+      'location': '800 Howard St., San Francisco, CA 94103',
+      'description': 'A chance to hear more about Google\'s developer products.',
+      'start': {
+        'dateTime': info.startStr,
+        'timeZone': 'America/Los_Angeles'
+      },
+      'end': {
+        'dateTime': info.endStr,
+        'timeZone': 'America/Los_Angeles'
+      },
+      'recurrence': [
+        'RRULE:FREQ=DAILY;COUNT=2'
+      ],
+      'attendees': [
+        {'email': 'sukalp18@gmail.com'},
+        {'email': this.email}
+      ],
+      'reminders': {
+        'useDefault': false
+      }
+    };
+
+    let param = new HttpParams();
+    param = param.set('key', 'AIzaSyBl4jUf3i5tL_Vu3QdSVRsWv30qC7h6gGM');
+
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.token,
+      'Accept': 'application/json',
+      'Content-type': 'application/json' }),
+      params: param
+    };
+
+    const body = event;
+
+    this.httpClient.post<any>('https://www.googleapis.com/calendar/v3/calendars/primary/events', body, httpOptions).subscribe(data => {
+      console.log(data);
+      if(data.status == "confirmed") {
+        let events = [
+          { title: 'event 1', date: this.currentStartEvent , allDay: false},
+        ]
+        this.calendarOptions.events = events;
+      }
+    });
+
+  }
+
+  getCalendarEvents() {
+    let param = new HttpParams();
+    param = param.set('scope', 'https://www.googleapis.com/auth/calendar');
+
+    const httpOptions = {
+      params: param
+    };
+
+    // this.httpClient.get<any>('https://www.googleapis.com/calendar/v3/calendars/primary/events/eventId', httpOptions).subscribe(data => {
+    //   console.log(data);
+    // });
+
+    this.httpClient.get<any>('https://www.googleapis.com/calendar/v3/users/me/calendarList', httpOptions).subscribe(data => {
+      console.log(data);
+    });
+
   }
 
 

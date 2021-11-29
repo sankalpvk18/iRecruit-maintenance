@@ -65,10 +65,14 @@ import { CalendarViewComponent } from './components/calendar-view/calendar-view.
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
+import timeGridPlugin from '@fullcalendar/timegrid';
+import googleCalendarPlugin from '@fullcalendar/google-calendar';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
-  interactionPlugin
+  timeGridPlugin,
+  interactionPlugin,
+  googleCalendarPlugin
 ]);
 
 @NgModule({

@@ -63,17 +63,20 @@ export class ScreeningComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.screeningData = this.tempData;
     let token = this.route.snapshot.paramMap.get('accessToken');
     if(token) {
+      localStorage.setItem('access_token',token);
       this.openDialog();
       // this.createEvent(token);
     }
-    this.screeningData = this.tempData;
     this.setSkillsMatched(this.tempData.requiredSkills, this.tempData.applicantDetails.skills);
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(CalendarViewComponent);
+    const dialogRef = this.dialog.open(CalendarViewComponent, {
+        data: this.screeningData.applicantDetails.email
+    });
   }
 
   setSkillsMatched(required: string[], posses: string[]) {
