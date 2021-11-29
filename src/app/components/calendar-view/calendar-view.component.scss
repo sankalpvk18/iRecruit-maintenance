@@ -1,0 +1,23 @@
+.container {
+    position: relative;
+    width: 600px;
+    height: 550px;
+}.title {
+    color: #0C215C;
+    font-size: 20px;
+}
+.close-icon {
+    position: absolute;
+    right: 0%;
+    top: 0%;
+    img {
+        width: 20px;
+        height: 20px;
+    }
+}
+.calender {
+    margin-top: 20px;
+}
+::ng-deep.fc .fc-daygrid-day-top {
+    cursor: pointer;
+}

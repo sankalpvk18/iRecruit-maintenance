@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatDialog } from '@angular/material/dialog';
@@ -49,7 +50,7 @@ export class ScreeningComponent implements OnInit {
   }
   
 
-  constructor(private router: Router,public dialog: MatDialog, private route: ActivatedRoute) { 
+  constructor(private router: Router,public dialog: MatDialog, private route: ActivatedRoute, private httpClient: HttpClient) { 
     // const navigation = this.router.getCurrentNavigation();
     // const state = navigation.extras.state as {
     //   requiredSkills: any,
@@ -65,6 +66,7 @@ export class ScreeningComponent implements OnInit {
     let token = this.route.snapshot.paramMap.get('accessToken');
     if(token) {
       this.openDialog();
+      // this.createEvent(token);
     }
     this.screeningData = this.tempData;
     this.setSkillsMatched(this.tempData.requiredSkills, this.tempData.applicantDetails.skills);
@@ -72,7 +74,6 @@ export class ScreeningComponent implements OnInit {
 
   openDialog() {
     const dialogRef = this.dialog.open(CalendarViewComponent);
-    dialogRef.disableClose = true;
   }
 
   setSkillsMatched(required: string[], posses: string[]) {
@@ -160,6 +161,7 @@ export class ScreeningComponent implements OnInit {
   }
 
   scheduleEvent() {
+    // this.openDialog();
     this.fetchAccessToken();
   }
 
@@ -178,8 +180,59 @@ export class ScreeningComponent implements OnInit {
     window.location.href = redirectURL;
   }
 
-  public Callback(code: string, error: string, state: string) {
-    console.log("code by google is - " + code);
+  createEvent(accessToken: string) {
+    var event = {
+      'summary': 'Google I/O 2015',
+      'location': '800 Howard St., San Francisco, CA 94103',
+      'description': 'A chance to hear more about Google\'s developer products.',
+      'start': {
+        'dateTime': '2021-11-30T09:00:00-07:00',
+        'timeZone': 'America/Los_Angeles'
+      },
+      'end': {
+        'dateTime': '2021-11-30T17:00:00-07:00',
+        'timeZone': 'America/Los_Angeles'
+      },
+      'recurrence': [
+        'RRULE:FREQ=DAILY;COUNT=2'
+      ],
+      'attendees': [
+        {'email': 'sukalp18@gmail.com'},
+        {'email': 'sankalpvk18@gmail.com'}
+      ],
+      'reminders': {
+        'useDefault': false
+      }
+    };
+    
+
+    var resource = {
+      "summary": "Appointment",
+      "location": "Somewhere",
+      "start": {
+        "dateTime": "2021-12-20T10:00:00.000-07:00"
+      },
+      "end": {
+        "dateTime": "2021-12-20T10:25:00.000-07:00"
+        }
+      };
+
+    let param = new HttpParams();
+    param = param.set('key', 'AIzaSyBl4jUf3i5tL_Vu3QdSVRsWv30qC7h6gGM');
+
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Authorization': 'Bearer ' + accessToken,
+      'Accept': 'application/json',
+      'Content-type': 'application/json' }),
+      params: param
+    };
+
+    const body = event;
+
+    this.httpClient.post<any>('https://www.googleapis.com/calendar/v3/calendars/primary/events', body, httpOptions).subscribe(data => {
+      console.log(data);
+    });
+
   }
 
 }

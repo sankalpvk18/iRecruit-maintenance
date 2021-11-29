@@ -62,7 +62,14 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { AuthComponent } from './components/auth/auth.component';
 import {HttpClientModule} from '@angular/common/http';
 import { CalendarViewComponent } from './components/calendar-view/calendar-view.component'
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin
+]);
 
 @NgModule({
   declarations: [
@@ -134,7 +141,8 @@ import { CalendarViewComponent } from './components/calendar-view/calendar-view.
     MatSnackBarModule,
     ClickOutsideModule,
     MatStepperModule,
-    HttpClientModule
+    HttpClientModule,
+    FullCalendarModule
   ],
   providers: [FirebaseService],
   bootstrap: [AppComponent]
