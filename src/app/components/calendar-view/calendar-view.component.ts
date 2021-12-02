@@ -60,8 +60,8 @@ export class CalendarViewComponent implements OnInit {
     this.currentEndEvent = info.endStr;
     var event = {
       'summary': 'New Event Created',
-      'location': '800 Howard St., San Francisco, CA 94103',
-      'description': 'A chance to hear more about Google\'s developer products.',
+      'location': 'NMIMS,Mumbai',
+      'description': 'IRecruit Demo',
       'start': {
         'dateTime': info.startStr,
         'timeZone': 'America/Los_Angeles'
