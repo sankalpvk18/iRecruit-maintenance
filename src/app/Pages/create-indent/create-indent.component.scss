@@ -192,7 +192,7 @@
 .divider{
     position:absolute;
     left:54%;
-    top:40%;
+    top:20%;
     bottom:10%;
     // border-left:1px solid rgb(0, 0, 0);
 }
@@ -267,4 +267,13 @@
 
    
 
+}
+::ng-deep.mat-simple-snackbar {
+    justify-content: center !important;
+    span {
+        color: #0c215c;
+    }
+}
+::ng-deep.mat-snack-bar-container {
+    background: white !important;
 }

@@ -113,9 +113,9 @@
         color: #0c215c;
     }
 }
-::ng-deep.cdk-overlay-pane {
-    pointer-events: none;
-}
 ::ng-deep.mat-snack-bar-container {
     background: white !important;
+}
+::ng-deep.cdk-overlay-pane {
+    pointer-events: none;
 }

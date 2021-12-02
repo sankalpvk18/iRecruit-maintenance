@@ -4,20 +4,7 @@
     </div>
     <div class="title">Create Indent</div>
     <div class="sub-container">
-        <div class="search-bar">
-            <div class="search-bar__input m-20">
-                <div class="search-bar__icon m-10">
-                    <img src="../../../assets/search.svg" alt="Search_Icon">
-                </div>
-                <input type="search" name="search" placeholder="search indents by job role">
-            </div>
-            <div class="search-bar__btn m-20 ">
-                <mat-card class="search-bar__btn_card hvr-sweep-to-right">
-                    Search
-                </mat-card>
-            </div>
-        </div>
-
+       
         <div class="form-and-skills-section">
             <div class="form-section">
 
@@ -100,29 +87,19 @@
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                       </mat-form-field>
-                    <!-- <label for="duedate"  class="due-date_label" >Due date</label>
-                    <input type="date" class="due-date_input" id="duedate" required [(ngModel)]="indents.due_date"> -->
+                   
                 </div>
 
             </div>
         </div>
     </div>
 
-    <!-- </div> -->
+   
 
-    <div class="profile-image">
-        <img src="../../../assets/profile.png" alt="Profile_Pic">
-    </div>
+
 
     <div class="action-buttons">
-        <mat-card class="action-buttons__btns">
-            <img src="../../../assets/cancel.svg" alt="cancel" class="create-indent__btn_img">
-            <p>cancel</p>
-        </mat-card>
-        <mat-card class="action-buttons__btns">
-            <img src="../../../assets/draft.svg" alt="save to draft" class="create-indent__btn_img">
-            <p>save to draft</p>
-        </mat-card>
+    
         <mat-card class="action-buttons__btns" (click)=createIndent()>
             <img src="../../../assets/check.svg" alt="create indent" class="create-indent__btn_img">
             <p>create indent</p>

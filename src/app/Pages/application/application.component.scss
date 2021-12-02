@@ -149,3 +149,12 @@ input {
     border-radius: 20px;
     padding: 0 40px;
 }
+::ng-deep.mat-simple-snackbar {
+    justify-content: center !important;
+    span {
+        color: #0c215c;
+    }
+}
+::ng-deep.mat-snack-bar-container {
+    background: white !important;
+}

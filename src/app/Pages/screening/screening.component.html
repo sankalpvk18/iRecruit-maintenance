@@ -57,6 +57,20 @@
                   <mat-chip [ngClass]="getSkillClass(skill)">{{skill}}</mat-chip>
                 </mat-chip-list>
               </div>
+              <div classs="skill-legends">
+                <div class="skill-legends_item">
+                        <div class="skill-legend_item_required"></div>
+                        <div>Matched skills</div>  
+                </div>
+                <div class="skill-legends_item">
+                        <div class="skill-legend_item_unmatched"></div>
+                        <div>Unmatched skills</div>  
+                </div>
+                <div class="skill-legends_item">
+                  <div class="skill-legend_item_extra"></div>
+                  <div>Extra skills</div>  
+                </div>
+              </div>
             </div>
         </div>
       </mat-card>
@@ -88,10 +102,6 @@
         <img src="../../../assets/cancel.svg" alt="cancel" class="create-indent__btn_img">
         <p>Reject</p>
        </mat-card>
-       <mat-card class="action-buttons__btns"(click)="onArchive()">
-        <img src="../../../assets/archive.svg" alt="save to draft" class="create-indent__btn_img">
-        <p>Archive</p>
-      </mat-card>
       <mat-card class="action-buttons__btns" (click)="scheduleEvent()">
         <img src="../../../assets/check.svg" alt="create indent" class="create-indent__btn_img">
         <p>Schedule interview</p>

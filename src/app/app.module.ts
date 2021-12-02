@@ -68,6 +68,8 @@ import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 import timeGridPlugin from '@fullcalendar/timegrid';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 
+import {MatSliderModule} from '@angular/material/slider';
+
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   timeGridPlugin,
@@ -146,7 +148,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ClickOutsideModule,
     MatStepperModule,
     HttpClientModule,
-    FullCalendarModule
+    FullCalendarModule,
+    MatSliderModule
   ],
   providers: [FirebaseService],
   bootstrap: [AppComponent]

@@ -127,10 +127,6 @@ export class ScreeningComponent implements OnInit {
     this.dialog.open(DialogFeedbackComponent);
   }
 
-  onArchive(){
-    this.dialog.open(DialogFeedbackComponent);
-  }
-
   getMatchingPercentage() : number {
     if(this.screeningData.requiredSkills.length>0) {
       return (this.matchedSkills.length/this.screeningData.requiredSkills.length)*100;

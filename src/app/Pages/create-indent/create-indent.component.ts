@@ -10,6 +10,9 @@ import Indents from 'src/app/models/Indents';
 import { FirebaseDatabaseService } from 'src/app/services/firebase-database.service';
 import { Location } from '@angular/common';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+
+
 
 @Component({
   selector: 'app-create-indent',
@@ -61,7 +64,8 @@ export class CreateIndentComponent implements OnInit {
   locationsList: string[] = ['Pune', 'Mumbai', 'Hyderabad', 'Chennai', 'Delhi', 'Gurugram'];
   @ViewChild('skillInput') skillInput: ElementRef<HTMLInputElement>;
   isLoaded: boolean;
-  constructor(private router:Router, private db:FirebaseDatabaseService, private location: Location, private route: ActivatedRoute,
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+  constructor(private router:Router, private db:FirebaseDatabaseService, private location: Location, private route: ActivatedRoute,private _snackBar: MatSnackBar
     ) {
       this.minDate = new Date();
     this.filteredSkills = this.skillCtrl.valueChanges.pipe(
@@ -104,6 +108,7 @@ export class CreateIndentComponent implements OnInit {
     // Add our fruit
     if (value) {
       this.skills.push(value);
+      
     }
 
     // Clear the input value
@@ -145,12 +150,19 @@ export class CreateIndentComponent implements OnInit {
       this.indents.created_by = this.currentUser;
     }
     this.db.create(this.indents).then(() => {
-      console.log('Created new item successfully!');
+      this.openSnackBar()
     });
   }
 
   OnDateChange(date) {
     this.dueDate = date;
+  }
+
+  openSnackBar() {
+    this._snackBar.open('Indent created successfully!', null, {
+      duration: 0.7*1000,
+      verticalPosition: this.verticalPosition
+    });
   }
 
 }

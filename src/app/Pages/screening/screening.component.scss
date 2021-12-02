@@ -206,3 +206,34 @@
     background-color: #3776ab;
     color: white;
 }
+
+.skill-legends{
+    display: flex;
+}
+
+.skill-legends_item{
+ display: flex;   
+ align-items: center;
+}
+
+.skill-legend_item_required{
+    height: 10px;
+    width: 10px;
+    border: 1px solid black;
+    background: #78C000;
+    margin: 10px;
+}
+.skill-legend_item_unmatched{
+    height: 10px;
+    width: 10px;
+    border: 1px solid black;
+    background: #A52A2A;
+    margin: 10px;
+}
+.skill-legend_item_extra{
+    height: 10px;
+    width: 10px;
+    border: 1px solid black;
+    background: #3776ab;
+    margin: 10px;
+}

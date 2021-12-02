@@ -5,19 +5,7 @@
     </div>
     <div class="title">Indents</div>
     <div class="sub-container">
-        <div class="search-bar">
-            <div class="search-bar__input m-20">
-                <div class="search-bar__icon m-10">
-                    <img src="../../../assets/search.svg" alt="Search_Icon">
-                </div>
-                <input type="search" name="search"  placeholder="search indents by job role">
-            </div>
-            <div class="search-bar__btn m-20 ">
-                <mat-card class="search-bar__btn_card hvr-sweep-to-right">
-                    Search   
-                </mat-card>
-            </div>
-        </div>
+       
         <div class="indent-cards">
             <app-indent-list-item [indents]="indents" (applicationURLCopied)="applicationURLCopied($event)" (onToggleSwitched)="onToggleSwitched($event)" *ngIf="isLoaded"></app-indent-list-item>
             <div class="loader-placeholder" *ngIf="!isLoaded">
@@ -28,11 +16,7 @@
            
     </div>
 
-    <!-- </div> -->
-    
-    <div class="profile-image">
-        <img src="../../../assets/profile.png" alt="Profile_Pic">
-    </div>
+
 
    
     <div class="back-btn-wrap">

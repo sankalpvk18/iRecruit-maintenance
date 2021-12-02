@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-indent-details-page',
@@ -10,8 +10,12 @@ export class IndentDetailsPageComponent implements OnInit {
 
   
   indent:any;
+  jobRole: string;
+  indentId: string;
+  indentBy:string;
+  indentOpen: string;
 
-  constructor(private router:Router) {
+  constructor(private router:Router,private _Activatedroute:ActivatedRoute ) {
     const navigation = this.router.getCurrentNavigation();
   const state = navigation.extras.state as {
     department: string,
@@ -21,7 +25,16 @@ export class IndentDetailsPageComponent implements OnInit {
     skills: [any]
     };
   
-    this.indent=state;    
+    this.indent=state;
+    
+
+    this.jobRole=this.indent.role;
+    this.indentOpen="True";
+    this.indentId=this._Activatedroute.snapshot.paramMap.get("id");
+    this.indentBy=this._Activatedroute.snapshot.paramMap.get("by");
+
+    
+
   }
 
 
@@ -36,7 +49,9 @@ export class IndentDetailsPageComponent implements OnInit {
 
 
   onCreateApplication(){
-      this.router.navigateByUrl('application');
+     // this.router.navigateByUrl('application');
+     this.router.navigateByUrl('/application/'+this.jobRole+"/"+this.indentId+"/"+this.indentBy+"/"+this.indentOpen);
+     // this.router.navigate(["application", {jobrole: this.jobRole, id: this.indentId, by:this.indentBy,open:this.indentOpen }]);
   }
 
   getDate(date) : Date {

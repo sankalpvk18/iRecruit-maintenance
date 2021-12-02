@@ -6,7 +6,6 @@ import { map } from 'rxjs/operators';
 import { FirebaseDatabaseService } from 'src/app/services/firebase-database.service';
 
 import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
-import { Deserializable } from 'src/app/firebase-deserialisation';
 
 @Component({
   selector: 'app-indent-page',

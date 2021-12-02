@@ -12,6 +12,7 @@ import { FirebaseDatabaseService } from 'src/app/services/firebase-database.serv
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { AngularFireStorage } from "@angular/fire/compat/storage";
+import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-application',
@@ -47,6 +48,7 @@ export class ApplicationComponent implements OnInit {
   downloadURL: Observable<string>;
   imageURL ;
   resumeURL;
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
   @ViewChild('skillInput') skillInput: ElementRef<HTMLInputElement>;
   // @ViewChild('ref') ref: MatDialogRef<any>;
@@ -55,7 +57,8 @@ export class ApplicationComponent implements OnInit {
     private _Activatedroute:ActivatedRoute, 
     private db:FirebaseDatabaseService,
     public dialog: MatDialog,
-    private storage: AngularFireStorage) {
+    private storage: AngularFireStorage,
+    private _snackBar: MatSnackBar) {
     this.filteredSkills = this.skillCtrl.valueChanges.pipe(
       startWith(null),
       map((skill: string | null) => skill ? this._filter(skill) : this.allSkills.slice()));
@@ -121,12 +124,15 @@ export class ApplicationComponent implements OnInit {
 
 
     this.db.createApplication(this.application,this.db.getCurrentUserIDRef(this.indentBy,this.indentId)).then(() => {
-      console.log('Created new item successfully!');
+      this._snackBar.open("Appication receeived!", null, {
+        duration: 3*1000,
+        verticalPosition: this.verticalPosition
+      });
     });
   }
 
 
-
+    
   
     openDialog() {
       const dialogRef = this.dialog.open(DialogComponent);
@@ -154,7 +160,7 @@ export class ApplicationComponent implements OnInit {
         )
         .subscribe(url => {
           if (url) {
-            console.log(url);
+            this.openSnackBar("Image uploaded successfully!")
           }
         });
     }
@@ -180,9 +186,17 @@ export class ApplicationComponent implements OnInit {
         )
         .subscribe(url => {
           if (url) {
-            console.log(url);
+            this.openSnackBar("Resume uploaded successfully!")
           }
         });
     }
-  
+    
+    openSnackBar(msg:string) {
+      this._snackBar.open(msg, null, {
+        duration: 0.7*1000,
+        verticalPosition: this.verticalPosition
+      });
+    }
+
+    
 }
