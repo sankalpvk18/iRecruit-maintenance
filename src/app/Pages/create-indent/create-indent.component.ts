@@ -35,6 +35,7 @@ import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snac
 export class CreateIndentComponent implements OnInit {
 
   indents: Indents = new Indents();
+  existingIndentData: Indents = new Indents();
   minDate: Date;
   date = new FormControl();
   dueDate: Date;
@@ -46,6 +47,7 @@ export class CreateIndentComponent implements OnInit {
   filteredSkills: Observable<string[]>;
   currentUser: string;
   skills: string[] = [];
+  existingSkills: string[] = [];
   existingIndent: any = [];
   allSkills: string[] = [
     'HTML',
@@ -59,6 +61,20 @@ export class CreateIndentComponent implements OnInit {
     'Git (version control)'
   ];
   locations = new FormControl();
+  existingLocations = new FormControl();
+
+  selectedValue: string;
+
+  manager = [
+    "John",
+    "Taylor",
+    "Brian",
+    "Henry",
+    "Jason"
+  ];
+
+  isEditMode = false;
+  sampleData : string[]
 
 
   locationsList: string[] = ['Pune', 'Mumbai', 'Hyderabad', 'Chennai', 'Delhi', 'Gurugram'];
@@ -79,6 +95,7 @@ export class CreateIndentComponent implements OnInit {
       console.log(params);
       if (params["id"]) {
         this.getExistingIndent(params["id"]);
+        this.isEditMode = true;
       }
     });
   }
@@ -86,16 +103,34 @@ export class CreateIndentComponent implements OnInit {
   getExistingIndent(id: string) {
     this.db.getParicularIndent(this.db.getCurrentIndentRef(id)).valueChanges().subscribe((data) => {
       this.existingIndent = data;
+      let offset = 0;
+      if(data.length>12) {
+        this.setExistingIndentData(offset+1)
+      } else {
+        this.setExistingIndentData(offset)
+      }
       // this.isLoaded = true;
       console.log(this.existingIndent);
-      this.indents.role = this.existingIndent[7];
-      this.indents.vacancies = this.existingIndent[5];
-      this.indents.department = this.existingIndent[3];
-      this.indents.ctc = this.existingIndent[2];
-      this.indents.min_work_ex = this.existingIndent[9];
-      this.skills = this.existingIndent[8];
-      this.locations.setValue(this.existingIndent[4]);
     })
+
+    // this.db.getParicularIndent(this.db.getCurrentIndentRef(id)).snapshotChanges().pipe(
+    //   map((products: any[]) => products.map(prod => {
+    //     const payload = prod.payload.val();
+    //     const key = prod.key;
+    //     return <any>{ key, ...payload };
+    //   })),
+    // );
+
+  }
+
+  setExistingIndentData(offset: number) {
+    this.existingIndentData.role = this.existingIndent[9+offset];
+      this.existingIndentData.vacancies = this.existingIndent[11+offset];
+      this.existingIndentData.department = this.existingIndent[3+offset];
+      this.existingIndentData.ctc = this.existingIndent[2+offset];
+      this.existingIndentData.min_work_ex = this.existingIndent[6+offset];
+      this.existingSkills = this.existingIndent[10+offset];
+      this.existingLocations.setValue(this.existingIndent[5+offset]);
   }
 
   onBack(){
@@ -143,6 +178,7 @@ export class CreateIndentComponent implements OnInit {
     this.indents.created_on = new Date().getTime();
     this.indents.open=true;
     this.indents.due_date = this.dueDate.getTime();
+    this.indents.reportingManager = this.selectedValue;
     
     this.currentUser= sessionStorage.getItem("firebaseUserId");
 
@@ -178,4 +214,3 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'MMMM YYYY',
   },
 };
-

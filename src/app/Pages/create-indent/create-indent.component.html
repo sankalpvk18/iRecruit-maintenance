@@ -5,7 +5,7 @@
     <div class="title">Create Indent</div>
     <div class="sub-container">
        
-        <div class="form-and-skills-section">
+        <div *ngIf="!isEditMode" class="form-and-skills-section">
             <div class="form-section">
 
                 <div id="input-container">
@@ -50,6 +50,14 @@
                         </mat-form-field>
                     </div>
                 </div>
+                <mat-form-field class="reporting-manager" appearance="fill">
+                    <mat-label>Reporting Manager</mat-label>
+                    <mat-select [(ngModel)]="selectedValue" name="Manager">
+                      <mat-option *ngFor="let person of manager" [value]="person">
+                        {{person}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
             </div>
             <mat-divider [vertical]="true" class="divider"></mat-divider>
 
@@ -78,16 +86,117 @@
                             </mat-autocomplete>
                         </mat-form-field>
                     </div>
+
+                    <div class="due-date">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Choose a date</mat-label>
+                            <input matInput [min]="minDate" [matDatepicker]="picker" (dateInput)="OnDateChange($event.value)" [(ngModel)]="indents.due_date" [formControl]="date">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>
+                       
+                    </div>
+
                 </div>
 
-                <div class="due-date">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Choose a date</mat-label>
-                        <input matInput [min]="minDate" [matDatepicker]="picker" (dateInput)="OnDateChange($event.value)" [(ngModel)]="indents.due_date" [formControl]="date">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                      </mat-form-field>
-                   
+            </div>
+        </div>
+
+        <!-- ------------------------------------------------------------------------------
+        ------------------------------------------------------------------------------ -->
+
+        <div *ngIf="isEditMode" class="form-and-skills-section">
+            <div class="form-section">
+
+                <div id="input-container">
+                    <img src="../../../assets/idcard.svg" />
+                    <input type="text" placeholder="Job role" required [(ngModel)]="existingIndentData.role" />
+                </div>
+                <div id="input-container">
+                    <img src="../../../assets/vacancies.svg" />
+                    <input type="number" placeholder="Vacancies" required [(ngModel)]="existingIndentData.vacancies" />
+                </div>
+                <div id="input-container">
+                    <img src="../../../assets/department.svg" />
+                    <input type="text" placeholder="Department" required [(ngModel)]="existingIndentData.department" />
+                </div>
+                <div id="input-container">
+                    <img src="../../../assets/salary.svg" />
+                    <input type="text" placeholder="CTC" required [(ngModel)]="existingIndentData.ctc" />
+                </div>
+                <div id="input-container">
+                    <img src="../../../assets/workex.svg" />
+                    <input type="number" placeholder="Minimum work experience(years)" required
+                        [(ngModel)]="existingIndentData.min_work_ex" />
+                </div>
+                <div class="location-input">
+                    <div class="location-input__icon">
+                        <img src="../../../assets/location.svg" alt="LOCATION_ICON">
+                    </div>
+                    <div class="location-input__dropdown">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Location</mat-label>
+                            <mat-select [formControl]="existingLocations" multiple>
+                                <mat-select-trigger>
+                                    {{existingLocations.value ? existingLocations.value[0] : ''}}
+                                    <span *ngIf="locations.value?.length > 1" class="example-additional-selection">
+                                        (+{{existingLocations.value.length - 1}} {{existingLocations.value?.length === 2 ? 'other' :
+                                        'others'}})
+                                    </span>
+                                </mat-select-trigger>
+                                <mat-option *ngFor="let locations of locationsList" [value]="locations" required>
+                                    {{existingLocations}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <mat-form-field class="reporting-manager" appearance="fill">
+                    <mat-label>Reporting Manager</mat-label>
+                    <mat-select [(ngModel)]="selectedValue" name="Manager">
+                      <mat-option *ngFor="let person of manager" [value]="person">
+                        {{person}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <mat-divider [vertical]="true" class="divider"></mat-divider>
+
+            <div class="skills-section">
+                <div class="skills">
+                    <div class="skills-section__title">Skills</div>
+                    <div class="skills-section__chips">
+                        <mat-form-field class="example-chip-list" appearance="fill">
+                            <mat-chip-list #chipList aria-label="Fruit selection">
+                                <mat-chip *ngFor="let skill of existingSkills" [selectable]="selectable" [removable]="removable"
+                                    (removed)="remove(skill)">
+                                    {{skill}}
+                                    <button matChipRemove *ngIf="removable">
+                                        <mat-icon>cancel</mat-icon>
+                                    </button>
+                                </mat-chip>
+                                <input placeholder="Add skill..." #skillInput [formControl]="skillCtrl"
+                                    [matAutocomplete]="auto" [matChipInputFor]="chipList"
+                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                    (matChipInputTokenEnd)="add($event)">
+                            </mat-chip-list>
+                            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                                <mat-option *ngFor="let skill of filteredSkills | async" [value]="skill">
+                                    {{skill}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="due-date">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Choose a date</mat-label>
+                            <input matInput [min]="minDate" [matDatepicker]="picker" (dateInput)="OnDateChange($event.value)" [(ngModel)]="indents.due_date" [formControl]="date">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>
+                       
+                    </div>
+
                 </div>
 
             </div>

@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'application', component: ApplicationComponent},
   {path: 'application/:jobRole/:id/:by/:open', component: ApplicationComponent},
   {path: 'signup', component:SignUpComponent},
-  {path: 'home',component:HomeComponent},
+  {path: 'home',component:IndentPageComponent},
   {path: 'createindent',component:CreateIndentComponent},
   {path: 'createindent/:id', component: CreateIndentComponent},
   {path:'indents',component:IndentPageComponent},

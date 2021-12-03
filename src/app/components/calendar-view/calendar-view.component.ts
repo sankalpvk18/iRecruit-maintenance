@@ -1,9 +1,11 @@
 import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http';
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CalendarOptions } from '@fullcalendar/angular'; // useful for typechecking
 import interactionPlugin from '@fullcalendar/interaction';
+import { toJSDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar';
 import { scheduled } from 'rxjs';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-calendar-view',
@@ -15,6 +17,7 @@ export class CalendarViewComponent implements OnInit {
   token: string;
   currentStartEvent: string;
   currentEndEvent: string;
+  events = [];
 
   calendarOptions: CalendarOptions = {
     selectable: true,
@@ -24,10 +27,13 @@ export class CalendarViewComponent implements OnInit {
       right: 'dayGridMonth,timeGridWeek,timeGridDay'
     },
     googleCalendarApiKey: "AIzaSyBl4jUf3i5tL_Vu3QdSVRsWv30qC7h6gGM",
-    events: {
-      googleCalendarId: 'https://calendar.google.com/calendar/embed?src=sukalp18%40gmail.com&ctz=Asia%2FKolkata'
-    },
-    initialView: 'dayGridMonth',
+    events: this.events,
+    eventSources: [
+      {
+        googleCalendarId: 'sukalp18@gmail.com'
+      }
+    ],
+    initialView: 'timeGridWeek',
     dateClick: (dateClickEvent) =>  {         // <-- add the callback here as one of the properties of `options`
       // this.scheduleInterview(dateClickEvent);
     },
@@ -38,12 +44,15 @@ export class CalendarViewComponent implements OnInit {
     }
   };
 
-  constructor(private httpClient: HttpClient, @Inject(MAT_DIALOG_DATA) public email: string) { }
+  constructor(private httpClient: HttpClient, @Inject(MAT_DIALOG_DATA) public email: string, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.token = localStorage.getItem("access_token");
-    this.getCalendarEvents();
-    console.log("email from screening - " + this.email)
+    this.token = localStorage.getItem("access_token");    
+    // this.events.push({
+    //   googleCalendarId: 'sukalp18@gmail.com'
+    // });
+    console.log("email from screening - " + this.email);
+    console.log("type is " + typeof this.calendarOptions.events);
   }
 
   scheduleInterview(selectEvent: any) {
@@ -64,15 +73,15 @@ export class CalendarViewComponent implements OnInit {
       'description': 'IRecruit Demo',
       'start': {
         'dateTime': info.startStr,
-        'timeZone': 'America/Los_Angeles'
+        'timeZone': 'Asia/Kolkata'
       },
       'end': {
         'dateTime': info.endStr,
-        'timeZone': 'America/Los_Angeles'
+        'timeZone': 'Asia/Kolkata'
       },
-      'recurrence': [
-        'RRULE:FREQ=DAILY;COUNT=2'
-      ],
+      // 'recurrence': [
+      //   'RRULE:FREQ=DAILY;COUNT=1'
+      // ],
       'attendees': [
         {'email': 'sukalp18@gmail.com'},
         {'email': this.email}
@@ -97,29 +106,15 @@ export class CalendarViewComponent implements OnInit {
     this.httpClient.post<any>('https://www.googleapis.com/calendar/v3/calendars/primary/events', body, httpOptions).subscribe(data => {
       console.log(data);
       if(data.status == "confirmed") {
-        let events = [
-          { title: 'event 1', date: this.currentStartEvent , allDay: false},
-        ]
-        this.calendarOptions.events = events;
+        let eventff = [{ title: 'Just Created', date: this.currentStartEvent}]
+
+        // this.cd.detectChanges();
+
+        // this.events = Object.assign(this.events, event)
+        // this.events.push(eventff);
+        // this.calendarOptions.events = eventff;
+        window.location.reload();
       }
-    });
-
-  }
-
-  getCalendarEvents() {
-    let param = new HttpParams();
-    param = param.set('scope', 'https://www.googleapis.com/auth/calendar');
-
-    const httpOptions = {
-      params: param
-    };
-
-    // this.httpClient.get<any>('https://www.googleapis.com/calendar/v3/calendars/primary/events/eventId', httpOptions).subscribe(data => {
-    //   console.log(data);
-    // });
-
-    this.httpClient.get<any>('https://www.googleapis.com/calendar/v3/users/me/calendarList', httpOptions).subscribe(data => {
-      console.log(data);
     });
 
   }

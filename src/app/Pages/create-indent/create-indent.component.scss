@@ -26,14 +26,15 @@
 }
 .title{
     position: absolute;
-    top: 10%;
+    top: 11%;
     left: 20%;
     color: #0C215C;
-    font-size: 20px;
+    font-size: 28px;
+    font-weight: 500;
 }
 .sub-container{
-    width: fit-content;
-    margin: 0 auto;
+    // width: fit-content;
+    // margin: 0 auto;
 }
 .search-bar{
     margin-top: 60px;
@@ -123,19 +124,22 @@
 
 .form-and-skills-section {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: row;
-    padding: 60px 0;
+    margin-top: 60px;
+    // padding: 60px 0;
     .form-section {
         width: 50%;
+        text-align: -webkit-right;
     }
     .skills-section {
-        width: 37%;
+        width: 50%;
         padding: 30px 0px;
         border-radius: 10px;
         display: flex;
         
         .skills{
+            width: 100%;
             flex-direction: column;
             .skills-section__title {
                 text-align: center;
@@ -146,6 +150,8 @@
             .skills-section__chips {
                 border: 1px solid #1a449430;
                 margin-top: 25px;
+                margin-left: 90px;
+                margin-right: 90px;
                 padding: 0 20px;
                 mat-form-field {
                     width: 100%;
@@ -154,7 +160,14 @@
         }
       
         .due-date{
-            margin-left: 30px;
+            margin-top: 20px;
+            margin-left: 90px;
+            margin-right: 90px;
+            width: 100%;
+
+            mat-form-field {
+                width: 70%;
+            }
             
             .due-date_label{
                 text-align: center;
@@ -174,7 +187,7 @@
     position: relative;
     padding: 10px;
     
-    width: 86%;
+    width: 70%;
 } 
 #input-container > img {
     width: 20px;
@@ -245,7 +258,7 @@
 .location-input {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     padding: 0 10px;
     .location-input__icon {
@@ -258,15 +271,16 @@
     .location-input__dropdown {
         width: 100%;
         mat-form-field {
-            width: 100% !important;
+            width: 72% !important;
             // mat-form-field-wrapper {
             //     padding-bottom: 0px !important;
             // }
         }
-    }
+    }   
+}
 
-   
-
+.reporting-manager {
+    width: 69%;
 }
 ::ng-deep.mat-simple-snackbar {
     justify-content: center !important;

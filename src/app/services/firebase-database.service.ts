@@ -36,7 +36,7 @@ export class FirebaseDatabaseService {
   getAllApplications(ref: AngularFireList<Applications>): AngularFireList<Applications> {
     return ref;
   }
-  getParicularIndent(ref: AngularFireList<Indents>):AngularFireList<Indents>{
+  getParicularIndent(ref: AngularFireList<any>):AngularFireList<any>{
     return ref;
   }
 

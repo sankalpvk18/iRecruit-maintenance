@@ -6,6 +6,8 @@ import { map } from 'rxjs/operators';
 import { FirebaseDatabaseService } from 'src/app/services/firebase-database.service';
 
 import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-indent-page',
@@ -23,7 +25,8 @@ export class IndentPageComponent implements OnInit {
   constructor(
     private router:Router,
     private db:FirebaseDatabaseService,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    public firebaseService: FirebaseService) { }
 
   ngOnInit(): void {
     console.log("firebase user id inside: " + sessionStorage.getItem("firebaseUserId"));
@@ -67,6 +70,15 @@ export class IndentPageComponent implements OnInit {
       duration: 0.7*1000,
       verticalPosition: this.verticalPosition
     });
+  }
+
+  logout() {
+    this.firebaseService.logout()
+    this.router.navigateByUrl('/login')
+  }
+
+  onCreateIndent(){
+    this.router.navigateByUrl('/createindent')
   }
   
 }

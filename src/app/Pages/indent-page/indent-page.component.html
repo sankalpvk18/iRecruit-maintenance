@@ -3,6 +3,11 @@
     <div class="app-logo">
         <img src="../../../assets/ICICI-Bank-PNG-Icon.png" alt="ICICI_logo">
     </div>
+    <div class="search-bar__btn m-20" (click)="logout()">
+        <mat-card class="search-bar__btn_card hvr-sweep-to-right" >
+            <p>Logout</p>   
+        </mat-card>
+    </div>
     <div class="title">Indents</div>
     <div class="sub-container">
        
@@ -19,12 +24,41 @@
 
 
    
+    <!-- <div class="back-btn-wrap">
+        <mat-card class="action_back_btn p-20" (click)="onBack()">
+            <img src="../../../assets/back.svg" alt="back" class="create-indent__btn_img">
+            <p>Back</p>
+           </mat-card>
+    </div>
+
+    <div class="create-indent" (click)="onCreateIndent()">
+        <mat-card class="create-indent__btn">
+              <img src="../../../assets/add.svg" alt="Add_Indent" class="create-indent__btn_img" >
+              <p>create indent</p>
+        </mat-card>  
+  </div> -->
+
+  <div class="parent-action-btns">
     <div class="back-btn-wrap">
         <mat-card class="action_back_btn p-20" (click)="onBack()">
             <img src="../../../assets/back.svg" alt="back" class="create-indent__btn_img">
             <p>Back</p>
            </mat-card>
     </div>
+    <div class="create-indent" (click)="onCreateIndent()">
+        <mat-card class="create-indent__btn">
+              <img src="../../../assets/add.svg" alt="Add_Indent" class="create-indent__btn_img" >
+              <p>create indent</p>
+        </mat-card>  
+  </div>
+  </div>
+
+  <!-- <div class="back-btn-right-wrap">
+    <mat-card class="action_back_btn p-20" (click)="onBack()">
+        <img src="../../../assets/back.svg" alt="back" class="create-indent__btn_img">
+        <p>Back</p>
+       </mat-card>
+</div> -->
 
 </div>
 

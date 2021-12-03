@@ -17,6 +17,7 @@ export default class Indents implements Deserializable {
     expected_joining_date: number;
     open: boolean;
     due_date: number;
+    reportingManager: string;
     applications: [Applications];
 
     deserialize(input: any): this {
