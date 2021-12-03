@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Feedback of the applicant</h1>
+<div mat-dialog-title>Feedback of the applicant</div>
 <div mat-dialog-content class="feeback-form">
     <div class="feedback_slider">
      Enthusiasm/Passion   
@@ -10,6 +10,8 @@
             [thumbLabel]=true
             [tickInterval]=1
             [vertical]=false
+            [(ngModel)]="passionValue"
+            
         >
    
     <!-- [(ngModel)]="value" -->
@@ -25,6 +27,7 @@
                [thumbLabel]=true
                [tickInterval]=1
                [vertical]=false
+               [(ngModel)]="attitudeValue"
            >
       
        <!-- [(ngModel)]="value" -->
@@ -40,6 +43,7 @@
                [thumbLabel]=true
                [tickInterval]=1
                [vertical]=false
+               [(ngModel)]="communicationValue"
            >
       
        <!-- [(ngModel)]="value" -->
@@ -55,6 +59,7 @@
                [thumbLabel]=true
                [tickInterval]=1
                [vertical]=false
+               [(ngModel)]="aptiValue"
            >
       
        <!-- [(ngModel)]="value" -->
@@ -70,6 +75,7 @@
                [thumbLabel]=true
                [tickInterval]=1
                [vertical]=false
+               [(ngModel)]="domainValue"
            >
       
        <!-- [(ngModel)]="value" -->
@@ -85,15 +91,16 @@
                [thumbLabel]=true
                [tickInterval]=1
                [vertical]=false
+               [(ngModel)]="tempramentValue"
            >
       
        <!-- [(ngModel)]="value" -->
            </mat-slider>
        </div>
-    <input type="text" placeholder="Feeback">
+    <textarea class="Feeback" name="Feeback" rows="6" cols="50" placeholder="Write your thoughts!"></textarea>
     <div class="feedback-action"> 
-        <button>Submit</button>
-        <button>Close</button>    
+        <div><button class="action-btn mat-raised-button" mat-dialog-close>Close</button></div>
+        <div><button class="action-btn blue mat-raised-button">Submit</button></div>
     </div>
     
     

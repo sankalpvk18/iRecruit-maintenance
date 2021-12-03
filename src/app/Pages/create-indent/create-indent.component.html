@@ -10,24 +10,24 @@
 
                 <div id="input-container">
                     <img src="../../../assets/idcard.svg" />
-                    <input type="text" placeholder="Job role" required [(ngModel)]="indents.role" />
+                    <input type="text" placeholder="Job role" required [formControl]="jobRole" />
                 </div>
                 <div id="input-container">
                     <img src="../../../assets/vacancies.svg" />
-                    <input type="number" placeholder="Vacancies" required [(ngModel)]="indents.vacancies" />
+                    <input type="number" placeholder="Vacancies" required [formControl]="vacancies"/>
                 </div>
                 <div id="input-container">
                     <img src="../../../assets/department.svg" />
-                    <input type="text" placeholder="Department" required [(ngModel)]="indents.department" />
+                    <input type="text" placeholder="Department" required [formControl]="department"/>
                 </div>
                 <div id="input-container">
                     <img src="../../../assets/salary.svg" />
-                    <input type="text" placeholder="CTC" required [(ngModel)]="indents.ctc" />
+                    <input type="text" placeholder="CTC" required [formControl]="salary"/>
                 </div>
                 <div id="input-container">
                     <img src="../../../assets/workex.svg" />
                     <input type="number" placeholder="Minimum work experience(years)" required
-                        [(ngModel)]="indents.min_work_ex" />
+                    [formControl]="minWorkEx"/>
                 </div>
                 <div class="location-input">
                     <div class="location-input__icon">
@@ -52,7 +52,7 @@
                 </div>
                 <mat-form-field class="reporting-manager" appearance="fill">
                     <mat-label>Reporting Manager</mat-label>
-                    <mat-select [(ngModel)]="selectedValue" name="Manager">
+                    <mat-select [formControl]="reportingManager" name="Manager">
                       <mat-option *ngFor="let person of manager" [value]="person">
                         {{person}}
                       </mat-option>
@@ -110,24 +110,24 @@
 
                 <div id="input-container">
                     <img src="../../../assets/idcard.svg" />
-                    <input type="text" placeholder="Job role" required [(ngModel)]="existingIndentData.role" />
+                    <input type="text" placeholder="Job role" required [formControl]="jobRole" />
                 </div>
                 <div id="input-container">
                     <img src="../../../assets/vacancies.svg" />
-                    <input type="number" placeholder="Vacancies" required [(ngModel)]="existingIndentData.vacancies" />
+                    <input type="number" placeholder="Vacancies" required [formControl]="vacancies" />
                 </div>
                 <div id="input-container">
                     <img src="../../../assets/department.svg" />
-                    <input type="text" placeholder="Department" required [(ngModel)]="existingIndentData.department" />
+                    <input type="text" placeholder="Department" required [formControl]="department" />
                 </div>
                 <div id="input-container">
                     <img src="../../../assets/salary.svg" />
-                    <input type="text" placeholder="CTC" required [(ngModel)]="existingIndentData.ctc" />
+                    <input type="text" placeholder="CTC" required [formControl]="salary" />
                 </div>
                 <div id="input-container">
                     <img src="../../../assets/workex.svg" />
                     <input type="number" placeholder="Minimum work experience(years)" required
-                        [(ngModel)]="existingIndentData.min_work_ex" />
+                    [formControl]="minWorkEx" />
                 </div>
                 <div class="location-input">
                     <div class="location-input__icon">
@@ -152,7 +152,7 @@
                 </div>
                 <mat-form-field class="reporting-manager" appearance="fill">
                     <mat-label>Reporting Manager</mat-label>
-                    <mat-select [(ngModel)]="selectedValue" name="Manager">
+                    <mat-select [formControl]="reportingManager" name="Manager">
                       <mat-option *ngFor="let person of manager" [value]="person">
                         {{person}}
                       </mat-option>
@@ -190,7 +190,7 @@
                     <div class="due-date">
                         <mat-form-field appearance="fill">
                             <mat-label>Choose a date</mat-label>
-                            <input matInput [min]="minDate" [matDatepicker]="picker" (dateInput)="OnDateChange($event.value)" [(ngModel)]="indents.due_date" [formControl]="date">
+                            <input matInput [min]="minDate" [matDatepicker]="picker" (focus)="picker.open()" (dateInput)="OnDateChange($event.value)" [formControl]="date" [(ngModel)]="existingDate"/>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                           </mat-form-field>

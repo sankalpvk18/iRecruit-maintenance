@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { Observable } from 'rxjs';
@@ -37,7 +37,6 @@ export class CreateIndentComponent implements OnInit {
   indents: Indents = new Indents();
   existingIndentData: Indents = new Indents();
   minDate: Date;
-  date = new FormControl();
   dueDate: Date;
 
   selectable = true;
@@ -64,6 +63,7 @@ export class CreateIndentComponent implements OnInit {
   existingLocations = new FormControl();
 
   selectedValue: string;
+  existingDate: any;
 
   manager = [
     "John",
@@ -75,6 +75,16 @@ export class CreateIndentComponent implements OnInit {
 
   isEditMode = false;
   sampleData : string[]
+  
+
+  //Form Control
+  jobRole: FormControl = new FormControl('', Validators.minLength(2));
+  vacancies: FormControl = new FormControl('', Validators.minLength(1));
+  salary: FormControl = new FormControl('', Validators.minLength(2));
+  minWorkEx: FormControl = new FormControl('', Validators.minLength(1));
+  reportingManager: FormControl = new FormControl('', Validators.minLength(2));
+  department: FormControl = new FormControl('', Validators.minLength(2));
+  date: FormControl = new FormControl();
 
 
   locationsList: string[] = ['Pune', 'Mumbai', 'Hyderabad', 'Chennai', 'Delhi', 'Gurugram'];
@@ -87,10 +97,9 @@ export class CreateIndentComponent implements OnInit {
     this.filteredSkills = this.skillCtrl.valueChanges.pipe(
       startWith(null),
       map((skill: string | null) => skill ? this._filter(skill) : this.allSkills.slice()));
-   }
+  }
 
   ngOnInit(): void {
-    this.date = new FormControl();
     this.route.params.subscribe(params => {
       console.log(params);
       if (params["id"]) {
@@ -124,13 +133,18 @@ export class CreateIndentComponent implements OnInit {
   }
 
   setExistingIndentData(offset: number) {
-    this.existingIndentData.role = this.existingIndent[9+offset];
-      this.existingIndentData.vacancies = this.existingIndent[11+offset];
-      this.existingIndentData.department = this.existingIndent[3+offset];
-      this.existingIndentData.ctc = this.existingIndent[2+offset];
-      this.existingIndentData.min_work_ex = this.existingIndent[6+offset];
-      this.existingSkills = this.existingIndent[10+offset];
-      this.existingLocations.setValue(this.existingIndent[5+offset]);
+    this.existingSkills = this.existingIndent[10+offset];
+    this.existingLocations.setValue(this.existingIndent[5+offset]);
+
+    this.jobRole.setValue(this.existingIndent[9+offset]);
+    this.vacancies.setValue(this.existingIndent[11+offset]);
+    this.department.setValue(this.existingIndent[3+offset]);
+    this.salary.setValue(this.existingIndent[2+offset]);
+    this.minWorkEx.setValue(this.existingIndent[6+offset]);
+    this.reportingManager.setValue(this.existingIndent[8+offset]);
+    // this.date = new FormControl("12/3/2021");
+    this.existingDate = new Date(this.existingIndent[4+offset]).toLocaleDateString("en-us");
+    // this.date.setValue(new Date(this.existingIndent[4+offset]).toLocaleDateString("en-us"));
   }
 
   onBack(){
@@ -173,12 +187,17 @@ export class CreateIndentComponent implements OnInit {
   }
 
   createIndent(): void {
+    this.indents.role = this.jobRole.value;
+    this.indents.ctc = this.salary.value;
+    this.indents.department = this.department.value;
     this.indents.location = this.locations.value;
+    this.indents.vacancies = this.vacancies.value;
     this.indents.skills = this.skills;
+    this.indents.min_work_ex = this.minWorkEx.value;
     this.indents.created_on = new Date().getTime();
     this.indents.open=true;
     this.indents.due_date = this.dueDate.getTime();
-    this.indents.reportingManager = this.selectedValue;
+    this.indents.reportingManager = this.reportingManager.value;
     
     this.currentUser= sessionStorage.getItem("firebaseUserId");
 
@@ -200,6 +219,10 @@ export class CreateIndentComponent implements OnInit {
       verticalPosition: this.verticalPosition
     });
   }
+
+  // onDateInputClicked() {
+  //   picker
+  // }
 
 }
 

@@ -7,6 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogFeedbackComponent implements OnInit {
 
+  passionValue = 1;
+  attitudeValue = 1;
+  communicationValue = 1;
+  aptiValue = 1;
+  domainValue = 1;
+  tempramentValue = 1;
+
   constructor() { }
 
   ngOnInit(): void {
