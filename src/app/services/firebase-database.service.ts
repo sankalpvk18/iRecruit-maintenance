@@ -36,6 +36,13 @@ export class FirebaseDatabaseService {
   getAllApplications(ref: AngularFireList<Applications>): AngularFireList<Applications> {
     return ref;
   }
+
+  getRejectedUserIDRef(userID: string,indentId: string): AngularFireList<Applications>{
+    return this.db.list('indents/'+userID+'/'+indentId+'/rejected');
+  }
+
+  
+
   getParicularIndent(ref: AngularFireList<any>):AngularFireList<any>{
     return ref;
   }

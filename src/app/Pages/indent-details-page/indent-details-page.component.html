@@ -7,11 +7,10 @@
     <div class="sub-container">
 
         <div class="sidebar">
-            <div class="indent_role"><span style="font-weight: bold;">{{indent.role}}</span></div>
-            <div class="indent_department"><span style="font-weight: bold;">Department: </span>{{indent.department}}</div>
-            <div class="indent_vacancies"><span style="font-weight: bold;">Vacancies: </span>{{indent.vacancies}}</div>
-            <div class="indent_created_on"><span style="font-weight: bold;">Created on: </span>{{getDate(indent.created_on) | date}}</div>
-            
+            <div class="indent_role m-10">{{indent.role}}</div>
+            <div class="m-10 indent_items">Department: {{indent.department}}</div>
+            <div class="m-10 indent_items">Vacancies: {{indent.vacancies}}</div>
+            <div class="m-10 indent_items">Created on: {{getDate(indent.created_on) | date}}</div>
         </div>
         
        

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
 import { map } from 'rxjs/operators';
 import { FirebaseDatabaseService } from 'src/app/services/firebase-database.service';
+import { updateCommaList } from 'typescript';
 
 @Component({
   selector: 'app-indent-details-list-item',
@@ -73,7 +74,22 @@ export class IndentDetailsListItemComponent implements OnInit {
     throw new Error('Method not implemented.');
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<string[]>, dropOnto: string) {
+    console.log(event.item.dropContainer.data);
+    // switch(dropOnto) {
+    //   case 'applicants':
+    //     updateApplicantsList();
+    //     break;
+    //   case 'first':
+    //     break;
+    //   case 'second':
+    //     break;
+    //   case 'third':
+    //     break;
+    //   case 'rejected':
+    //     break;
+    // }
+    this.updateApplicantsList(event.previousContainer.data, dropOnto);
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -81,6 +97,22 @@ export class IndentDetailsListItemComponent implements OnInit {
                         event.container.data,
                         event.previousIndex,
                         event.currentIndex);
+    }
+  }
+
+  updateApplicantsList(data: any, dropOnto: string) {
+    let ref = "";
+    switch(dropOnto) {
+      case 'applicants':
+        break;
+      case 'first':
+        break;
+      case 'second':
+        break;
+      case 'third':
+        break;
+      case 'rejected':
+        break;
     }
   }
 
@@ -96,6 +128,19 @@ export class IndentDetailsListItemComponent implements OnInit {
       this.setApplicantCategory(this.applicantsDetails);
       console.log(this.applicantsDetails);
     });
+
+    this.db.getAllApplications(this.db.getRejectedUserIDRef(this.indentBy, this.indentId)).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(data => {
+      this.applicantsDetails = data;
+      this.setApplicantCategory(this.applicantsDetails);
+      console.log(this.applicantsDetails);
+    });
+
   }
 
   setApplicantCategory(applicantsDetails: any) {
@@ -113,8 +158,8 @@ export class IndentDetailsListItemComponent implements OnInit {
         case "thirdRound":
           this.thirdRound.push(applicant);
           break;
-        default:
-          this.applicants.push(applicant);
+        case "rejected":
+          this.rejectedProfiles.push(applicant);
           break;
       }
       this.isLoaded = true;
