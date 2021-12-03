@@ -6,7 +6,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { merge } from 'rxjs';
 import { CalendarViewComponent } from 'src/app/components/calendar-view/calendar-view.component';
 import { DialogFeedbackComponent } from 'src/app/components/dialog-feedback/dialog-feedback.component';
-import Applicant from 'src/app/models/Applicant';
 
 @Component({
   selector: 'app-screening',
@@ -112,11 +111,7 @@ export class ScreeningComponent implements OnInit {
         }
     
     this.skills = [...this.matchedSkills, ...this.unmatchSkills, ...this.extraSkills];
-    console.log("universe: " + allSkills);    
-    console.log("matched: " + this.matchedSkills);
-    console.log("un-matched: " +this.unmatchSkills);
-    console.log("extra: " +this.extraSkills);
-    console.log("Sdsdf");
+  
   }
 
   onBack(){
@@ -124,7 +119,8 @@ export class ScreeningComponent implements OnInit {
   }
 
   onReject(){
-    this.dialog.open(DialogFeedbackComponent);
+    const dialogRef = this.dialog.open(DialogFeedbackComponent);
+      dialogRef.disableClose = true;
   }
 
   getMatchingPercentage() : number {

@@ -1,5 +1,100 @@
 <h1 mat-dialog-title>Feedback of the applicant</h1>
-<div mat-dialog-content>
+<div mat-dialog-content class="feeback-form">
+    <div class="feedback_slider">
+     Enthusiasm/Passion   
+        <mat-slider
+            class="rate-slider"
+            [max]=10
+            [min]=1
+            [step]=1
+            [thumbLabel]=true
+            [tickInterval]=1
+            [vertical]=false
+        >
+   
+    <!-- [(ngModel)]="value" -->
+        </mat-slider>
+    </div>
+    <div class="feedback_slider">
+        Attitude  
+           <mat-slider
+               class="rate-slider"
+               [max]=10
+               [min]=1
+               [step]=1
+               [thumbLabel]=true
+               [tickInterval]=1
+               [vertical]=false
+           >
+      
+       <!-- [(ngModel)]="value" -->
+           </mat-slider>
+       </div>
+       <div class="feedback_slider">
+        Communication  
+           <mat-slider
+               class="rate-slider"
+               [max]=10
+               [min]=1
+               [step]=1
+               [thumbLabel]=true
+               [tickInterval]=1
+               [vertical]=false
+           >
+      
+       <!-- [(ngModel)]="value" -->
+           </mat-slider>
+       </div>
+       <div class="feedback_slider">
+        Apptitude for the role   
+           <mat-slider
+               class="rate-slider"
+               [max]=10
+               [min]=1
+               [step]=1
+               [thumbLabel]=true
+               [tickInterval]=1
+               [vertical]=false
+           >
+      
+       <!-- [(ngModel)]="value" -->
+           </mat-slider>
+       </div>
+       <div class="feedback_slider">
+        Clarity of thought/ Domain Knowledge    
+           <mat-slider
+               class="rate-slider"
+               [max]=10
+               [min]=1
+               [step]=1
+               [thumbLabel]=true
+               [tickInterval]=1
+               [vertical]=false
+           >
+      
+       <!-- [(ngModel)]="value" -->
+           </mat-slider>
+       </div>
+       <div class="feedback_slider">
+        Temprament   
+           <mat-slider
+               class="rate-slider"
+               [max]=10
+               [min]=1
+               [step]=1
+               [thumbLabel]=true
+               [tickInterval]=1
+               [vertical]=false
+           >
+      
+       <!-- [(ngModel)]="value" -->
+           </mat-slider>
+       </div>
     <input type="text" placeholder="Feeback">
-    <button>Submit</button>
+    <div class="feedback-action"> 
+        <button>Submit</button>
+        <button>Close</button>    
+    </div>
+    
+    
 </div>
