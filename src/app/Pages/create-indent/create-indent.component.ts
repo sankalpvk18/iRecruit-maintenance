@@ -106,6 +106,9 @@ export class CreateIndentComponent implements OnInit {
         this.getExistingIndent(params["id"]);
         this.isEditMode = true;
       }
+      else{
+        this.isLoaded=true;
+            }
     });
   }
 
@@ -118,7 +121,7 @@ export class CreateIndentComponent implements OnInit {
       } else {
         this.setExistingIndentData(offset)
       }
-      // this.isLoaded = true;
+      this.isLoaded = true;
       console.log(this.existingIndent);
     })
 
@@ -134,8 +137,9 @@ export class CreateIndentComponent implements OnInit {
 
   setExistingIndentData(offset: number) {
     this.existingSkills = this.existingIndent[10+offset];
-    this.existingLocations.setValue(this.existingIndent[5+offset]);
-
+    let y:string[]=['Pune', 'Mumbai', 'Hyderabad'];
+    // this.existingLocations.setValue(this.existingIndent[5+offset][0]);
+    this.existingLocations.setValue(y);
     this.jobRole.setValue(this.existingIndent[9+offset]);
     this.vacancies.setValue(this.existingIndent[11+offset]);
     this.department.setValue(this.existingIndent[3+offset]);

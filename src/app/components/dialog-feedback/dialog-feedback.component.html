@@ -97,10 +97,10 @@
        <!-- [(ngModel)]="value" -->
            </mat-slider>
        </div>
-    <textarea class="Feeback" name="Feeback" rows="6" cols="50" placeholder="Write your thoughts!"></textarea>
+    <textarea class="Feeback" name="Feeback" rows="6" cols="50" placeholder="Write your thoughts!"  [(ngModel)]="feedbackValue"></textarea>
     <div class="feedback-action"> 
         <div><button class="action-btn mat-raised-button" mat-dialog-close>Close</button></div>
-        <div><button class="action-btn blue mat-raised-button">Submit</button></div>
+        <div><button class="action-btn blue mat-raised-button" mat-dialog-close (click)="onSubmit()">Submit</button></div>
     </div>
     
     

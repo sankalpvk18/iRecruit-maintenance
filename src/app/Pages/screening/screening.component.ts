@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { merge } from 'rxjs';
 import { CalendarViewComponent } from 'src/app/components/calendar-view/calendar-view.component';
 import { DialogFeedbackComponent } from 'src/app/components/dialog-feedback/dialog-feedback.component';
+import Applicant from 'src/app/models/Applicant';
 
 @Component({
   selector: 'app-screening',
@@ -29,6 +30,7 @@ export class ScreeningComponent implements OnInit {
     ],
     "applicantDetails": {
         "key": "-MoYXw9n6e6hqL4GK_8d",
+        "indent_id":"-MoYX6o2gO-QTIKspVw7",
         "applied_on": 1636978901834,
         "ctc": 450000,
         "email": "sukalp18@gmail.com",
@@ -62,14 +64,14 @@ export class ScreeningComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.screeningData = this.tempData;
+   this.screeningData = this.tempData;
     let token = this.route.snapshot.paramMap.get('accessToken');
     if(token) {
       localStorage.setItem('access_token',token);
       this.openDialog();
       // this.createEvent(token);
     }
-    this.setSkillsMatched(this.tempData.requiredSkills, this.tempData.applicantDetails.skills);
+   this.setSkillsMatched(this.tempData.requiredSkills, this.tempData.applicantDetails.skills);
   }
 
   openDialog() {
@@ -119,7 +121,11 @@ export class ScreeningComponent implements OnInit {
   }
 
   onReject(){
-    const dialogRef = this.dialog.open(DialogFeedbackComponent);
+   // const dialogRef = this.dialog.open(DialogFeedbackComponent);
+    const dialogRef = this.dialog.open(DialogFeedbackComponent, {
+        data: this.screeningData.applicantDetails
+     
+    });
       dialogRef.disableClose = true;
   }
 

@@ -2,10 +2,7 @@ import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CalendarOptions } from '@fullcalendar/angular'; // useful for typechecking
-import interactionPlugin from '@fullcalendar/interaction';
-import { toJSDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar';
-import { scheduled } from 'rxjs';
-import { FullCalendarModule } from '@fullcalendar/angular';
+
 
 @Component({
   selector: 'app-calendar-view',

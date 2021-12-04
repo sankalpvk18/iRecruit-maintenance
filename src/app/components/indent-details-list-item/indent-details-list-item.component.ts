@@ -101,11 +101,20 @@ export class IndentDetailsListItemComponent implements OnInit {
   }
 
   updateApplicantsList(data: any, dropOnto: string) {
-    let ref = "";
+    
     switch(dropOnto) {
       case 'applicants':
+        
         break;
       case 'first':
+        console.log(data)
+      //   const obj = {
+      //     moved_1: new Date(),
+      //     status: "first",
+      //   }
+        
+      //  this.db.update("/" + this.indentId+"/applications/"+data.key, obj);
+      //  this.db.update("/"+this.indentId+"/first/"+data.key,data);
         break;
       case 'second':
         break;
@@ -129,17 +138,17 @@ export class IndentDetailsListItemComponent implements OnInit {
       console.log(this.applicantsDetails);
     });
 
-    this.db.getAllApplications(this.db.getRejectedUserIDRef(this.indentBy, this.indentId)).snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
-        )
-      )
-    ).subscribe(data => {
-      this.applicantsDetails = data;
-      this.setApplicantCategory(this.applicantsDetails);
-      console.log(this.applicantsDetails);
-    });
+    // this.db.getAllApplications(this.db.getRejectedUserIDRef(this.indentBy, this.indentId)).snapshotChanges().pipe(
+    //   map(changes =>
+    //     changes.map(c =>
+    //       ({ key: c.payload.key, ...c.payload.val() })
+    //     )
+    //   )
+    // ).subscribe(data => {
+    //   this.applicantsDetails = data;
+    //   this.setApplicantCategory(this.applicantsDetails);
+    //   console.log(this.applicantsDetails);
+    // });
 
   }
 

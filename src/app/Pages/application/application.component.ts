@@ -115,6 +115,7 @@ export class ApplicationComponent implements OnInit {
 
   createApplication(){
     this.application.skills = this.skills;
+    this.application.indent_id=this.indentId;
     this.application.applied_on = new Date().getTime();
     this.application.rating=0;
     this.application.status="none";

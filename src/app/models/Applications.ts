@@ -1,5 +1,5 @@
 export default class Applications {
-    $key: string;
+    key: string;
     role: string;
     applied_on: number;
     name: string;
@@ -12,4 +12,5 @@ export default class Applications {
     ctc:number;
     status: string;
     rating: number;
+    indent_id:string;
 }

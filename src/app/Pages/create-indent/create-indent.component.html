@@ -4,8 +4,10 @@
     </div>
     <div class="title">Create Indent</div>
     <div class="sub-container">
-       
-        <div *ngIf="!isEditMode" class="form-and-skills-section">
+        <div class="loader-placeholder" *ngIf="!isLoaded">
+            <img width="100px" height="auto" src="../../../assets/spinner.gif" alt="spinner">
+        </div>
+        <div *ngIf="!isEditMode && isLoaded" class="form-and-skills-section">
             <div class="form-section">
 
                 <div id="input-container">
@@ -105,7 +107,7 @@
         <!-- ------------------------------------------------------------------------------
         ------------------------------------------------------------------------------ -->
 
-        <div *ngIf="isEditMode" class="form-and-skills-section">
+        <div *ngIf="isEditMode && isLoaded" class="form-and-skills-section">
             <div class="form-section">
 
                 <div id="input-container">
