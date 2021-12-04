@@ -2,9 +2,11 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
+import * as firebase from 'firebase/compat';
 import { map } from 'rxjs/operators';
+import Applications from 'src/app/models/Applications';
 import { FirebaseDatabaseService } from 'src/app/services/firebase-database.service';
-import { updateCommaList } from 'typescript';
+
 
 @Component({
   selector: 'app-indent-details-list-item',
@@ -48,6 +50,7 @@ export class IndentDetailsListItemComponent implements OnInit {
   currentRate = 0;
   indentBy: string;
   indentId: string;
+  cloneApplicant: Applications;
   
 
 
@@ -89,7 +92,7 @@ export class IndentDetailsListItemComponent implements OnInit {
     //   case 'rejected':
     //     break;
     // }
-    this.updateApplicantsList(event.previousContainer.data, dropOnto);
+    this.updateApplicantsList(event.previousContainer.data, event.previousContainer.id, dropOnto);
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -100,29 +103,74 @@ export class IndentDetailsListItemComponent implements OnInit {
     }
   }
 
-  updateApplicantsList(data: any, dropOnto: string) {
-    
+  updateApplicantsList(data: any, dropFrom: string, dropOnto: string) {
     switch(dropOnto) {
       case 'applicants':
+        const none = {
+          moved_1: null,
+          moved_2:null,
+          moved_3:null,
+          status: "none",
+        }
         
+       this.db.update("/" + this.indentId+"/applications/"+data[0].key, none);
         break;
       case 'first':
-        console.log(data)
-      //   const obj = {
-      //     moved_1: new Date(),
-      //     status: "first",
-      //   }
+        const first = {
+          moved_1: new Date(),
+          moved_2:null,
+          moved_3:null,
+          status: "first",
+        }
         
-      //  this.db.update("/" + this.indentId+"/applications/"+data.key, obj);
-      //  this.db.update("/"+this.indentId+"/first/"+data.key,data);
+       this.db.update("/" + this.indentId+"/applications/"+data[0].key, first);
+       this.db.update("/"+this.indentId+"/first/"+data[0].key,data[0]);
         break;
       case 'second':
+        const second = {
+          moved_1: null,
+          moved_2:new Date(),
+          moved_3:null,
+          status: "second",
+        }
+        
+       this.db.update("/" + this.indentId+"/applications/"+data[0].key, second);
+       this.db.update("/"+this.indentId+"/second/"+data[0].key,data[0]);
         break;
       case 'third':
+        const third = {
+          moved_1: null,
+          moved_2:null,
+          moved_3: new Date(),
+          status: "third",
+        }
+        
+       this.db.update("/" + this.indentId+"/applications/"+data[0].key, third);
+       this.db.update("/"+this.indentId+"/third/"+data[0].key,data[0]);
         break;
-      case 'rejected':
+      }
+      
+    switch(dropFrom){
+      case 'cdk-drop-list-1':
+
+        this.db.delete('/'+this.indentId+"/first/"+data[0].key).then(()=>{
+          window.location.reload();
+        })
         break;
+      case 'cdk-drop-list-2':
+        this.db.delete('/'+this.indentId+"/second/"+data[0].key).then(()=>{
+          window.location.reload();
+        });
+        break;
+      case 'cdk-drop-list-3':
+        this.db.delete('/'+this.indentId+"/third/"+data[0].key).then(()=>{
+          window.location.reload();
+        });
+        break;  
     }
+
+    
+
   }
 
   getApplicants(){
@@ -158,13 +206,13 @@ export class IndentDetailsListItemComponent implements OnInit {
         case "none":
           this.applicants.push(applicant);
           break;
-        case "firstRound":
+        case "first":
           this.firstRound.push(applicant);
           break;
-        case "secondRound":
+        case "second":
           this.secondRound.push(applicant);
           break;
-        case "thirdRound":
+        case "third":
           this.thirdRound.push(applicant);
           break;
         case "rejected":

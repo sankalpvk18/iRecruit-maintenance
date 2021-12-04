@@ -125,13 +125,7 @@ export class CreateIndentComponent implements OnInit {
       console.log(this.existingIndent);
     })
 
-    // this.db.getParicularIndent(this.db.getCurrentIndentRef(id)).snapshotChanges().pipe(
-    //   map((products: any[]) => products.map(prod => {
-    //     const payload = prod.payload.val();
-    //     const key = prod.key;
-    //     return <any>{ key, ...payload };
-    //   })),
-    // );
+  
 
   }
 
@@ -224,9 +218,6 @@ export class CreateIndentComponent implements OnInit {
     });
   }
 
-  // onDateInputClicked() {
-  //   picker
-  // }
 
 }
 
