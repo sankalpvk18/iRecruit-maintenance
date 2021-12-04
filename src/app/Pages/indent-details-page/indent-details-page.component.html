@@ -7,15 +7,15 @@
     <div class="sub-container">
 
         <div class="sidebar">
-            <div class="indent_role m-10">{{indent.role}}</div>
-            <div class="m-10 indent_items">Department: {{indent.department}}</div>
-            <div class="m-10 indent_items">Vacancies: {{indent.vacancies}}</div>
-            <div class="m-10 indent_items">Created on: {{getDate(indent.created_on) | date}}</div>
+            <div class="indent_role m-10">{{role}}</div>
+            <div class="m-10 indent_items">Department: {{department}}</div>
+            <div class="m-10 indent_items">Vacancies: {{vacancies}}</div>
+            <div class="m-10 indent_items">Created on: {{getDate(created_on) | date}}</div>
         </div>
         
        
         <div class="indent-cards">
-            <app-indent-details-list-item [requiredSkills]="indent.skills"></app-indent-details-list-item>
+            <app-indent-details-list-item [requiredSkills]="skills"></app-indent-details-list-item>
             <!-- <div class="loader-placeholder" *ngIf="!isLoaded">
                 <img width="100px" height="auto" src="../../../assets/spinner.gif" alt="spinner">
             </div> -->

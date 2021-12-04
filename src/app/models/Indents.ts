@@ -19,6 +19,11 @@ export default class Indents implements Deserializable {
     due_date: number;
     reportingManager: string;
     applications: [Applications];
+    rejected:[Applications];
+    first:[Applications];
+    second:[Applications];
+    third:[Applications];
+    hired:[Applications];
 
     deserialize(input: any): this {
         Object.assign(this, input);

@@ -20,25 +20,6 @@ export class IndentDetailsListItemComponent implements OnInit {
   @Input() requiredSkills = []
 
   applicantsDetails: any = [];
-
-  // rejectedProfiles = [
-  //   'Jorge Wheeler',
-  //   'James Conway',
-  //   'Elizabeth Simpson',
-  //   'Mark Jennings',
-  //   'Kara Drake',
-  //   'Lindsay Hudson',
-  //   'Erica Willis',
-  //   // 'Brian Clark',
-  //   // 'Danny Jones',
-  //   // 'Brian Horton',
-  //   // 'Aaron Horn',
-  //   // 'Jennifer Wilson',
-  //   // 'Brian Fernandez',
-  //   // 'Lindsay Mccarthy',
-  //   // 'Jennifer Daniels'
-  // ];
-
   applicants : any = [];
   applicantsData = [];
 
@@ -185,18 +166,6 @@ export class IndentDetailsListItemComponent implements OnInit {
       this.setApplicantCategory(this.applicantsDetails);
       console.log(this.applicantsDetails);
     });
-
-    // this.db.getAllApplications(this.db.getRejectedUserIDRef(this.indentBy, this.indentId)).snapshotChanges().pipe(
-    //   map(changes =>
-    //     changes.map(c =>
-    //       ({ key: c.payload.key, ...c.payload.val() })
-    //     )
-    //   )
-    // ).subscribe(data => {
-    //   this.applicantsDetails = data;
-    //   this.setApplicantCategory(this.applicantsDetails);
-    //   console.log(this.applicantsDetails);
-    // });
 
   }
 

@@ -19,20 +19,20 @@
                 <div class="jr_vacancy"><span style="font-weight: bold;">Vacancies: </span><span style="color: brown;font-weight: bold;">{{indent.vacancies}}</span></div>
                 <div class="jr_dept"><span style="font-weight: bold;">Department: </span><span style="color: teal;font-weight: bold;">{{indent.department}}</span></div>
                 <div class="jr_applications">
-                    <div><span style="font-weight: bold;">Candidates Applied: </span> <span style="color: brown;font-weight: bold;">{{getLength(indent)}}</span></div>
-                    <div><span style="font-weight: bold;">Open Applications: </span><span style="color: brown;font-weight: bold;">3</span></div>
+                    <div><span style="font-weight: bold;">Candidates Applied: </span> <span style="color: brown;font-weight: bold;">{{getLength(indent, 'applications')}}</span></div>
+                    <div><span style="font-weight: bold;">Open Applications: </span><span style="color: brown;font-weight: bold;">{{getLength(indent,'applications')-getLength(indent, 'first')-getLength(indent, 'second')-getLength(indent, 'third')-getLength(indent, 'rejected')-getLength(indent, 'hired')}}</span></div>
                 </div>
                 <div class="jr_applications">
-                    <div><span style="font-weight: bold;">First Interview: </span><span style="color: brown;font-weight: bold;">2</span></div>
-                    <div><span style="font-weight: bold;">Second Interview: </span><span style="color: brown;font-weight: bold;">2</span></div>
+                    <div><span style="font-weight: bold;">First Interview: </span><span style="color: brown;font-weight: bold;">{{getLength(indent, 'first')}}</span></div>
+                    <div><span style="font-weight: bold;">Second Interview: </span><span style="color: brown;font-weight: bold;">{{getLength(indent, 'second')}}</span></div>
                 </div>
                 <div class="jr_applications">
-                    <div><span style="font-weight: bold;">Offer Proposed: </span><span style="color: brown;font-weight: bold;">3</span></div>
-                    <div><span style="font-weight: bold;">Hired: </span><span style="color: green;font-weight: bold;">6</span></div>
+                    <div><span style="font-weight: bold;">Offer Proposed: </span><span style="color: brown;font-weight: bold;">{{getLength(indent, 'third')}}</span></div>
+                    <div><span style="font-weight: bold;">Hired: </span><span style="color: green;font-weight: bold;">{{getLength(indent, 'hired')}}</span></div>
                 </div>
                
                 <div class="jr_applications">
-                    <div><a href="#"><span style="font-weight: bold; color: brown;">Rejected Profiles: 89</span></a></div>
+                    <div><a href="#"><span style="font-weight: bold; color: brown;">Rejected Profiles: {{getLength(indent, 'rejected')}}</span></a></div>
                     <div><span style="font-weight: bold;">Open Since: </span><span style="color: green;font-weight: bold;">{{getOpenSince(indent.created_on)}} Days</span></div>
                 </div>
             </div>

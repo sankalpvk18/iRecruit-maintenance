@@ -42,8 +42,14 @@ export class DialogFeedbackComponent implements OnInit {
 
    this.db.update("/" + this.applicant.indent_id+"/applications/"+this.applicant.key, obj);
    this.db.update("/"+this.applicant.indent_id+"/rejected/"+this.applicant.key,this.applicant);
+   
+   
+   // delete the other states
+   this.db.delete('/'+this.applicant.indent_id+"/second/"+this.applicant.key);
+   this.db.delete('/'+this.applicant.indent_id+"/third/"+this.applicant.key);
+   this.db.delete('/'+this.applicant.indent_id+"/first/"+this.applicant.key);
 
-    
+    window.location.reload();
     
 
     

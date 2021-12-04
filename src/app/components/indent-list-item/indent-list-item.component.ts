@@ -48,6 +48,13 @@ export class IndentListItemComponent implements OnInit {
   }
 
   onIndentClicked(indent){
+
+    sessionStorage.setItem("indent_role", indent.role);
+    sessionStorage.setItem("indent_department", indent.department);
+    sessionStorage.setItem("indent_created_on", indent.created_on);
+    sessionStorage.setItem("indent_skills", JSON.stringify(indent.skills))
+    sessionStorage.setItem("indent_vacancies", indent.vacancies);
+
     const navigationExtras: NavigationExtras = {
       state: {
         department: indent.department,
@@ -93,20 +100,55 @@ export class IndentListItemComponent implements OnInit {
     this.isOutsideClicked = !this.isOutsideClicked;
   }
 
-  getLength(indent: any){
-    console.log(indent.applications);
+  getLength(indent: any, type: string){
     let arr = [];
-    if(indent.applications != null) {
-      // arr = Object.keys(indent.applications).map(function(key){  
-      //   this.applications.push(key)  
-      //   return this.applications;  
-      // });
 
-      for(let key in indent.applications){  
-        arr.push(key);  
-      }
+    switch(type)
+    {
+      case 'applications':
+        if(indent.applications != null) {
+          for(let key in indent.applications){  
+            arr.push(key);  
+          }
+        }
+        break;
+      case 'first':
+        if(indent.first != null) {
+          for(let key in indent.first){  
+            arr.push(key);  
+          }
+        }
+        break;
+      case 'second':
+        if(indent.second != null) {
+          for(let key in indent.second){  
+            arr.push(key);  
+          }
+        }
+        break;
+      case 'third':
+        if(indent.third != null) {
+          for(let key in indent.third){  
+            arr.push(key);  
+          }
+        }
+        break;
+      case 'rejected':
+        if(indent.rejected != null) {
+          for(let key in indent.rejected){  
+            arr.push(key);  
+          }
+        }
+        break;  
+       case 'hired':
+        if(indent.hired != null) {
+          for(let key in indent.hired){  
+            arr.push(key);  
+          }
+        }
+        break;       
     }
-     
+   
     if(arr !=null){
       return arr.length;
     }
