@@ -163,11 +163,18 @@
 }
 .loader-placeholder {
     width: 100%;
-    height: 400px;
+    height: 500px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+.loader-anim{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 ::ng-deep.mat-slide-toggle .mat-slide-toggle-ripple {
     display: none;
 }

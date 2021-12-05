@@ -11,7 +11,7 @@ import { FirebaseDatabaseService } from 'src/app/services/firebase-database.serv
 @Component({
   selector: 'app-indent-details-list-item',
   templateUrl: './indent-details-list-item.component.html',
-  styleUrls: ['./indent-details-list-item.component.scss']
+  styleUrls: ['./indent-details-list-item.component.scss'],
 })
 export class IndentDetailsListItemComponent implements OnInit {
 

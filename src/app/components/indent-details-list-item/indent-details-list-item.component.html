@@ -1,7 +1,15 @@
 <div class="wrapper">
     <div class="loader-placeholder" *ngIf="!isLoaded">
-        <img width="100px" height="auto" src="../../../assets/spinner.gif" alt="spinner">
+        <!-- <img width="100px" height="auto" src="../../../assets/spinner.gif" alt="spinner"> -->
+        <lottie-player src="https://assets5.lottiefiles.com/private_files/lf30_QR3oyU.json"
+            background="transparent"
+            speed="1"
+            style="width: 600px; height: 600px;"
+            loop autoplay>
+        </lottie-player>
+        <div class="empty_msg">You don't have any active applicants.</div>
     </div>
+    
     <div  *ngIf="isLoaded" cdkDropListGroup class="mt-40">
         <div class="or-spacer-vertical left">
             <div class="mask"></div>

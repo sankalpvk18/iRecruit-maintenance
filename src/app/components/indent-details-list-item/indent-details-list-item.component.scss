@@ -67,8 +67,14 @@
     width: 100%;
     height: 400px;
     display: flex;
-    justify-content: center;
+    // justify-content: center;
     align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+.empty_msg {
+    position: absolute;
+    bottom: -20%;
 }
 .or-spacer-vertical {
     display:inline-block;

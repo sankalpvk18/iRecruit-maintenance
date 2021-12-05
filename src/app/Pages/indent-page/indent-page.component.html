@@ -12,12 +12,26 @@
     <div class="sub-container">
        
         <div class="indent-cards">
-            <app-indent-list-item [indents]="indents" (applicationURLCopied)="applicationURLCopied($event)" (onToggleSwitched)="onToggleSwitched($event)" *ngIf="isLoaded"></app-indent-list-item>
+            <app-indent-list-item [indents]="indents" (applicationURLCopied)="applicationURLCopied($event)" (onToggleSwitched)="onToggleSwitched($event)" *ngIf="isLoaded && indents.length>0"></app-indent-list-item>
             <div class="loader-placeholder" *ngIf="!isLoaded">
-                <img width="100px" height="auto" src="../../../assets/spinner.gif" alt="spinner">
-            </div>
+                <img width="100px" height="auto"  src="../../../assets/spinner.gif" alt="spinner">
+                
+             </div>
+             <div *ngIf="isLoaded && indents.length==0" class="loader-anim">
+                <div>
+                    <lottie-player 
+                    src="https://assets9.lottiefiles.com/packages/lf20_ydo1amjm.json"
+                    background="transparent"
+                    speed="1"
+                    style="width: 600px; height: 300px; margin: 70px;"
+                    loop autoplay>
+                    </lottie-player>
+                </div>    
+                <div> There's nothing in here.Create an indent to get started. </div>
+             </div>
+           
         </div>
-            
+             
            
     </div>
 
