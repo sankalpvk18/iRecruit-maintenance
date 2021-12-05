@@ -9,7 +9,6 @@ import {map, startWith} from 'rxjs/operators';
 import Indents from 'src/app/models/Indents';
 import { FirebaseDatabaseService } from 'src/app/services/firebase-database.service';
 import { Location } from '@angular/common';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 
@@ -17,19 +16,6 @@ import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snac
 @Component({
   selector: 'app-create-indent',
   templateUrl: './create-indent.component.html',
-  providers: [
-    {provide: MAT_DATE_FORMATS, useValue: {
-      parse: {
-        dateInput: 'LL',
-      },
-      display: {
-        dateInput: 'LL',
-        monthYearLabel: 'MMM YYYY',
-        dateA11yLabel: 'LL',
-        monthYearA11yLabel: 'MMMM YYYY',
-      },
-    }},
-  ],
   styleUrls: ['./create-indent.component.scss']
 })
 export class CreateIndentComponent implements OnInit {
@@ -63,7 +49,8 @@ export class CreateIndentComponent implements OnInit {
   existingLocations = new FormControl();
 
   selectedValue: string;
-  existingDate: any;
+  existingDate = new Date();
+  selectedLocations: string[];
 
   manager = [
     "John",
@@ -134,15 +121,16 @@ export class CreateIndentComponent implements OnInit {
     this.existingSkills = this.existingIndent[10+offset];
     let y:string[]=['Pune', 'Mumbai', 'Hyderabad'];
     // this.existingLocations.setValue(this.existingIndent[5+offset][0]);
-    this.existingLocations.setValue(y);
+    this.selectedLocations = this.existingIndent[5+offset];
+    // this.existingLocations = this.existingIndent[5+offset];
     this.jobRole.setValue(this.existingIndent[9+offset]);
     this.vacancies.setValue(this.existingIndent[11+offset]);
     this.department.setValue(this.existingIndent[3+offset]);
     this.salary.setValue(this.existingIndent[2+offset]);
     this.minWorkEx.setValue(this.existingIndent[6+offset]);
     this.reportingManager.setValue(this.existingIndent[8+offset]);
-    // this.date = new FormControl("12/3/2021");
-    this.existingDate = new Date(this.existingIndent[4+offset]).toLocaleDateString("en-us");
+    // this.date.setValue(new Date(this.existingIndent[4+offset]));
+    this.existingDate = new Date(this.existingIndent[4+offset]);
     // this.date.setValue(new Date(this.existingIndent[4+offset]).toLocaleDateString("en-us"));
   }
 
@@ -204,7 +192,7 @@ export class CreateIndentComponent implements OnInit {
       this.indents.created_by = this.currentUser;
     }
     this.db.create(this.indents).then(() => {
-      this.openSnackBar()
+      this.openSnackBar();
     });
   }
 
@@ -221,15 +209,3 @@ export class CreateIndentComponent implements OnInit {
 
 
 }
-
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'LL',
-  },
-  display: {
-    dateInput: 'LL',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};

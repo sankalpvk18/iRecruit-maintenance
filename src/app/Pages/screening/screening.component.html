@@ -14,6 +14,7 @@
           </div>
         
           <div class="profile-name">{{applicantDetails.name}}</div>
+          <div class="profile-badge">{{getStatus(applicantDetails.status)}}</div>
           <div class="profile-details-container">
 
             <div class="details-section">
@@ -96,6 +97,14 @@
     </div>
 
     <div class="action-buttons">
+        <mat-form-field class="state-selector" appearance="fill">
+          <mat-label>Application Status</mat-label>
+          <mat-select [formControl]="state" name="state">
+            <mat-option *ngFor="let state of states" [value]="state">
+              {{state}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
        <mat-card class="action-buttons__btns" (click)="onReject()">
         <img src="../../../assets/cancel.svg" alt="cancel" class="create-indent__btn_img">
         <p>Reject</p>
@@ -103,6 +112,10 @@
       <mat-card class="action-buttons__btns" (click)="scheduleEvent()">
         <img src="../../../assets/check.svg" alt="create indent" class="create-indent__btn_img">
         <p>Schedule interview</p>
+      </mat-card>
+      <mat-card class="action-buttons__btns" (click)="scheduleEvent()">
+        <img src="../../../assets/check.svg" alt="create indent" class="create-indent__btn_img">
+        <p>Hire</p>
       </mat-card>
    </div>
    

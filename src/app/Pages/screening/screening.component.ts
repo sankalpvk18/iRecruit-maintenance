@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { merge } from 'rxjs';
 import { CalendarViewComponent } from 'src/app/components/calendar-view/calendar-view.component';
 import { DialogFeedbackComponent } from 'src/app/components/dialog-feedback/dialog-feedback.component';
@@ -19,12 +20,12 @@ export class ScreeningComponent implements OnInit {
   screeningData: any;
   matchedSkills = [];
   unmatchSkills = [];
-  extraSkills= [];
+  extraSkills = [];
   skills = [];
 
-  required_skills=[];
-  applicantDetails:Applications;
-  applicant_skills=[];
+  required_skills = [];
+  applicantDetails: Applications;
+  applicant_skills = [];
 
   // tempData = {
   //   "requiredSkills": [
@@ -54,9 +55,11 @@ export class ScreeningComponent implements OnInit {
   //   },
   //   "accessToken": ""
   // }
-  
 
-  constructor(private router: Router,public dialog: MatDialog, private route: ActivatedRoute, private httpClient: HttpClient) { 
+  states = ['None', 'First Round', 'Second Round', 'Contract Proposed'];
+  state = new FormControl("", Validators.required);
+
+  constructor(private router: Router, public dialog: MatDialog, private route: ActivatedRoute, private httpClient: HttpClient) {
     // const navigation = this.router.getCurrentNavigation();
     // const state = navigation.extras.state as {
     //   requiredSkills: any,
@@ -67,112 +70,112 @@ export class ScreeningComponent implements OnInit {
     // this.setSkillsMatched(this.screeningData.requiredSkills, this.screeningData.applicantDetails.skills);
     // console.log("screedning data - " + this.screeningData);
 
-    this.required_skills=JSON.parse(sessionStorage.getItem("indent_skills"));
-    this.applicantDetails=JSON.parse(sessionStorage.getItem("applicantDetails"));
-    this.applicant_skills=JSON.parse(sessionStorage.getItem("applicantSkill"));
+    this.required_skills = JSON.parse(sessionStorage.getItem("indent_skills"));
+    this.applicantDetails = JSON.parse(sessionStorage.getItem("applicantDetails"));
+    this.applicant_skills = JSON.parse(sessionStorage.getItem("applicantSkill"));
     this.setSkillsMatched(this.required_skills, this.applicant_skills);
   }
 
   ngOnInit(): void {
-  // this.screeningData = this.tempData;
+    // this.screeningData = this.tempData;
     let token = this.route.snapshot.paramMap.get('accessToken');
-    if(token) {
-      localStorage.setItem('access_token',token);
+    if (token) {
+      localStorage.setItem('access_token', token);
       this.openDialog();
       // this.createEvent(token);
     }
-   //this.setSkillsMatched(this.tempData.requiredSkills, this.tempData.applicantDetails.skills);
+    //this.setSkillsMatched(this.tempData.requiredSkills, this.tempData.applicantDetails.skills);
 
-   
+
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     //window.location.reload();
   }
   openDialog() {
     const dialogRef = this.dialog.open(CalendarViewComponent, {
-        data: this.applicantDetails.email
+      data: this.applicantDetails.email
     });
   }
 
   setSkillsMatched(required: string[], posses: string[]) {
-    
+
 
     let allSkills = [...required, ...posses];
-    
-        for(var skill in required){
-          var count=0;
-          for(var eachskill in allSkills){
-            if(required[skill]== allSkills[eachskill]){
-                 count++;
-            }
-           }  
-           if(count>1){
-              this.matchedSkills.push(required[skill]);
-           }
-           if(count==1){
-              this.unmatchSkills.push(required[skill]);
-           }
-        }
 
-        for(var _skill_ in posses){
-          var count=0;
-          for(var _eachSkill_ in allSkills){
-              if(posses[_skill_]==allSkills[_eachSkill_]){
-                  count++;
-              }
-          }
-          if(count==1){
-              this.extraSkills.push(posses[_skill_]);
-          }
+    for (var skill in required) {
+      var count = 0;
+      for (var eachskill in allSkills) {
+        if (required[skill] == allSkills[eachskill]) {
+          count++;
         }
-    
+      }
+      if (count > 1) {
+        this.matchedSkills.push(required[skill]);
+      }
+      if (count == 1) {
+        this.unmatchSkills.push(required[skill]);
+      }
+    }
+
+    for (var _skill_ in posses) {
+      var count = 0;
+      for (var _eachSkill_ in allSkills) {
+        if (posses[_skill_] == allSkills[_eachSkill_]) {
+          count++;
+        }
+      }
+      if (count == 1) {
+        this.extraSkills.push(posses[_skill_]);
+      }
+    }
+
     this.skills = [...this.matchedSkills, ...this.unmatchSkills, ...this.extraSkills];
-  
+
   }
 
-  onBack(){
+  onBack() {
     sessionStorage.removeItem("indent_skills");
     sessionStorage.removeItem("applicantDetails");
     sessionStorage.removeItem("applicantSkill");
     this.router.navigateByUrl('/indents');
   }
 
-  onReject(){
-   // const dialogRef = this.dialog.open(DialogFeedbackComponent);
+  onReject() {
+    // const dialogRef = this.dialog.open(DialogFeedbackComponent);
     const dialogRef = this.dialog.open(DialogFeedbackComponent, {
-        data: this.applicantDetails
-     
+      data: this.applicantDetails
+
     });
-      dialogRef.disableClose = true;
+    dialogRef.disableClose = true;
   }
 
-  getMatchingPercentage() : number {
-    if(this.required_skills.length>0) {
-      return (this.matchedSkills.length/this.required_skills.length)*100;
+  getMatchingPercentage(): number {
+    if (this.required_skills.length > 0) {
+      return (this.matchedSkills.length / this.required_skills.length) * 100;
     }
     return 0;
   }
 
-  openResume(){
-    window.open(this.applicantDetails.resume,'_blank');
+  openResume() {
+    window.open(this.applicantDetails.resume, '_blank');
   }
 
-  getSkillClass(skill: string) : string {
-    for(var item of this.matchedSkills) {
-      if(skill == item) {
+  getSkillClass(skill: string): string {
+    for (var item of this.matchedSkills) {
+      if (skill == item) {
         return 'skill-item--matched';
       }
     }
 
-    for(var item of this.unmatchSkills) {
-      if(skill == item) {
+    for (var item of this.unmatchSkills) {
+      if (skill == item) {
         return 'skill-item--unmatched';
       }
     }
 
-    for(var item of this.extraSkills) {
-      if(skill == item) {
+    for (var item of this.extraSkills) {
+      if (skill == item) {
         return 'skill-item--extra';
       }
     }
@@ -187,14 +190,14 @@ export class ScreeningComponent implements OnInit {
   fetchAccessToken() {
 
 
-    var redirectURL = "https://accounts.google.com/o/oauth2/v2/auth?" 
-    + "scope=https://www.googleapis.com/auth/calendar+https://www.googleapis.com/auth/calendar.events&"
-    + "access_type=online&"
-    + "include_granted_scopes=true&"
-    + "response_type=code&"
-    + "state=hey&"
-    + "redirect_uri=http://localhost:4200/auth&"
-    + "client_id=959162043529-4l0a64ou7ninndoeu0mh2sqt6cgkk54r.apps.googleusercontent.com";
+    var redirectURL = "https://accounts.google.com/o/oauth2/v2/auth?"
+      + "scope=https://www.googleapis.com/auth/calendar+https://www.googleapis.com/auth/calendar.events&"
+      + "access_type=online&"
+      + "include_granted_scopes=true&"
+      + "response_type=code&"
+      + "state=hey&"
+      + "redirect_uri=http://localhost:4200/auth&"
+      + "client_id=959162043529-4l0a64ou7ninndoeu0mh2sqt6cgkk54r.apps.googleusercontent.com";
 
     window.location.href = redirectURL;
   }
@@ -216,14 +219,14 @@ export class ScreeningComponent implements OnInit {
         'RRULE:FREQ=DAILY;COUNT=2'
       ],
       'attendees': [
-        {'email': 'sukalp18@gmail.com'},
-        {'email': 'sankalpvk18@gmail.com'}
+        { 'email': 'sukalp18@gmail.com' },
+        { 'email': 'sankalpvk18@gmail.com' }
       ],
       'reminders': {
         'useDefault': false
       }
     };
-    
+
 
     var resource = {
       "summary": "Appointment",
@@ -233,16 +236,18 @@ export class ScreeningComponent implements OnInit {
       },
       "end": {
         "dateTime": "2021-12-20T10:25:00.000-07:00"
-        }
-      };
+      }
+    };
 
     let param = new HttpParams();
     param = param.set('key', 'AIzaSyBl4jUf3i5tL_Vu3QdSVRsWv30qC7h6gGM');
 
     const httpOptions = {
-      headers: new HttpHeaders({ 'Authorization': 'Bearer ' + accessToken,
-      'Accept': 'application/json',
-      'Content-type': 'application/json' }),
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + accessToken,
+        'Accept': 'application/json',
+        'Content-type': 'application/json'
+      }),
       params: param
     };
 
@@ -252,6 +257,24 @@ export class ScreeningComponent implements OnInit {
       console.log(data);
     });
 
+  }
+
+  getStatus(status: string) {
+    switch (status) {
+      case 'none':
+        return 'Applied'
+      case 'first':
+        return 'First Round'
+      case 'second':
+        return 'Second Round'
+      case 'third':
+        return 'Contract Proposed'
+      case 'rejected':
+        return 'Rejected'
+      case 'hired':
+        return 'Hired';
+    }
+    return null;
   }
 
 }

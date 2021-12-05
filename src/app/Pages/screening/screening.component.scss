@@ -143,14 +143,24 @@
     font-size: 28px;
     font-weight: 500;
 }
+.profile-badge {
+    margin-top: 10px;
+    display: inline-block;
+  background: #414040;
+  padding: 0 12px;
+  border-radius: 32px;
+  font-size: 13px;
+  color: #ffffff;
+  &.md-chip-hover:hover {
+    background: #ccc;
+  }
+}
 .action-buttons{
     position: absolute;
-    bottom: 5%;
+    bottom: 4%;
     right: 0%;
     display: flex;
-    justify-content: space-between;
-    width: fit-content;
-    height: auto;
+    align-items: end;
    
     .action-buttons__btns{
     display: flex;
@@ -172,7 +182,7 @@
 }
 .action_back_btn{
     position: absolute;
-    bottom: 5%;
+    bottom: 4%;
     left: 2.5%;
     display: flex;
     justify-content: center ;
@@ -234,4 +244,13 @@
     border: 1px solid black;
     background: #3776ab;
     margin: 10px;
+}
+.state-selector {
+    padding: 0 20px;
+}
+::ng-deep.mat-form-field-underline {
+    bottom: 0px;
+}
+::ng-deep.mat-form-field-wrapper {
+    padding-bottom: 0px;
 }
