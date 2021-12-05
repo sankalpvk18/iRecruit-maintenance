@@ -277,4 +277,8 @@ export class ScreeningComponent implements OnInit {
     return null;
   }
 
+  selectStatus(event) {
+    console.log(event.value);
+  }
+
 }

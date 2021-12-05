@@ -99,7 +99,7 @@
     <div class="action-buttons">
         <mat-form-field class="state-selector" appearance="fill">
           <mat-label>Application Status</mat-label>
-          <mat-select [formControl]="state" name="state">
+          <mat-select [formControl]="state" name="state" (selectionChange)="selectStatus($event)">
             <mat-option *ngFor="let state of states" [value]="state">
               {{state}}
             </mat-option>
