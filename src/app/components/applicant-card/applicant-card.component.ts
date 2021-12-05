@@ -48,6 +48,11 @@ export class ApplicantCardComponent implements OnInit {
   }
 
   openApplicant(data){
+    console.log(data);
+    sessionStorage.setItem("applicantSkill",JSON.stringify(data.skills));
+    delete data.skills;
+    console.log(data);
+    sessionStorage.setItem("applicantDetails", JSON.stringify(data));
 
     const navigationExtras: NavigationExtras = {
       state: {
@@ -58,7 +63,7 @@ export class ApplicantCardComponent implements OnInit {
 
     this.router.navigate(['screening'],navigationExtras);
 
-    // this.router.navigateByUrl('/screening');    
+      
   }
 
 }

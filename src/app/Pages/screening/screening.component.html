@@ -10,10 +10,10 @@
         <div class="profile-details">
   
           <div class="profile-image"> 
-            <img [src]="screeningData.applicantDetails.photo" >
+            <img [src]="applicantDetails.photo" >
           </div>
         
-          <div class="profile-name">{{screeningData.applicantDetails.name}}</div>
+          <div class="profile-name">{{applicantDetails.name}}</div>
           <div class="profile-details-container">
 
             <div class="details-section">
@@ -23,9 +23,9 @@
                 <div class="detail-desc">Work Experience:</div>
               </div>
               <div class="details-item">
-                <div class="detail-value">{{screeningData.applicantDetails.phone}}</div>
-                <div class="detail-value">{{screeningData.applicantDetails.email}}</div>
-                <div class="detail-value">{{screeningData.applicantDetails.work_ex}} years</div>
+                <div class="detail-value">{{applicantDetails.phone}}</div>
+                <div class="detail-value">{{applicantDetails.email}}</div>
+                <div class="detail-value">{{applicantDetails.work_ex}} years</div>
               </div>
             </div>
         
@@ -84,7 +84,7 @@
           <mat-step>
             <ng-template matStepLabel>Applied on:</ng-template>
             <ng-template matStepContent>
-              <p>{{screeningData.applicantDetails.applied_on | date: 'dd/MM/yyyy'}}</p>
+              <p>{{applicantDetails.applied_on | date: 'dd/MM/yyyy'}}</p>
               </ng-template>
           </mat-step>
           <mat-step>

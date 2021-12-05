@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import { FormControl, Validators } from '@angular/forms';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
@@ -91,7 +91,7 @@ export class CreateIndentComponent implements OnInit {
   @ViewChild('skillInput') skillInput: ElementRef<HTMLInputElement>;
   isLoaded: boolean;
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-  constructor(private router:Router, private db:FirebaseDatabaseService, private location: Location, private route: ActivatedRoute,private _snackBar: MatSnackBar
+  constructor( private db:FirebaseDatabaseService, private location: Location, private route: ActivatedRoute,private _snackBar: MatSnackBar
     ) {
       this.minDate = new Date();
     this.filteredSkills = this.skillCtrl.valueChanges.pipe(
@@ -99,7 +99,8 @@ export class CreateIndentComponent implements OnInit {
       map((skill: string | null) => skill ? this._filter(skill) : this.allSkills.slice()));
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {  
+    
     this.route.params.subscribe(params => {
       console.log(params);
       if (params["id"]) {

@@ -7,6 +7,7 @@ import { merge } from 'rxjs';
 import { CalendarViewComponent } from 'src/app/components/calendar-view/calendar-view.component';
 import { DialogFeedbackComponent } from 'src/app/components/dialog-feedback/dialog-feedback.component';
 import Applicant from 'src/app/models/Applicant';
+import Applications from 'src/app/models/Applications';
 
 @Component({
   selector: 'app-screening',
@@ -21,34 +22,38 @@ export class ScreeningComponent implements OnInit {
   extraSkills= [];
   skills = [];
 
-  tempData = {
-    "requiredSkills": [
-            "HTML",
-            "SQL",
-            "Android",
-            "CSS"
-    ],
-    "applicantDetails": {
-        "key": "-MoYXw9n6e6hqL4GK_8d",
-        "indent_id":"-MoYX6o2gO-QTIKspVw7",
-        "applied_on": 1636978901834,
-        "ctc": 450000,
-        "email": "sukalp18@gmail.com",
-        "name": "Sukalp Tripathi",
-        "phone": 7978961229,
-        "photo": "https://firebasestorage.googleapis.com/v0/b/irecruit-331eb.appspot.com/o/Images%2F1636978834785?alt=media&token=d7cf0c37-37d0-4b2f-ba99-f68a9e38db64",
-        "rating": 0,
-        "resume": "https://firebasestorage.googleapis.com/v0/b/irecruit-331eb.appspot.com/o/Resume%2F1636978841744?alt=media&token=a5e8fada-8568-4d33-8c1a-325321d6a677",
-        "skills": [
-            "HTML",
-            "Java",
-            "Agile"
-        ],
-        "status": "none",
-        "work_ex": 3
-    },
-    "accessToken": ""
-  }
+  required_skills=[];
+  applicantDetails:Applications;
+  applicant_skills=[];
+
+  // tempData = {
+  //   "requiredSkills": [
+  //           "HTML",
+  //           "SQL",
+  //           "Android",
+  //           "CSS"
+  //   ],
+  //   "applicantDetails": {
+  //       "key": "-MoYXw9n6e6hqL4GK_8d",
+  //       "indent_id":"-MoYX6o2gO-QTIKspVw7",
+  //       "applied_on": 1636978901834,
+  //       "ctc": 450000,
+  //       "email": "sukalp18@gmail.com",
+  //       "name": "Sukalp Tripathi",
+  //       "phone": 7978961229,
+  //       "photo": "https://firebasestorage.googleapis.com/v0/b/irecruit-331eb.appspot.com/o/Images%2F1636978834785?alt=media&token=d7cf0c37-37d0-4b2f-ba99-f68a9e38db64",
+  //       "rating": 0,
+  //       "resume": "https://firebasestorage.googleapis.com/v0/b/irecruit-331eb.appspot.com/o/Resume%2F1636978841744?alt=media&token=a5e8fada-8568-4d33-8c1a-325321d6a677",
+  //       "skills": [
+  //           "HTML",
+  //           "Java",
+  //           "Agile"
+  //       ],
+  //       "status": "none",
+  //       "work_ex": 3
+  //   },
+  //   "accessToken": ""
+  // }
   
 
   constructor(private router: Router,public dialog: MatDialog, private route: ActivatedRoute, private httpClient: HttpClient) { 
@@ -61,22 +66,32 @@ export class ScreeningComponent implements OnInit {
     // this.screeningData=state;
     // this.setSkillsMatched(this.screeningData.requiredSkills, this.screeningData.applicantDetails.skills);
     // console.log("screedning data - " + this.screeningData);
+
+    this.required_skills=JSON.parse(sessionStorage.getItem("indent_skills"));
+    this.applicantDetails=JSON.parse(sessionStorage.getItem("applicantDetails"));
+    this.applicant_skills=JSON.parse(sessionStorage.getItem("applicantSkill"));
+    this.setSkillsMatched(this.required_skills, this.applicant_skills);
   }
 
   ngOnInit(): void {
-   this.screeningData = this.tempData;
+  // this.screeningData = this.tempData;
     let token = this.route.snapshot.paramMap.get('accessToken');
     if(token) {
       localStorage.setItem('access_token',token);
       this.openDialog();
       // this.createEvent(token);
     }
-   this.setSkillsMatched(this.tempData.requiredSkills, this.tempData.applicantDetails.skills);
+   //this.setSkillsMatched(this.tempData.requiredSkills, this.tempData.applicantDetails.skills);
+
+   
   }
 
+  ngAfterViewInit(){
+    //window.location.reload();
+  }
   openDialog() {
     const dialogRef = this.dialog.open(CalendarViewComponent, {
-        data: this.screeningData.applicantDetails.email
+        data: this.applicantDetails.email
     });
   }
 
@@ -117,27 +132,30 @@ export class ScreeningComponent implements OnInit {
   }
 
   onBack(){
+    sessionStorage.removeItem("indent_skills");
+    sessionStorage.removeItem("applicantDetails");
+    sessionStorage.removeItem("applicantSkill");
     this.router.navigateByUrl('/indents');
   }
 
   onReject(){
    // const dialogRef = this.dialog.open(DialogFeedbackComponent);
     const dialogRef = this.dialog.open(DialogFeedbackComponent, {
-        data: this.screeningData.applicantDetails
+        data: this.applicantDetails
      
     });
       dialogRef.disableClose = true;
   }
 
   getMatchingPercentage() : number {
-    if(this.screeningData.requiredSkills.length>0) {
-      return (this.matchedSkills.length/this.screeningData.requiredSkills.length)*100;
+    if(this.required_skills.length>0) {
+      return (this.matchedSkills.length/this.required_skills.length)*100;
     }
     return 0;
   }
 
   openResume(){
-    window.open(this.screeningData.applicantDetails.resume,'_blank');
+    window.open(this.applicantDetails.resume,'_blank');
   }
 
   getSkillClass(skill: string) : string {
