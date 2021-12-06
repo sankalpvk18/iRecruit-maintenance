@@ -69,6 +69,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 
 import {MatSliderModule} from '@angular/material/slider';
+import { RejectedComponent } from './Pages/rejected/rejected.component';
+import { HiredComponent } from './Pages/hired/hired.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -99,6 +101,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     MoreMenuComponent,
     AuthComponent,
     CalendarViewComponent,
+    RejectedComponent,
+    HiredComponent,
 
   ],
   imports: [

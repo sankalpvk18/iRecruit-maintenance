@@ -125,8 +125,8 @@ export class ApplicationComponent implements OnInit {
 
 
     this.db.createApplication(this.application,this.db.getCurrentUserIDRef(this.indentBy,this.indentId)).then(() => {
-      this._snackBar.open("Appication receeived!", null, {
-        duration: 3*1000,
+      this._snackBar.open("Application received!", null, {
+        duration: 0.3*1000,
         verticalPosition: this.verticalPosition
       });
     });

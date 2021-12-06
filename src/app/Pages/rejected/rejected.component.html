@@ -2,34 +2,32 @@
     <div class="app-logo">
         <img src="../../../assets/ICICI-Bank-PNG-Icon.png" alt="ICICI_logo">
     </div>
-    <div class="title">Screening</div>
+    <div class="title">Rejected Profiles</div>
 
     <div class="sub-container">
 
         <div class="sidebar scrollbar force-overflow" id="style-3">
             <div class="rejected-title">All Rejected Profiles</div>
-            <div class="profile" *ngFor="let item of [1,2,3,4,5,6,7,8,9]">
+            <div class="profile" *ngFor="let item of [1]">
                 <div class="profile_img">
-                    <img src=".././../../assets/profile.png" alt="">
+                    <img [src]="profileUrl" alt="">
                 </div>
                 <div class="profile_name">
-                    Dwyane Johnson
+                    Sukalp Tripathi
                 </div>
             </div>
         </div>
 
-        <!-- <div class="scrollbar" id="style-3">
-            <div class="force-overflow"></div>
-          </div> -->
-
       <mat-card class="profile-and-matching-card">
         <div class="profile-details">
-  
+
           <div class="profile-image"> 
-            <!-- <img [src]="applicantDetails.photo" > -->
+            <img [src]="profileUrl" >
           </div>
         
-          <!-- <div class="profile-name">{{applicantDetails.name}}</div>
+        
+
+            <div class="profile-name">{{name}}</div>
           <div class="profile-details-container">
 
             <div class="details-section">
@@ -39,26 +37,9 @@
                 <div class="detail-desc">Work Experience:</div>
               </div>
               <div class="details-item">
-                <div class="detail-value">{{applicantDetails.phone}}</div>
-                <div class="detail-value">{{applicantDetails.email}}</div>
-                <div class="detail-value">{{applicantDetails.work_ex}} years</div>
-              </div>
-            </div> -->
-
-
-            <div class="profile-name">Sukalp</div>
-          <div class="profile-details-container">
-
-            <div class="details-section">
-              <div class="details-item">
-                <div class="detail-desc">Contact:</div>
-                <div class="detail-desc">Email:</div>
-                <div class="detail-desc">Work Experience:</div>
-              </div>
-              <div class="details-item">
-                <div class="detail-value">9234234234</div>
-                <div class="detail-value">werwer#sdfsd.com</div>
-                <div class="detail-value">3 years</div>
+                <div class="detail-value">{{phone}}</div>
+                <div class="detail-value">{{email}}</div>
+                <div class="detail-value">{{work_ex}} years</div>
               </div>
             </div>
         
@@ -73,7 +54,7 @@
             <div class="skill-match-container">
               <div class="profile-match">
                 <circle-progress
-                  [percent]="getMatchingPercentage()"
+                  [percent]="matchPercentage"
                   [radius]="50"
                   [outerStrokeWidth]="8"
                   [innerStrokeWidth]="4"
@@ -83,31 +64,40 @@
                   [animationDuration]="300">
                 </circle-progress>
               </div>
-              <!-- <div class="skill-chips">
-                <mat-chip-list *ngFor="let skill of skills">
-                  <mat-chip [ngClass]="getSkillClass(skill)">{{skill}}</mat-chip>
-                </mat-chip-list>
-              </div> -->
-              <div class="skill-legends">
-                <div class="skill-legends_item">
-                        <div class="skill-legend_item_required"></div>
-                        <div>Matched skills</div>  
-                </div>
-                <div class="skill-legends_item">
-                        <div class="skill-legend_item_unmatched"></div>
-                        <div>Unmatched skills</div>  
-                </div>
-                <div class="skill-legends_item">
-                  <div class="skill-legend_item_extra"></div>
-                  <div>Extra skills</div>  
-                </div>
-              </div>
+             <div class="factors">
+              <mat-chip-list class="factorChip" *ngFor="let factor of feedFacts | keyvalue">
+                <mat-chip  >{{factor.key }} : {{factor.value}}</mat-chip>
+              </mat-chip-list>
+             </div>
+             <div class="comment">
+               {{comment}}
+             </div> 
+
             </div>
         </div>
       </mat-card>
       
       <div class="right-sidebar">
-        
+        <mat-stepper orientation="vertical">
+          <mat-step>
+            <ng-template matStepLabel>Indent created on:</ng-template>
+            <ng-template matStepContent>
+              <p>{{created_on | date: 'dd/MM/yyyy'}}</p>
+            </ng-template>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Applied on:</ng-template>
+            <ng-template matStepContent>
+              <p>{{applied_on | date: 'dd/MM/yyyy'}}</p>
+              </ng-template>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Applicant rejected on</ng-template>
+            <ng-template matStepContent>
+              <p>{{rejected_on | date: 'dd/MM/yyyy'}}</p>
+              </ng-template>
+            </mat-step>
+        </mat-stepper>
       </div>
 
     </div>

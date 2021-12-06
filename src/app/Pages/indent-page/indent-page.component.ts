@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireList } from '@angular/fire/compat/database';
+
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+
 import { map } from 'rxjs/operators';
 import { FirebaseDatabaseService } from 'src/app/services/firebase-database.service';
 
 import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+
 import { FirebaseService } from 'src/app/services/firebase.service';
 import * as firebase from 'node_modules/firebase/compat';
 

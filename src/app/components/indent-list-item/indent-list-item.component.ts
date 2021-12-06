@@ -18,6 +18,8 @@ export class IndentListItemComponent implements OnInit {
   isEditPanelOpen= false;
   isOutsideClicked = false;
   applications=[];
+  
+
 
   constructor(private router:Router, private loction: Location, private locationStrategy: LocationStrategy, private db:FirebaseDatabaseService
     ) { }
@@ -26,6 +28,7 @@ export class IndentListItemComponent implements OnInit {
     if(this.indents != null) {
       console.log(this.indents);
       this.arrIndents = Array.from(this.indents)
+
       
     }
   }
@@ -54,6 +57,7 @@ export class IndentListItemComponent implements OnInit {
     sessionStorage.setItem("indent_created_on", indent.created_on);
     sessionStorage.setItem("indent_skills", JSON.stringify(indent.skills))
     sessionStorage.setItem("indent_vacancies", indent.vacancies);
+    
 
     const navigationExtras: NavigationExtras = {
       state: {
@@ -98,6 +102,10 @@ export class IndentListItemComponent implements OnInit {
 
   setPanelVisibilty() {
     this.isOutsideClicked = !this.isOutsideClicked;
+  }
+
+  onReject(indent){
+    this.router.navigate(['rejected', {id: indent.key, by: indent.created_by}]);
   }
 
   getLength(indent: any, type: string){

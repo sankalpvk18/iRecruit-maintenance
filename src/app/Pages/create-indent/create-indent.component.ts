@@ -53,11 +53,11 @@ export class CreateIndentComponent implements OnInit {
   selectedLocations: string[];
 
   manager = [
-    "John",
-    "Taylor",
-    "Brian",
-    "Henry",
-    "Jason"
+    "Sukalp Tripathi",
+    "Kavya Singh",
+    "Aditya Jayrama Rajan",
+    "Divya Murlidharan",
+    
   ];
 
   isEditMode = false;
@@ -204,7 +204,9 @@ export class CreateIndentComponent implements OnInit {
     this._snackBar.open('Indent created successfully!', null, {
       duration: 0.7*1000,
       verticalPosition: this.verticalPosition
+      
     });
+    this.onBack();
   }
 
 

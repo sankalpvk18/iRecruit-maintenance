@@ -79,7 +79,7 @@
           <mat-step>
             <ng-template matStepLabel>Indent created on:</ng-template>
             <ng-template matStepContent>
-              <p>This content was rendered lazily</p>
+              <p>{{indent_created_on | date: 'dd/MM/yyyy'}}</p>
             </ng-template>
           </mat-step>
           <mat-step>
@@ -89,7 +89,10 @@
               </ng-template>
           </mat-step>
           <mat-step>
-            <ng-template matStepLabel>Step 3</ng-template>
+            <ng-template matStepLabel>{{application_state}}</ng-template>
+            <ng-template matStepContent>
+              <p>{{moved_on | date: 'dd/MM/yyyy'}}</p>
+              </ng-template>
             </mat-step>
         </mat-stepper>
       </div>
@@ -110,10 +113,10 @@
         <p>Reject</p>
        </mat-card>
       <mat-card class="action-buttons__btns" (click)="scheduleEvent()">
-        <img src="../../../assets/check.svg" alt="create indent" class="create-indent__btn_img">
+        <img src="../../../assets/schedule.png" alt="create indent" class="create-indent__btn_img">
         <p>Schedule interview</p>
       </mat-card>
-      <mat-card class="action-buttons__btns" (click)="scheduleEvent()">
+      <mat-card class="action-buttons__btns" (click)="onHire()">
         <img src="../../../assets/check.svg" alt="create indent" class="create-indent__btn_img">
         <p>Hire</p>
       </mat-card>

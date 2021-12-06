@@ -32,7 +32,7 @@
                 </div>
                
                 <div class="jr_applications">
-                    <div><a href="#"><span style="font-weight: bold; color: brown;">Rejected Profiles: {{getLength(indent, 'rejected')}}</span></a></div>
+                    <div routerLink="/rejected/{{indent.key}}/{{indent.created_by}}"><span style="font-weight: bold; color: brown;">Rejected Profiles: {{getLength(indent, 'rejected')}}</span></div>
                     <div><span style="font-weight: bold;">Open Since: </span><span style="color: green;font-weight: bold;">{{getOpenSince(indent.created_on)}} Days</span></div>
                 </div>
             </div>

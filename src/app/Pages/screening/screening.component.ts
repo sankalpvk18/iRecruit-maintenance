@@ -4,11 +4,10 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { merge } from 'rxjs';
 import { CalendarViewComponent } from 'src/app/components/calendar-view/calendar-view.component';
 import { DialogFeedbackComponent } from 'src/app/components/dialog-feedback/dialog-feedback.component';
-import Applicant from 'src/app/models/Applicant';
 import Applications from 'src/app/models/Applications';
+import { FirebaseDatabaseService } from 'src/app/services/firebase-database.service';
 
 @Component({
   selector: 'app-screening',
@@ -26,65 +25,38 @@ export class ScreeningComponent implements OnInit {
   required_skills = [];
   applicantDetails: Applications;
   applicant_skills = [];
+  indent_created_on: any;
+  moved_on:any;
+  application_state:string;
 
-  // tempData = {
-  //   "requiredSkills": [
-  //           "HTML",
-  //           "SQL",
-  //           "Android",
-  //           "CSS"
-  //   ],
-  //   "applicantDetails": {
-  //       "key": "-MoYXw9n6e6hqL4GK_8d",
-  //       "indent_id":"-MoYX6o2gO-QTIKspVw7",
-  //       "applied_on": 1636978901834,
-  //       "ctc": 450000,
-  //       "email": "sukalp18@gmail.com",
-  //       "name": "Sukalp Tripathi",
-  //       "phone": 7978961229,
-  //       "photo": "https://firebasestorage.googleapis.com/v0/b/irecruit-331eb.appspot.com/o/Images%2F1636978834785?alt=media&token=d7cf0c37-37d0-4b2f-ba99-f68a9e38db64",
-  //       "rating": 0,
-  //       "resume": "https://firebasestorage.googleapis.com/v0/b/irecruit-331eb.appspot.com/o/Resume%2F1636978841744?alt=media&token=a5e8fada-8568-4d33-8c1a-325321d6a677",
-  //       "skills": [
-  //           "HTML",
-  //           "Java",
-  //           "Agile"
-  //       ],
-  //       "status": "none",
-  //       "work_ex": 3
-  //   },
-  //   "accessToken": ""
-  // }
+ 
 
   states = ['None', 'First Round', 'Second Round', 'Contract Proposed'];
   state = new FormControl("", Validators.required);
 
-  constructor(private router: Router, public dialog: MatDialog, private route: ActivatedRoute, private httpClient: HttpClient) {
-    // const navigation = this.router.getCurrentNavigation();
-    // const state = navigation.extras.state as {
-    //   requiredSkills: any,
-    //   applicantDetails: Applicant,
-    // };
-
-    // this.screeningData=state;
-    // this.setSkillsMatched(this.screeningData.requiredSkills, this.screeningData.applicantDetails.skills);
-    // console.log("screedning data - " + this.screeningData);
+  constructor(private router: Router, 
+    public dialog: MatDialog, 
+    private route: ActivatedRoute, 
+    private httpClient: HttpClient,
+    private db:FirebaseDatabaseService) {
+    
 
     this.required_skills = JSON.parse(sessionStorage.getItem("indent_skills"));
     this.applicantDetails = JSON.parse(sessionStorage.getItem("applicantDetails"));
     this.applicant_skills = JSON.parse(sessionStorage.getItem("applicantSkill"));
+    this.indent_created_on=sessionStorage.getItem("indent_created_on");
     this.setSkillsMatched(this.required_skills, this.applicant_skills);
   }
 
   ngOnInit(): void {
-    // this.screeningData = this.tempData;
+    
     let token = this.route.snapshot.paramMap.get('accessToken');
     if (token) {
       localStorage.setItem('access_token', token);
       this.openDialog();
-      // this.createEvent(token);
+    
     }
-    //this.setSkillsMatched(this.tempData.requiredSkills, this.tempData.applicantDetails.skills);
+    
 
 
   }
@@ -142,7 +114,7 @@ export class ScreeningComponent implements OnInit {
   }
 
   onReject() {
-    // const dialogRef = this.dialog.open(DialogFeedbackComponent);
+   
     const dialogRef = this.dialog.open(DialogFeedbackComponent, {
       data: this.applicantDetails
 
@@ -250,7 +222,6 @@ export class ScreeningComponent implements OnInit {
       }),
       params: param
     };
-
     const body = event;
 
     this.httpClient.post<any>('https://www.googleapis.com/calendar/v3/calendars/primary/events', body, httpOptions).subscribe(data => {
@@ -262,23 +233,125 @@ export class ScreeningComponent implements OnInit {
   getStatus(status: string) {
     switch (status) {
       case 'none':
+        this.application_state="NA";
         return 'Applied'
       case 'first':
+        this.application_state="Application moved to round first on"
+        this.moved_on=this.applicantDetails.moved_1;
         return 'First Round'
       case 'second':
+        this.application_state="Application moved to round second on"
+        this.moved_on=this.applicantDetails.moved_2;
         return 'Second Round'
       case 'third':
+        this.application_state="Contract proposed on"
+        this.moved_on=this.applicantDetails.moved_3;
         return 'Contract Proposed'
       case 'rejected':
+        this.application_state="Applicant rejected on"
+        this.moved_on=this.applicantDetails.rejected_on;
         return 'Rejected'
       case 'hired':
+        this.application_state="Applicant hired on"
+        this.moved_on=this.applicantDetails.hired_on;
         return 'Hired';
     }
     return null;
   }
 
   selectStatus(event) {
-    console.log(event.value);
+    switch(event.value){
+      case "None":
+        const none = {
+          moved_1: null,
+          moved_2:null,
+          moved_3:null,
+          status: "none",
+        }
+        
+       this.db.update("/" + this.applicantDetails.indent_id+"/applications/"+this.applicantDetails.key, none);
+       this.db.delete('/'+this.applicantDetails.indent_id+"/second/"+this.applicantDetails.key);
+       this.db.delete('/'+this.applicantDetails.indent_id+"/third/"+this.applicantDetails.key);
+       this.db.delete('/'+this.applicantDetails.indent_id+"/first/"+this.applicantDetails.key);
+       this.db.delete('/'+this.applicantDetails.indent_id+"/rejected/"+this.applicantDetails.key);
+
+       
+
+      break;
+      case "First Round":
+        const first = {
+          moved_1: new Date(),
+          moved_2:null,
+          moved_3:null,
+          status: "first",
+        }
+        
+       this.db.update("/" + this.applicantDetails.indent_id+"/applications/"+this.applicantDetails.key, first);
+       this.db.update("/"+this.applicantDetails.indent_id+"/first/"+this.applicantDetails.key,this.applicantDetails);
+       this.db.delete('/'+this.applicantDetails.indent_id+"/second/"+this.applicantDetails.key);
+       this.db.delete('/'+this.applicantDetails.indent_id+"/third/"+this.applicantDetails.key);
+       this.db.delete('/'+this.applicantDetails.indent_id+"/rejected/"+this.applicantDetails.key);
+       
+       
+       break;
+      case "Second Round":
+        const second = {
+          moved_1: null,
+          moved_2:new Date(),
+          moved_3:null,
+          status: "second",
+        }
+        
+        this.db.update("/" + this.applicantDetails.indent_id+"/applications/"+this.applicantDetails.key, second);
+        this.db.update("/"+this.applicantDetails.indent_id+"/second/"+this.applicantDetails.key,this.applicantDetails);
+       
+        this.db.delete('/'+this.applicantDetails.indent_id+"/third/"+this.applicantDetails.key);
+        this.db.delete('/'+this.applicantDetails.indent_id+"/first/"+this.applicantDetails.key);
+        this.db.delete('/'+this.applicantDetails.indent_id+"/rejected/"+this.applicantDetails.key);
+        break;
+      case "Contract Proposal":
+        const third = {
+          moved_1: null,
+          moved_2:null,
+          moved_3: new Date(),
+          status: "third",
+        }
+        
+       this.db.update("/" + this.applicantDetails.indent_id+"/applications/"+this.applicantDetails.key, third);
+       this.db.update("/"+this.applicantDetails.indent_id+"/third/"+this.applicantDetails.key,this.applicantDetails);
+
+       this.db.delete('/'+this.applicantDetails.indent_id+"/second/"+this.applicantDetails.key);
+       this.db.delete('/'+this.applicantDetails.indent_id+"/first/"+this.applicantDetails.key);
+       this.db.delete('/'+this.applicantDetails.indent_id+"/rejected/"+this.applicantDetails.key);
+       break;      
+    }
+
+    window.location.reload();
+    
+  }
+
+
+  onHire(){
+    const obj = {
+      hired_on: new Date(),
+      status: "hired",
+     
+    }
+
+   this.db.update("/" + this.applicantDetails.indent_id+"/applications/"+this.applicantDetails.key, obj);
+   this.db.update("/"+this.applicantDetails.indent_id+"/hired/"+this.applicantDetails.key,this.applicantDetails);
+   
+   
+   // delete the other states
+   this.db.delete('/'+this.applicantDetails.indent_id+"/second/"+this.applicantDetails.key);
+   this.db.delete('/'+this.applicantDetails.indent_id+"/third/"+this.applicantDetails.key);
+   this.db.delete('/'+this.applicantDetails.indent_id+"/first/"+this.applicantDetails.key);
+   this.db.delete('/'+this.applicantDetails.indent_id+"/rejected/"+this.applicantDetails.key);
+
+    window.location.reload();
+    
+
+    
   }
 
 }

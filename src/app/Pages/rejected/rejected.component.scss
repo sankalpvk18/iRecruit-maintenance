@@ -165,17 +165,6 @@
     align-items: center;
 }
 
-.skill-chips {
-    margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    
-    mat-chip-list {
-        margin: 5px;
-    }
-}
-
 .title{
     position: absolute;
     left: 15%;
@@ -279,4 +268,17 @@
  #style-3::-webkit-scrollbar-thumb
  {
      background-color: #000000;
+ }
+
+ .factors{
+     justify-content: center;
+     display: flex;
+     flex-wrap: wrap;
+     margin-top: 20px;
+ }
+ .factorChip{
+     margin: 5px;
+ }
+ .comment{
+    margin-top: 20px;
  }
