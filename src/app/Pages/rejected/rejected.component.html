@@ -1,0 +1,121 @@
+<div class="wrapper">
+    <div class="app-logo">
+        <img src="../../../assets/ICICI-Bank-PNG-Icon.png" alt="ICICI_logo">
+    </div>
+    <div class="title">Screening</div>
+
+    <div class="sub-container">
+
+        <div class="sidebar scrollbar force-overflow" id="style-3">
+            <div class="rejected-title">All Rejected Profiles</div>
+            <div class="profile" *ngFor="let item of [1,2,3,4,5,6,7,8,9]">
+                <div class="profile_img">
+                    <img src=".././../../assets/profile.png" alt="">
+                </div>
+                <div class="profile_name">
+                    Dwyane Johnson
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="scrollbar" id="style-3">
+            <div class="force-overflow"></div>
+          </div> -->
+
+      <mat-card class="profile-and-matching-card">
+        <div class="profile-details">
+  
+          <div class="profile-image"> 
+            <!-- <img [src]="applicantDetails.photo" > -->
+          </div>
+        
+          <!-- <div class="profile-name">{{applicantDetails.name}}</div>
+          <div class="profile-details-container">
+
+            <div class="details-section">
+              <div class="details-item">
+                <div class="detail-desc">Contact:</div>
+                <div class="detail-desc">Email:</div>
+                <div class="detail-desc">Work Experience:</div>
+              </div>
+              <div class="details-item">
+                <div class="detail-value">{{applicantDetails.phone}}</div>
+                <div class="detail-value">{{applicantDetails.email}}</div>
+                <div class="detail-value">{{applicantDetails.work_ex}} years</div>
+              </div>
+            </div> -->
+
+
+            <div class="profile-name">Sukalp</div>
+          <div class="profile-details-container">
+
+            <div class="details-section">
+              <div class="details-item">
+                <div class="detail-desc">Contact:</div>
+                <div class="detail-desc">Email:</div>
+                <div class="detail-desc">Work Experience:</div>
+              </div>
+              <div class="details-item">
+                <div class="detail-value">9234234234</div>
+                <div class="detail-value">werwer#sdfsd.com</div>
+                <div class="detail-value">3 years</div>
+              </div>
+            </div>
+        
+          <div class="profile_details-resume" (click)="openResume()">
+              <img class="profile_details-resumeIcon" src="../../../assets/pdf.svg">
+              <span style="color: brown;">Open Resume</span>
+          </div>
+  
+          </div>
+        </div>
+        <div class="skills-list">
+            <div class="skill-match-container">
+              <div class="profile-match">
+                <circle-progress
+                  [percent]="getMatchingPercentage()"
+                  [radius]="50"
+                  [outerStrokeWidth]="8"
+                  [innerStrokeWidth]="4"
+                  [outerStrokeColor]="'#78C000'"
+                  [innerStrokeColor]="'#C7E596'"
+                  [animation]="true"
+                  [animationDuration]="300">
+                </circle-progress>
+              </div>
+              <!-- <div class="skill-chips">
+                <mat-chip-list *ngFor="let skill of skills">
+                  <mat-chip [ngClass]="getSkillClass(skill)">{{skill}}</mat-chip>
+                </mat-chip-list>
+              </div> -->
+              <div class="skill-legends">
+                <div class="skill-legends_item">
+                        <div class="skill-legend_item_required"></div>
+                        <div>Matched skills</div>  
+                </div>
+                <div class="skill-legends_item">
+                        <div class="skill-legend_item_unmatched"></div>
+                        <div>Unmatched skills</div>  
+                </div>
+                <div class="skill-legends_item">
+                  <div class="skill-legend_item_extra"></div>
+                  <div>Extra skills</div>  
+                </div>
+              </div>
+            </div>
+        </div>
+      </mat-card>
+      
+      <div class="right-sidebar">
+        
+      </div>
+
+    </div>
+   
+   <mat-card class="action_back_btn" (click)="onBack()">
+    <img src="../../../assets/back.svg" alt="back" class="create-indent__btn_img">
+    <p>Back</p>
+   </mat-card>
+
+</div>
+

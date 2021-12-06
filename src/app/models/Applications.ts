@@ -1,3 +1,5 @@
+import Feedback from "./feedback";
+
 export default class Applications {
     key: string;
     role: string;
@@ -13,4 +15,10 @@ export default class Applications {
     status: string;
     rating: number;
     indent_id:string;
+    moved_1:Date;
+    moved_2:Date;
+    moved_3:Date;
+    rejected_on:Date;
+    hired_on:Date;
+    feedback:[Feedback];
 }
