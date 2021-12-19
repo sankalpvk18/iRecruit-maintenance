@@ -75,7 +75,10 @@ export class ApplicationComponent implements OnInit {
       this.openDialog();
     }
 
-    
+    if(sessionStorage.getItem("isRefreshed") === "false") {
+      window.location.reload();
+      sessionStorage.setItem("isRefreshed", "true");
+    }
 
   }
 

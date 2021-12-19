@@ -68,6 +68,7 @@ export class IndentDetailsPageComponent implements OnInit {
 
   onCreateApplication(){
      // this.router.navigateByUrl('application');
+     sessionStorage.setItem("isRefreshed", "false");
      this.router.navigateByUrl('/application/'+this.jobRole+"/"+this.indentId+"/"+this.indentBy+"/"+this.indentOpen);
      // this.router.navigate(["application", {jobrole: this.jobRole, id: this.indentId, by:this.indentBy,open:this.indentOpen }]);
   }

@@ -87,18 +87,33 @@ export class CreateIndentComponent implements OnInit {
   }
 
   ngOnInit(): void {  
-    
+    this.isLoaded = false;
     this.route.params.subscribe(params => {
       console.log(params);
       if (params["id"]) {
         this.getExistingIndent(params["id"]);
         this.isEditMode = true;
+        if(sessionStorage.getItem("isRefreshed") === "false") {
+          window.location.reload();
+          sessionStorage.setItem("isRefreshed", "true");
+        } else {
+          this.isLoaded=true;
+        }
       }
       else{
-        this.isLoaded=true;
-            }
+        if(sessionStorage.getItem("isRefreshed") === "false") {
+          window.location.reload();
+          sessionStorage.setItem("isRefreshed", "true");
+        } else {
+          this.isLoaded=true;
+        }
+      }
     });
   }
+
+  // ngOnDestroy() {
+  //   sessionStorage.setItem("isRefreshed", "false")
+  // }
 
   getExistingIndent(id: string) {
     this.db.getParicularIndent(this.db.getCurrentIndentRef(id)).valueChanges().subscribe((data) => {

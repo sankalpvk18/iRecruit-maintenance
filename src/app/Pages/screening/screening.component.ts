@@ -57,8 +57,15 @@ export class ScreeningComponent implements OnInit {
     
     }
     
+    if(sessionStorage.getItem("isRefreshed") === "false") {
+      window.location.reload();
+      sessionStorage.setItem("isRefreshed", "true");
+    }
 
+  }
 
+  ngOnDestroy() {
+    sessionStorage.setItem("isRefreshed", "false");
   }
 
   ngAfterViewInit() {

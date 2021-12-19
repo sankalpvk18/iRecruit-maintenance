@@ -90,7 +90,9 @@ export class IndentPageComponent implements OnInit {
   }
 
   onCreateIndent(){
+    sessionStorage.setItem("isRefreshed", "false")
     this.router.navigateByUrl('/createindent')
+    // this.router.navigateByUrl('/test')
   }
   
 }

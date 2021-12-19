@@ -61,9 +61,8 @@ export class ApplicantCardComponent implements OnInit {
       }
     }
 
+    sessionStorage.setItem("isRefreshed", "false");
     this.router.navigate(['screening'],navigationExtras);
-
-      
   }
 
 }
